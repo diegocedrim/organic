@@ -5,6 +5,9 @@ Bundle-SymbolicName: smell-detector-plugin;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: br.pucrio.opus.smells.Activator
 Bundle-Vendor: PUC-Rio
-Require-Bundle: org.eclipse.core.runtime
+Require-Bundle: org.eclipse.core.runtime;bundle-version="3.11.1",
+ org.eclipse.jdt.core;bundle-version="3.11.1"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
+Bundle-ClassPath: lib/commons-io-2.4.jar,
+ .
