@@ -8,7 +8,7 @@ import java.util.List;
 import org.apache.commons.io.FileUtils;
 import org.eclipse.equinox.app.IApplicationContext;
 
-public class SourceFilesLoader {
+public class JavaFilesFinder {
 
 	private static final String[] EXTENSIONS = {"java"};
 	
@@ -29,11 +29,11 @@ public class SourceFilesLoader {
 		return sourcePaths;
 	}
 	
-	public SourceFilesLoader() {
+	public JavaFilesFinder() {
 		this.directories = new ArrayList<>();
 	}
 	
-	public SourceFilesLoader(IApplicationContext context) {
+	public JavaFilesFinder(IApplicationContext context) {
 		this.directories = this.getSourcePathsFromContext(context);
 	}
 	

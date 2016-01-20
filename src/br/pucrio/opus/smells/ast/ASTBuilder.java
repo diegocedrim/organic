@@ -15,6 +15,7 @@ public class ASTBuilder {
 	@SuppressWarnings("unchecked")
 	public ASTBuilder(String[] sourcePaths) {
 		this.sourcePaths = sourcePaths;
+		this.sourcePaths.clone();
 		options = JavaCore.getOptions();
 		options.put(JavaCore.COMPILER_COMPLIANCE, JavaCore.VERSION_1_8);
 		options.put(JavaCore.COMPILER_CODEGEN_TARGET_PLATFORM, JavaCore.VERSION_1_8);
