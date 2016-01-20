@@ -4,6 +4,12 @@ import java.util.Collection;
 import java.util.Iterator;
 
 public class AnonymousClass {
+	
+	public String publicFieldA;
+	
+	public String publicFieldB;
+	
+	public String publicFieldC;
 
 	protected class InnerClass {
 		protected Collection<String> list = new Collection<String>() {

@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.eclipse.jdt.core.dom.CompilationUnit;
 
-public class ClassMetrics {
+public class ClassMetrics implements LocAware {
 
 	private String fqn;
 	

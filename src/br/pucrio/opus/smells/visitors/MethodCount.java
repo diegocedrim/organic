@@ -15,8 +15,6 @@ public class MethodCount extends ASTVisitor {
 		return super.visit(node);
 	}
 
-
-
 	@Override
 	public boolean visit(MethodInvocation node) {
 		System.out.println("Name: " + node.getName());

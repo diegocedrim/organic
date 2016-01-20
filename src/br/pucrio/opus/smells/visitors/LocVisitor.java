@@ -7,6 +7,7 @@ import org.eclipse.jdt.core.dom.AnonymousClassDeclaration;
 import org.eclipse.jdt.core.dom.AssertStatement;
 import org.eclipse.jdt.core.dom.BreakStatement;
 import org.eclipse.jdt.core.dom.CatchClause;
+import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.ContinueStatement;
 import org.eclipse.jdt.core.dom.DoStatement;
 import org.eclipse.jdt.core.dom.EnhancedForStatement;
@@ -37,16 +38,27 @@ import org.eclipse.jdt.core.dom.TypeLiteral;
 import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
 import org.eclipse.jdt.core.dom.WhileStatement;
 
+import br.pucrio.opus.smells.metrics.LocAware;
+
 public class LocVisitor extends ASTVisitor {
 
 	private Integer loc;
+	
+	private LocAware locAware;
 	
 	public Integer getLoc() {
 		return loc;
 	}
 	
-	public LocVisitor() {
+	public LocVisitor(LocAware locAware) {
 		this.loc = 0;
+		this.locAware = locAware;
+	}
+	
+
+	@Override
+	public void endVisit(CompilationUnit node) {
+		this.locAware.setLoc(this.loc);
 	}
 
 	@Override
