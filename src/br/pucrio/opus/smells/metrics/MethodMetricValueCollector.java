@@ -1,17 +1,20 @@
 package br.pucrio.opus.smells.metrics;
 
 import org.eclipse.jdt.core.dom.MethodDeclaration;
+import org.eclipse.jdt.core.dom.TypeDeclaration;
 
 import br.pucrio.opus.smells.metrics.calculators.CyclomaticComplexityCalculator;
 import br.pucrio.opus.smells.metrics.calculators.MethodLOCCalculator;
+import br.pucrio.opus.smells.metrics.calculators.MethodLocalityRatioCalculator;
+import br.pucrio.opus.smells.metrics.calculators.MethodParameterCountCalculator;
 
 public class MethodMetricValueCollector extends MetricValueCollector<MethodDeclaration> {
 
-	public MethodMetricValueCollector() {
+	public MethodMetricValueCollector(TypeDeclaration declaringClass) {
 		addCalculator(new MethodLOCCalculator());
 		addCalculator(new CyclomaticComplexityCalculator());
-		//TODO All methods having more calls with another class than the one they are implemented.
-		//TODO All methods having a number of parameters higher than the average of the system.
+		addCalculator(new MethodLocalityRatioCalculator(declaringClass));
+		addCalculator(new MethodParameterCountCalculator());
 		//TODO All chains of methods’ calls longer than three.
 //		addCalculator(new ClassLOCCalculator());
 //		addCalculator(new OverrideRatioCalculator());
