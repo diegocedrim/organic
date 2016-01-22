@@ -10,8 +10,35 @@ public class AnonymousClass {
 	public String publicFieldB;
 	
 	public String publicFieldC;
+	
+	public void a() {
+		this.publicFieldA = "1";
+	}
+	
+	public void b() {
+		this.publicFieldB = "2";
+	}
+	
+	public void c() {
+		this.publicFieldA = "2";
+	}
+	
+	protected void d() {
+		
+	}
+	
+	void e() {
+		
+	}
+	
 
 	protected class InnerClass {
+		
+		@Override
+		public String toString() {
+			return super.toString();
+		}
+		
 		protected Collection<String> list = new Collection<String>() {
 
 			@Override

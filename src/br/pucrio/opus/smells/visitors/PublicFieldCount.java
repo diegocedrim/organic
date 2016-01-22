@@ -28,6 +28,6 @@ public class PublicFieldCount extends ASTVisitor {
 		if (Modifier.isPublic(modifiers) && !Modifier.isStatic(modifiers)) {
 			this.publicFieldsCount++;
 		}
-		return true;
+		return false;
 	}
 }
