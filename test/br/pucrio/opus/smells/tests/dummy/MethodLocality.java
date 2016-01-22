@@ -7,15 +7,15 @@ public class MethodLocality {
 	}
 
 	public void localB() {
-
+		System.out.println("");
 	}
 
 	public void localC() {
-
+		new String().length();
 	}
 	
 	public void localD() {
-
+		Object.class.getName().toLowerCase().toUpperCase().toLowerCase().trim().length();
 	}
 
 	public void superLocal() {

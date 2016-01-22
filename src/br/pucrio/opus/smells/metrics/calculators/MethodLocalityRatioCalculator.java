@@ -36,7 +36,7 @@ public class MethodLocalityRatioCalculator implements MetricValueCalculator<Meth
 
 	@Override
 	public String getMetricName() {
-		return null;
+		return NAME;
 	}
 
 }

@@ -18,12 +18,12 @@ import br.pucrio.opus.smells.tests.util.CompilationUnitLoader;
 
 public class MethodCallLocalityVisitorTest {
 
-private CompilationUnit compilationUnit;
+	private CompilationUnit compilationUnit;
 
 	private List<MethodDeclaration> methods;
-	
+
 	private TypeDeclaration type;
-	
+
 	private MethodDeclaration findMethodByName(String name) {
 		for (MethodDeclaration decls : methods) {
 			if (decls.getName().toString().equals(name)) {
@@ -32,21 +32,21 @@ private CompilationUnit compilationUnit;
 		}
 		return null;
 	}
-	
+
 	@Before
 	public void setUp() throws IOException{
 		File file = new File("test/br/pucrio/opus/smells/tests/dummy/MethodLocality.java");
 		this.compilationUnit = CompilationUnitLoader.getCompilationUnit(file);
-		
+
 		TypeDeclarationCollector typeVisitor = new TypeDeclarationCollector();
 		this.compilationUnit.accept(typeVisitor);
 		type = typeVisitor.getNodesCollected().get(0);
-		
+
 		MethodCollector collector = new MethodCollector();
 		compilationUnit.accept(collector);
 		methods = collector.getNodesCollected();
 	}
-	
+
 	@Test
 	public void superLocalMethodTest() {
 		MethodDeclaration decl = findMethodByName("superLocal");
@@ -55,7 +55,7 @@ private CompilationUnit compilationUnit;
 		Assert.assertEquals(4, visitor.getLocalMethodsCallCount().intValue());
 		Assert.assertEquals(0, visitor.getForeignMethodsCallCount().intValue());
 	}
-	
+
 	@Test
 	public void superForeignMethodTest() {
 		MethodDeclaration decl = findMethodByName("superForeign");
@@ -64,7 +64,7 @@ private CompilationUnit compilationUnit;
 		Assert.assertEquals(0, visitor.getLocalMethodsCallCount().intValue());
 		Assert.assertEquals(3, visitor.getForeignMethodsCallCount().intValue());
 	}
-	
+
 	@Test
 	public void moreLocalMethodTest() {
 		MethodDeclaration decl = findMethodByName("moreLocal");
@@ -73,7 +73,7 @@ private CompilationUnit compilationUnit;
 		Assert.assertEquals(4, visitor.getLocalMethodsCallCount().intValue());
 		Assert.assertEquals(3, visitor.getForeignMethodsCallCount().intValue());
 	}
-	
+
 	@Test
 	public void moreForeignMethodTest() {
 		MethodDeclaration decl = findMethodByName("moreForeign");
