@@ -40,7 +40,7 @@ import org.eclipse.jdt.core.dom.WhileStatement;
 
 import br.pucrio.opus.smells.metrics.LocAware;
 
-public class LocVisitor extends ASTVisitor {
+public class LinesOfCodeVisitor extends ASTVisitor {
 
 	private Integer loc;
 	
@@ -50,7 +50,7 @@ public class LocVisitor extends ASTVisitor {
 		return loc;
 	}
 	
-	public LocVisitor(LocAware locAware) {
+	public LinesOfCodeVisitor(LocAware locAware) {
 		this.loc = 0;
 		this.locAware = locAware;
 	}

@@ -8,7 +8,7 @@ import org.eclipse.equinox.app.IApplicationContext;
 import br.pucrio.opus.smells.files.JavaFilesFinder;
 import br.pucrio.opus.smells.files.SourceFile;
 import br.pucrio.opus.smells.files.SourceFilesResolver;
-import br.pucrio.opus.smells.visitors.LocVisitor;
+import br.pucrio.opus.smells.visitors.LinesOfCodeVisitor;
 import br.pucrio.opus.smells.visitors.PublicFieldCount;
 
 public class SmellDetector implements IApplication {
@@ -19,7 +19,7 @@ public class SmellDetector implements IApplication {
 		SourceFilesResolver compUnitLoader = new SourceFilesResolver(sourceLoader);
 		List<SourceFile> sourceFiles = compUnitLoader.getResolvedSourceFiles();
 		for (SourceFile sourceFile : sourceFiles) {
-			LocVisitor v = new LocVisitor(sourceFile.getClassMetrics());
+			LinesOfCodeVisitor v = new LinesOfCodeVisitor(sourceFile.getClassMetrics());
 			PublicFieldCount pfc = new PublicFieldCount(sourceFile.getClassMetrics());
 //			sourceFile.getCompilationUnit().accept(v);
 			sourceFile.getCompilationUnit().accept(pfc);
