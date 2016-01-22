@@ -1,7 +1,9 @@
 package br.pucrio.opus.smells.resources;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.jdt.core.dom.IBinding;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
@@ -12,9 +14,13 @@ import br.pucrio.opus.smells.ast.visitors.MethodCollector;
 public class Type extends Resource<TypeDeclaration> {
 
 	private List<Method> methods;
-
+	
+	private Set<Type> children;
+	
 	public Type(SourceFile sourceFile, TypeDeclaration typeDeclaration) {
 		super(sourceFile, typeDeclaration);
+		
+		this.children = new HashSet<>();
 		
 		IBinding binding = typeDeclaration.resolveBinding();
 		if (binding != null) {
@@ -37,6 +43,10 @@ public class Type extends Resource<TypeDeclaration> {
 
 	public List<Method> getMethods() {
 		return methods;
+	}
+	
+	public Set<Type> getChildren() {
+		return children;
 	}
 	
 }
