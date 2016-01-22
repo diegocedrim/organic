@@ -11,7 +11,7 @@ public class MethodMetrics {
 	/**
 	 * McCabe cyclomatic complexity
 	 */
-	private Integer cc;
+	private Integer cyclomaticComplexity;
 	
 	/**
 	 * How many calls this method makes to methods of the same class 
@@ -28,7 +28,7 @@ public class MethodMetrics {
 	/**
 	 * max chains of methods’ calls
 	 */
-	private Integer maxChainCount;
+	private Integer maxChainSize;
 	
 	private MethodDeclaration methodDeclaration;
 
@@ -48,12 +48,12 @@ public class MethodMetrics {
 		this.loc = loc;
 	}
 
-	public Integer getCc() {
-		return cc;
+	public Integer getCyclomaticComplexity() {
+		return cyclomaticComplexity;
 	}
 
-	public void setCc(Integer cc) {
-		this.cc = cc;
+	public void setCyclomaticComplexity(Integer cc) {
+		this.cyclomaticComplexity = cc;
 	}
 
 	public Integer getLocalCalls() {
@@ -80,12 +80,12 @@ public class MethodMetrics {
 		this.parameterCount = parameterCount;
 	}
 
-	public Integer getMaxChainCount() {
-		return maxChainCount;
+	public Integer getMaxChainSize() {
+		return maxChainSize;
 	}
 
-	public void setMaxChainCount(Integer maxChainCount) {
-		this.maxChainCount = maxChainCount;
+	public void setMaxChainSize(Integer maxChainCount) {
+		this.maxChainSize = maxChainCount;
 	}
 
 	public MethodDeclaration getMethodDeclaration() {

@@ -3,13 +3,13 @@ package br.pucrio.opus.smells.metrics;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.jdt.core.dom.CompilationUnit;
+import org.eclipse.jdt.core.dom.TypeDeclaration;
 
 public class ClassMetrics implements LocAware {
 
 	private String fqn;
 	
-	private CompilationUnit compilationUnit;
+	private TypeDeclaration typeDeclaration;
 	
 	/**
 	 * Lines of code
@@ -52,14 +52,6 @@ public class ClassMetrics implements LocAware {
 
 	public void setFqn(String fqn) {
 		this.fqn = fqn;
-	}
-
-	public CompilationUnit getCompilationUnit() {
-		return compilationUnit;
-	}
-
-	public void setCompilationUnit(CompilationUnit compilationUnit) {
-		this.compilationUnit = compilationUnit;
 	}
 
 	public Integer getLoc() {
@@ -122,4 +114,12 @@ public class ClassMetrics implements LocAware {
 		return methodMetrics;
 	}
 
+	public TypeDeclaration getTypeDeclaration() {
+		return typeDeclaration;
+	}
+
+	public void setTypeDeclaration(TypeDeclaration typeDeclaration) {
+		this.typeDeclaration = typeDeclaration;
+	}
+	
 }

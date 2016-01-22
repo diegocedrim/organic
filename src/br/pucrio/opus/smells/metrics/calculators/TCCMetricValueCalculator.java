@@ -7,25 +7,21 @@ import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.jdt.core.dom.ASTNode;
-import org.eclipse.jdt.core.dom.AnonymousClassDeclaration;
 import org.eclipse.jdt.core.dom.FieldDeclaration;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 
-import br.pucrio.opus.smells.visitors.FieldAccessCollector;
-import br.pucrio.opus.smells.visitors.FieldDeclarationCollector;
-import br.pucrio.opus.smells.visitors.PublicMethodCollector;
+import br.pucrio.opus.smells.ast.visitors.FieldAccessCollector;
+import br.pucrio.opus.smells.ast.visitors.FieldDeclarationCollector;
+import br.pucrio.opus.smells.ast.visitors.PublicMethodCollector;
 
 /**
- * Computes the Tight Class Cohesion value. The method used is avaliable at 
- * (http://www.arisa.se/compendium/node118.html). 
- * The value of the metric can be computed over a {@link TypeDeclaration}
- * or {@link AnonymousClassDeclaration}. If the target passed to getValue
- * method is neither an AnonymousClassDeclaration nor TypeDeclaration instance,
- * a {@link TargetTypeNotAllowedException} will be thrown.
+ * Computes the Tight Class Cohesion value. 
  * @author Diego Cedrim
  */
-public class TCCMetricValueCalculator implements MetricValueCalculator<ASTNode> {
+public class TCCMetricValueCalculator implements MetricValueCalculator<TypeDeclaration> {
+	
+	public static final String NAME = "TightClassCohesion";
 	
 	private List<FieldDeclaration> classFields;
 	
@@ -88,11 +84,7 @@ public class TCCMetricValueCalculator implements MetricValueCalculator<ASTNode> 
 	
 	
 	@Override
-	public Double getValue(ASTNode target) {
-		if (!(target instanceof TypeDeclaration) && !(target instanceof AnonymousClassDeclaration)) {
-			throw new TargetTypeNotAllowedException("Only TypeDeclaration and  AnonymousClassDeclaration instances allowed");
-		}
-		
+	public Double getValue(TypeDeclaration target) {
 		this.classFields = getDeclaredFields(target);
 		List<MethodDeclaration> publicMethods = getPublicMethods(target);
 
@@ -104,6 +96,11 @@ public class TCCMetricValueCalculator implements MetricValueCalculator<ASTNode> 
 		Double ndc = this.computeNdc(publicMethods);
 		Double np = (double)(n * (n - 1) / 2);
 		return ndc / np;
+	}
+
+	@Override
+	public String getMetricName() {
+		return NAME;
 	}
 
 }
