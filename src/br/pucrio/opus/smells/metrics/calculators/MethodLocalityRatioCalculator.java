@@ -31,6 +31,9 @@ public class MethodLocalityRatioCalculator implements MetricValueCalculator<Meth
 		target.accept(visitor);
 		Double localCalls = visitor.getLocalMethodsCallCount().doubleValue();
 		Double foreignCalls = visitor.getForeignMethodsCallCount().doubleValue();
+		if ((localCalls + foreignCalls) == 0) {
+			return null;
+		}
 		return localCalls / (localCalls + foreignCalls);
 	}
 

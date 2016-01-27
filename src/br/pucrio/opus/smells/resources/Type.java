@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.eclipse.jdt.core.dom.IBinding;
+import org.eclipse.jdt.core.dom.ITypeBinding;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 
@@ -15,7 +16,18 @@ public class Type extends Resource<TypeDeclaration> {
 
 	private List<Method> methods;
 	
-	private Set<Type> children;
+	private transient Set<Type> children;
+	
+	public String getSuperclassFQN() {
+		ITypeBinding binding = this.getNode().resolveBinding();
+		if (binding != null) {
+			ITypeBinding superclass = binding.getSuperclass();
+			if (superclass != null) {
+				return superclass.getQualifiedName();
+			}
+		}
+		return null;
+	}
 	
 	public Type(SourceFile sourceFile, TypeDeclaration typeDeclaration) {
 		super(sourceFile, typeDeclaration);
@@ -40,7 +52,7 @@ public class Type extends Resource<TypeDeclaration> {
 			this.methods.add(method);
 		}
 	}
-
+	
 	public List<Method> getMethods() {
 		return methods;
 	}

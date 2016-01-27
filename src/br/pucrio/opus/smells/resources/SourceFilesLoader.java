@@ -11,13 +11,13 @@ import org.eclipse.jdt.core.dom.CompilationUnit;
 
 import br.pucrio.opus.smells.ast.ASTBuilder;
 
-public class SourceFilesResolver {
+public class SourceFilesLoader {
 
 	private List<SourceFile> sourceFiles;
 	
 	private JavaFilesFinder loader;
-
-	public SourceFilesResolver(JavaFilesFinder loader) throws IOException {
+	
+	public SourceFilesLoader(JavaFilesFinder loader) throws IOException {
 		this.loader = loader;
 		this.sourceFiles = new ArrayList<>();
 		this.load();
@@ -35,7 +35,7 @@ public class SourceFilesResolver {
 		}
 	}
 	
-	public List<SourceFile> getResolvedSourceFiles() {
+	public List<SourceFile> getLoadedSourceFiles() {
 		return sourceFiles;
 	}
 	

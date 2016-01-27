@@ -11,6 +11,9 @@ public class OverrideRatioCalculator implements MetricValueCalculator<TypeDeclar
 	
 
 	private Double computeOverrideRatio(IMethodBinding[] localMethods, IMethodBinding[] superclassMethods) {
+		if (superclassMethods == null || superclassMethods.length == 0) {
+			return null;
+		}
 		double methodsOverridden = 0d;
 		for (IMethodBinding localMethod : localMethods) {
 			for (IMethodBinding superMethod : superclassMethods) {
@@ -31,6 +34,11 @@ public class OverrideRatioCalculator implements MetricValueCalculator<TypeDeclar
 			IMethodBinding[] localMethods = typeBinding.getDeclaredMethods(); 
 
 			ITypeBinding superClass = typeBinding.getSuperclass();
+			if (superClass == null) {
+				//TODO logging
+				System.out.println("Null superclass for " + target);
+				return null;
+			}
 			IMethodBinding[] superclassMethods = superClass.getDeclaredMethods();
 			
 			/**

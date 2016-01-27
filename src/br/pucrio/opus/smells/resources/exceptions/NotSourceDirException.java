@@ -1,4 +1,4 @@
-package br.pucrio.opus.smells.resources;
+package br.pucrio.opus.smells.resources.exceptions;
 
 public class NotSourceDirException extends RuntimeException {
 
