@@ -57,6 +57,16 @@ public class Type extends Resource {
 		}
 	}
 	
+	public Method findMethodByName(String name) {
+		for (Method method : this.methods) {
+			String toBeFound = this.getFullyQualifiedName() + "." + name;
+			if (method.getFullyQualifiedName().equals(toBeFound)) {
+				return method;
+			}
+		}
+		return null;
+	}
+	
 	public List<Method> getMethods() {
 		return methods;
 	}

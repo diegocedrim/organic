@@ -38,7 +38,7 @@ public abstract class Resource {
 	
 	public int getEndLineNumber() {
 		CompilationUnit compUnit = sourceFile.getCompilationUnit();
-		return compUnit.getLineNumber(node.getLength());
+		return compUnit.getLineNumber(node.getStartPosition() + node.getLength());
 	}
 
 	public Resource(SourceFile sourceFile, ASTNode node) {
