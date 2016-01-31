@@ -4,5 +4,6 @@ public enum SmellName {
 	ClassDataShouldBePrivate,
 	ComplexClass,
 	FeatureEnvy,
-	BlobClass
+	BlobClass,
+	LazyClass
 }
