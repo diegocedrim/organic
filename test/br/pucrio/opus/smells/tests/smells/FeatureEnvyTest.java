@@ -4,16 +4,24 @@ import java.io.File;
 import java.util.List;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import br.pucrio.opus.smells.collector.FeatureEnvy;
 import br.pucrio.opus.smells.collector.Smell;
 import br.pucrio.opus.smells.collector.SmellName;
+import br.pucrio.opus.smells.metrics.AggregateMetricValues;
 import br.pucrio.opus.smells.resources.Type;
 import br.pucrio.opus.smells.tests.util.GenericCollector;
 import br.pucrio.opus.smells.tests.util.TypeLoader;
 
 public class FeatureEnvyTest {
+	
+	@Before
+	public void setup() {
+		AggregateMetricValues aggr = AggregateMetricValues.getInstance();
+		aggr.reset();
+	}
 
 	@Test
 	public void ccTest() throws Exception {

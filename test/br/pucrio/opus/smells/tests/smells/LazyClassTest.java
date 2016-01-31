@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.List;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import br.pucrio.opus.smells.collector.LazyClass;
@@ -15,6 +16,12 @@ import br.pucrio.opus.smells.tests.util.GenericCollector;
 import br.pucrio.opus.smells.tests.util.TypeLoader;
 
 public class LazyClassTest {
+	
+	@Before
+	public void setup() {
+		AggregateMetricValues aggr = AggregateMetricValues.getInstance();
+		aggr.reset();
+	}
 	
 	private void loadMetrics(String clazz) throws Exception {
 		Type type = TypeLoader.loadOneWithMetrics(new File(clazz));

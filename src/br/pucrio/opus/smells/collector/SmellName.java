@@ -6,5 +6,6 @@ public enum SmellName {
 	FeatureEnvy,
 	BlobClass,
 	LazyClass,
-	LongMethod
+	LongMethod,
+	LongParameterList
 }

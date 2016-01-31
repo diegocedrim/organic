@@ -7,7 +7,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import br.pucrio.opus.smells.collector.BlobClass;
+import br.pucrio.opus.smells.collector.LongParameterList;
 import br.pucrio.opus.smells.collector.Smell;
 import br.pucrio.opus.smells.collector.SmellName;
 import br.pucrio.opus.smells.metrics.AggregateMetricValues;
@@ -15,7 +15,7 @@ import br.pucrio.opus.smells.resources.Type;
 import br.pucrio.opus.smells.tests.util.GenericCollector;
 import br.pucrio.opus.smells.tests.util.TypeLoader;
 
-public class BlobClassTest {
+public class LongParameterListTest {
 	
 	@Before
 	public void setup() {
@@ -25,19 +25,16 @@ public class BlobClassTest {
 
 	@Test
 	public void ccTest() throws Exception {
-		Type blobType = TypeLoader.loadOneWithMetrics(new File("test/br/pucrio/opus/smells/tests/dummy/BlobClassSample.java"));
-		GenericCollector.collectTypeAndMethodsMetricValues(blobType);
+		Type type = TypeLoader.loadOneWithMetrics(new File("test/br/pucrio/opus/smells/tests/dummy/CC.java"));
+		GenericCollector.collectTypeAndMethodsMetricValues(type);
 		
-		Type mlType = TypeLoader.loadOneWithMetrics(new File("test/br/pucrio/opus/smells/tests/dummy/MethodLocality.java"));
-		GenericCollector.collectTypeAndMethodsMetricValues(mlType);
-		
-		BlobClass smellDetector = new BlobClass();
-		List<Smell> smells = smellDetector.detect(blobType);
-		Smell smell = smells.get(0);
+		LongParameterList smellDetector = new LongParameterList();
+		List<Smell> smells = smellDetector.detect(type.findMethodByName("cc1"));
 		Assert.assertEquals(1, smells.size());
-		Assert.assertEquals(SmellName.BlobClass.toString(), smell.getName());
+		Assert.assertEquals(SmellName.LongParameterList.toString(), smells.get(0).getName());
 		
-		smells = smellDetector.detect(mlType);
+		smells = smellDetector.detect(type.findMethodByName("cc11"));
 		Assert.assertEquals(0, smells.size());
 	}
+		
 }
