@@ -15,7 +15,7 @@ import br.pucrio.opus.smells.metrics.MetricName;
  * @see MethodCallLocalityVisitor
  * @author Diego Cedrim
  */
-public class MethodLocalityRatioCalculator implements MetricValueCalculator {
+public class MethodLocalityRatioCalculator extends MetricValueCalculator {
 	
 	private TypeDeclaration declaringClass;
 	
@@ -25,7 +25,7 @@ public class MethodLocalityRatioCalculator implements MetricValueCalculator {
 	}
 
 	@Override
-	public Double getValue(ASTNode target) {
+	protected Double computeValue(ASTNode target) {
 		MethodCallLocalityVisitor visitor = new MethodCallLocalityVisitor(declaringClass);
 		target.accept(visitor);
 		Double localCalls = visitor.getLocalMethodsCallCount().doubleValue();
@@ -37,8 +37,8 @@ public class MethodLocalityRatioCalculator implements MetricValueCalculator {
 	}
 
 	@Override
-	public String getMetricName() {
-		return MetricName.LocalityRatio.toString();
+	public MetricName getMetricName() {
+		return MetricName.LocalityRatio;
 	}
 
 }

@@ -5,18 +5,23 @@ import org.eclipse.jdt.core.dom.ASTNode;
 import br.pucrio.opus.smells.ast.visitors.LinesOfCodeVisitor;
 import br.pucrio.opus.smells.metrics.MetricName;
 
-public class ClassLOCCalculator  implements MetricValueCalculator {
+public class ClassLOCCalculator  extends MetricValueCalculator {
 	
 	@Override
-	public Double getValue(ASTNode target) {
+	protected Double computeValue(ASTNode target) {
 		LinesOfCodeVisitor visitor = new LinesOfCodeVisitor();
 		target.accept(visitor);
 		return visitor.getLoc().doubleValue();
 	}
 
 	@Override
-	public String getMetricName() {
-		return MetricName.LOC.toString();
+	public MetricName getMetricName() {
+		return MetricName.CLOC;
+	}
+	
+	@Override
+	public boolean shouldComputeAggregate() {
+		return true;
 	}
 
 }

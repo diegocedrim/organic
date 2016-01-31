@@ -5,18 +5,18 @@ import org.eclipse.jdt.core.dom.ASTNode;
 import br.pucrio.opus.smells.ast.visitors.PublicFieldCount;
 import br.pucrio.opus.smells.metrics.MetricName;
 
-public class PublicFieldCalculator implements MetricValueCalculator {
+public class PublicFieldCalculator extends MetricValueCalculator {
 	
 	@Override
-	public Double getValue(ASTNode target) {
+	protected Double computeValue(ASTNode target) {
 		PublicFieldCount visitor = new PublicFieldCount();
 		target.accept(visitor);
 		return visitor.getPublicFieldsCount().doubleValue();
 	}
 
 	@Override
-	public String getMetricName() {
-		return MetricName.PublicFieldCount.toString();
+	public MetricName getMetricName() {
+		return MetricName.PublicFieldCount;
 	}
 
 }

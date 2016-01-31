@@ -9,15 +9,17 @@ public class MethodLocality {
 	}
 
 	public void localA() {
-
+		this.privado = "";
 	}
 
 	public void localB() {
 		System.out.println("");
+		this.privado = "";
 	}
 
 	public void localC() {
 		new String().length();
+		this.privado = "";
 	}
 	
 	public void localD() {

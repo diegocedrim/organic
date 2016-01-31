@@ -17,9 +17,16 @@ import br.pucrio.opus.smells.metrics.MetricName;
 
 /**
  * Computes the Tight Class Cohesion value. 
+ * 
+ * The Tight Class Cohesion (TCC) measures the ratio between the actual number of visible 
+ * directly connected methods in a class $ NDC(C)$divided by the number of maximal possible 
+ * number of connections between the visible methods of a class $ NP(C)$. Two visible methods 
+ * are directly connected, if they are accessing the same instance variables of the class.
+ * (Extracted from http://www.arisa.se/compendium/node118.html) 
+ * 
  * @author Diego Cedrim
  */
-public class TCCMetricValueCalculator implements MetricValueCalculator {
+public class TCCMetricValueCalculator extends MetricValueCalculator {
 	
 	private List<FieldDeclaration> classFields;
 	
@@ -82,7 +89,7 @@ public class TCCMetricValueCalculator implements MetricValueCalculator {
 	
 	
 	@Override
-	public Double getValue(ASTNode target) {
+	protected Double computeValue(ASTNode target) {
 		this.classFields = getDeclaredFields(target);
 		List<MethodDeclaration> publicMethods = getPublicMethods(target);
 
@@ -97,8 +104,13 @@ public class TCCMetricValueCalculator implements MetricValueCalculator {
 	}
 
 	@Override
-	public String getMetricName() {
-		return MetricName.TCC.toString();
+	public MetricName getMetricName() {
+		return MetricName.TCC;
+	}
+	
+	@Override
+	public boolean shouldComputeAggregate() {
+		return true;
 	}
 
 }

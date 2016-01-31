@@ -8,7 +8,7 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 
 import br.pucrio.opus.smells.metrics.MetricName;
 
-public class OverrideRatioCalculator implements MetricValueCalculator {
+public class OverrideRatioCalculator extends MetricValueCalculator {
 	
 	private Double computeOverrideRatio(IMethodBinding[] localMethods, IMethodBinding[] superclassMethods) {
 		if (superclassMethods == null || superclassMethods.length == 0) {
@@ -27,7 +27,7 @@ public class OverrideRatioCalculator implements MetricValueCalculator {
 	}
 	
 	@Override
-	public Double getValue(ASTNode target) {
+	protected Double computeValue(ASTNode target) {
 		TypeDeclaration typeDeclaration = (TypeDeclaration)target;
 		IBinding binding = typeDeclaration.resolveBinding();
 		if (binding != null && binding.getKind() == IBinding.TYPE) {
@@ -54,8 +54,8 @@ public class OverrideRatioCalculator implements MetricValueCalculator {
 	}
 
 	@Override
-	public String getMetricName() {
-		return MetricName.OverrideRatio.toString();
+	public MetricName getMetricName() {
+		return MetricName.OverrideRatio;
 	}
 
 }

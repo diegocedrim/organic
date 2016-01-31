@@ -7,10 +7,10 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 
 import br.pucrio.opus.smells.metrics.MetricName;
 
-public class IsClassAbstract implements MetricValueCalculator {
+public class IsClassAbstract extends MetricValueCalculator {
 	
 	@Override
-	public Double getValue(ASTNode target) {
+	protected Double computeValue(ASTNode target) {
 		TypeDeclaration type = (TypeDeclaration)target;
 		if (Modifier.isAbstract(type.getModifiers())){
 			return 1d;
@@ -20,8 +20,8 @@ public class IsClassAbstract implements MetricValueCalculator {
 	}
 
 	@Override
-	public String getMetricName() {
-		return MetricName.IsAbstract.toString();
+	public MetricName getMetricName() {
+		return MetricName.IsAbstract;
 	}
 
 }

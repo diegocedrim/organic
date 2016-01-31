@@ -15,7 +15,7 @@ public abstract class Resource {
 	
 	private transient SourceFile sourceFile;
 	
-	private Map<String, Double> metricsValues;
+	private Map<MetricName, Double> metricsValues;
 	
 	private String fullyQualifiedName;
 	
@@ -52,7 +52,7 @@ public abstract class Resource {
 		this.smells.add(smell);
 	}
 	
-	public void addMetricValue(String metricName, Double value) {
+	public void addMetricValue(MetricName metricName, Double value) {
 		this.metricsValues.put(metricName, value);
 	}
 
@@ -65,11 +65,7 @@ public abstract class Resource {
 	}
 
 	public Double getMetricValue(MetricName metricName) {
-		return this.metricsValues.get(metricName.getLabel());
-	}
-
-	protected void setMetricsValues(Map<String, Double> metricsValues) {
-		this.metricsValues = metricsValues;
+		return this.metricsValues.get(metricName);
 	}
 
 	public String getFullyQualifiedName() {

@@ -5,17 +5,22 @@ import org.eclipse.jdt.core.dom.MethodDeclaration;
 
 import br.pucrio.opus.smells.metrics.MetricName;
 
-public class MethodParameterCountCalculator  implements MetricValueCalculator {
+public class MethodParameterCountCalculator extends MetricValueCalculator {
 	
 	@Override
-	public Double getValue(ASTNode target) {
+	protected Double computeValue(ASTNode target) {
 		MethodDeclaration declaration = (MethodDeclaration)target;
 		return new Double(declaration.parameters().size());
 	}
 
 	@Override
-	public String getMetricName() {
-		return MetricName.ParameterCount.toString();
+	public MetricName getMetricName() {
+		return MetricName.ParameterCount;
+	}
+	
+	@Override
+	public boolean shouldComputeAggregate() {
+		return true;
 	}
 
 }
