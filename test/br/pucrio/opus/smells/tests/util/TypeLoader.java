@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import br.pucrio.opus.smells.metrics.TypeMetricValueCollector;
 import br.pucrio.opus.smells.resources.JavaFilesFinder;
 import br.pucrio.opus.smells.resources.SourceFile;
 import br.pucrio.opus.smells.resources.SourceFilesLoader;
@@ -14,8 +13,6 @@ public class TypeLoader {
 
 	public static Type loadOneWithMetrics(File file) throws IOException {
 		Type type = loadAllWithMetrics(file).get(0);
-		TypeMetricValueCollector collector = new TypeMetricValueCollector();
-		collector.collect(type);
 		return type;
 	}
 	
