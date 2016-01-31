@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Observable;
 
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.CompilationUnit;
@@ -11,7 +12,7 @@ import org.eclipse.jdt.core.dom.CompilationUnit;
 import br.pucrio.opus.smells.collector.Smell;
 import br.pucrio.opus.smells.metrics.MetricName;
 
-public abstract class Resource {
+public abstract class Resource extends Observable {
 	
 	private transient SourceFile sourceFile;
 	

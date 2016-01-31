@@ -1,6 +1,6 @@
 package br.pucrio.opus.smells.tests.dummy;
 
-public class SuperDummy {
+public abstract class SuperDummy {
 	protected String a;
 	
 	protected void a() {

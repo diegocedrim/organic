@@ -27,7 +27,7 @@ public class AggregateTest {
 		Assert.assertEquals(new Double(66.0), aggr.getAverageValue(MetricName.CLOC));
 		Assert.assertEquals(new Double(66.0), aggr.getAverageValue(MetricName.CLOC));
 		Assert.assertEquals(new Double(6.4), aggr.getAverageValue(MetricName.MLOC));
-		Assert.assertEquals(new Double(0.3), aggr.getAverageValue(MetricName.ParameterCount));
+		Assert.assertEquals(new Double(0.4499999999999999), aggr.getAverageValue(MetricName.ParameterCount));
 		Assert.assertEquals(new Double(0.05357142857142857), aggr.getAverageValue(MetricName.TCC));
 	}
 }

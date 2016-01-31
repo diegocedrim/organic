@@ -15,7 +15,6 @@ import br.pucrio.opus.smells.metrics.MethodMetricValueCollector;
 import br.pucrio.opus.smells.metrics.TypeMetricValueCollector;
 import br.pucrio.opus.smells.resources.JavaFilesFinder;
 import br.pucrio.opus.smells.resources.Method;
-import br.pucrio.opus.smells.resources.ParenthoodRegistry;
 import br.pucrio.opus.smells.resources.SourceFile;
 import br.pucrio.opus.smells.resources.SourceFilesLoader;
 import br.pucrio.opus.smells.resources.Type;
@@ -31,7 +30,6 @@ public class SmellDetector implements IApplication {
 	}
 	
 	private List<Type> collectTypeMetrics(List<String> sourcePaths) throws IOException {
-		ParenthoodRegistry registry = ParenthoodRegistry.getInstance();
 		List<Type> allTypes = new ArrayList<>();
 		
 		JavaFilesFinder sourceLoader = new JavaFilesFinder(sourcePaths);
@@ -39,7 +37,6 @@ public class SmellDetector implements IApplication {
 		List<SourceFile> sourceFiles = compUnitLoader.getLoadedSourceFiles();
 		for (SourceFile sourceFile : sourceFiles) {
 			for (Type type : sourceFile.getTypes()) {
-				registry.registerChild(type);
 				allTypes.add(type);
 				
 				TypeMetricValueCollector typeCollector = new TypeMetricValueCollector();

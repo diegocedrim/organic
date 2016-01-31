@@ -44,6 +44,9 @@ public class Type extends Resource {
 			setFullyQualifiedName(fqn);
 		}
 		this.searchForMethods();
+		
+		//register itself in the ParenthoodRegistry 
+		ParenthoodRegistry.getInstance().registerChild(this);
 	}
 	
 	private void searchForMethods() {
@@ -73,6 +76,11 @@ public class Type extends Resource {
 	
 	public Set<Type> getChildren() {
 		return children;
+	}
+	
+	@Override
+	public String toString() {
+		return "Type [fqn=" + getFullyQualifiedName() + "]";
 	}
 	
 }

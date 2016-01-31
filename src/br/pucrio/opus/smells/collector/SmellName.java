@@ -9,5 +9,6 @@ public enum SmellName {
 	LongMethod,
 	LongParameterList,
 	MessageChain,
-	RefusedBequest
+	RefusedBequest,
+	SpeculativeGenerality
 }

@@ -17,7 +17,7 @@ public class ParenthoodRegistry {
 	}
 	
 	private ParenthoodRegistry() {
-		this.parenthoodMap = new HashMap<>();
+		reset();
 	}
 	
 	public static ParenthoodRegistry getInstance() {
@@ -29,7 +29,7 @@ public class ParenthoodRegistry {
 		if (count == null) {
 			count = 0;
 		}
-		this.parenthoodMap.put(fqn, count++);
+		this.parenthoodMap.put(fqn, ++count);
 	}
 	
 	
@@ -41,6 +41,10 @@ public class ParenthoodRegistry {
 		incrementChildCount(child.getSuperclassFQN());
 	}
 	
+	public void reset() {
+		this.parenthoodMap = new HashMap<>();
+	}
+	
 	public Integer getChildrenCount(Type type) {
 		String superclassFqn = type.getFullyQualifiedName();
 		Integer count = this.parenthoodMap.get(superclassFqn);
@@ -49,4 +53,5 @@ public class ParenthoodRegistry {
 		}
 		return 0;
 	}
+
 }
