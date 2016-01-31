@@ -3,6 +3,7 @@ package br.pucrio.opus.smells.resources;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
@@ -20,11 +21,22 @@ public class SourceFilesLoader {
 	public SourceFilesLoader(JavaFilesFinder loader) throws IOException {
 		this.loader = loader;
 		this.sourceFiles = new ArrayList<>();
-		this.load();
+		this.load(loader.findAll());
 	}
 	
-	private void load() throws IOException {
-		List<File> sourceFiles = loader.findAll();
+	public SourceFilesLoader(JavaFilesFinder loader, List<File> files) throws IOException {
+		this.loader = loader;
+		this.sourceFiles = new ArrayList<>();
+		this.load(files);
+	}
+	
+	public SourceFilesLoader(JavaFilesFinder loader, File file) throws IOException {
+		this.loader = loader;
+		this.sourceFiles = new ArrayList<>();
+		this.load(Arrays.asList(file));
+	}
+	
+	private void load(List<File> sourceFiles) throws IOException {
 		ASTBuilder builder = new ASTBuilder(loader.getSourcePaths());
 		for (File file : sourceFiles) {
 			ASTParser parser = builder.create();

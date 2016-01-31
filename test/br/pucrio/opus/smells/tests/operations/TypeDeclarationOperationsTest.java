@@ -33,7 +33,7 @@ public class TypeDeclarationOperationsTest {
 		TypeDeclarationCollector visitor = new TypeDeclarationCollector();
 		compilationUnit.accept(visitor);
 		List<TypeDeclaration> types = visitor.getNodesCollected();
-		Assert.assertEquals(3, types.size());
+		Assert.assertEquals(2, types.size());
 		TypeDeclaration decl = (TypeDeclaration)types.get(0);
 		Assert.assertEquals("br.pucrio.opus.smells.tests.dummy.AnonymousClass", decl.resolveBinding().getQualifiedName());
 	}

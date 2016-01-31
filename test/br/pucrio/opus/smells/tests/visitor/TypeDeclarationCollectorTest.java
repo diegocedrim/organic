@@ -25,6 +25,6 @@ public class TypeDeclarationCollectorTest {
 	public void typeDeclCountTest() {
 		TypeDeclarationCollector visitor = new TypeDeclarationCollector();
 		this.compilationUnit.accept(visitor);
-		Assert.assertEquals(3, visitor.getNodesCollected().size());
+		Assert.assertEquals(2, visitor.getNodesCollected().size());
 	}
 }

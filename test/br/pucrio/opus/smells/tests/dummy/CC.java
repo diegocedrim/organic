@@ -3,6 +3,8 @@ package br.pucrio.opus.smells.tests.dummy;
 import java.util.Arrays;
 
 public class CC {
+	
+	public String publico;
 
 	public void cc1() {
 		return;

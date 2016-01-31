@@ -1,15 +1,15 @@
 package br.pucrio.opus.smells.metrics.calculators;
 
+import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.IBinding;
 import org.eclipse.jdt.core.dom.IMethodBinding;
 import org.eclipse.jdt.core.dom.ITypeBinding;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 
-public class OverrideRatioCalculator implements MetricValueCalculator<TypeDeclaration> {
-	
-	public static final String NAME = "OverrideRatioCalculator";
-	
+import br.pucrio.opus.smells.metrics.MetricName;
 
+public class OverrideRatioCalculator implements MetricValueCalculator {
+	
 	private Double computeOverrideRatio(IMethodBinding[] localMethods, IMethodBinding[] superclassMethods) {
 		if (superclassMethods == null || superclassMethods.length == 0) {
 			return null;
@@ -27,8 +27,9 @@ public class OverrideRatioCalculator implements MetricValueCalculator<TypeDeclar
 	}
 	
 	@Override
-	public Double getValue(TypeDeclaration target) {
-		IBinding binding = target.resolveBinding();
+	public Double getValue(ASTNode target) {
+		TypeDeclaration typeDeclaration = (TypeDeclaration)target;
+		IBinding binding = typeDeclaration.resolveBinding();
 		if (binding != null && binding.getKind() == IBinding.TYPE) {
 			ITypeBinding typeBinding = (ITypeBinding)binding;
 			IMethodBinding[] localMethods = typeBinding.getDeclaredMethods(); 
@@ -54,7 +55,7 @@ public class OverrideRatioCalculator implements MetricValueCalculator<TypeDeclar
 
 	@Override
 	public String getMetricName() {
-		return NAME;
+		return MetricName.OverrideRatio.toString();
 	}
 
 }

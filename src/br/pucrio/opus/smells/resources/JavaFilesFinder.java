@@ -2,6 +2,7 @@ package br.pucrio.opus.smells.resources;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -15,6 +16,10 @@ public class JavaFilesFinder {
 	
 	public JavaFilesFinder() {
 		this.directories = new ArrayList<>();
+	}
+	
+	public JavaFilesFinder(String sourcePath) {
+		this.directories = Arrays.asList(sourcePath);
 	}
 	
 	public JavaFilesFinder(List<String> sourcePaths) {

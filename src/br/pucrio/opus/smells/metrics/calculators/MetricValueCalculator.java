@@ -1,8 +1,10 @@
 package br.pucrio.opus.smells.metrics.calculators;
 
-public interface MetricValueCalculator<T> {
+import org.eclipse.jdt.core.dom.ASTNode;
+
+public interface MetricValueCalculator {
 	
-	Double getValue(T target);
+	Double getValue(ASTNode target);
 	
 	/**
 	 * Metric's name. It MUST be unique for each subclass

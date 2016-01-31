@@ -8,7 +8,7 @@ import org.eclipse.jdt.core.dom.IMethodBinding;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.SingleVariableDeclaration;
 
-public class Method extends Resource<MethodDeclaration> {
+public class Method extends Resource {
 	
 	private List<String> parametersTypes;
 

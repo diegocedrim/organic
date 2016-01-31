@@ -25,8 +25,8 @@ public class SmellDetector implements IApplication {
 	
 	private void collectMethodMetrics(Type type) {
 		for (Method method: type.getMethods()) {
-			MethodMetricValueCollector methodCollector = new MethodMetricValueCollector(type.getNode());
-			methodCollector.calculate(method);
+			MethodMetricValueCollector methodCollector = new MethodMetricValueCollector(type.getNodeAsTypeDeclaration());
+			methodCollector.collect(method);
 		}
 	}
 	
@@ -43,7 +43,7 @@ public class SmellDetector implements IApplication {
 				allTypes.add(type);
 				
 				TypeMetricValueCollector typeCollector = new TypeMetricValueCollector();
-				typeCollector.calculate(type);
+				typeCollector.collect(type);
 				System.out.println("Calculating metric values for " + sourceFile.getFile().getName());
 				this.collectMethodMetrics(type);
 			}

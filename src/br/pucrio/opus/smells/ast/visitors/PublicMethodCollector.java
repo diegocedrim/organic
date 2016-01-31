@@ -1,5 +1,6 @@
 package br.pucrio.opus.smells.ast.visitors;
 
+import org.eclipse.jdt.core.dom.AnonymousClassDeclaration;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.Modifier;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
@@ -33,6 +34,10 @@ public class PublicMethodCollector extends CollectorVisitor<MethodDeclaration> {
 		}
 		typeDeclarationFound = true;
 		return true;
+	}
+	
+	public boolean visit(AnonymousClassDeclaration node) {
+		return false;
 	}
 	
 	@Override

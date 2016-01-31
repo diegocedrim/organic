@@ -36,7 +36,12 @@ public abstract class AnonymousClass {
 		
 		@Override
 		public String toString() {
+			a();
 			return super.toString();
+		}
+		
+		private void a() {
+			
 		}
 		
 		protected Collection<String> list = new Collection<String>() {

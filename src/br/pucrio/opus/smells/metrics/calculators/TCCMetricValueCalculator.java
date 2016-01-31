@@ -9,19 +9,17 @@ import java.util.Set;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.FieldDeclaration;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
-import org.eclipse.jdt.core.dom.TypeDeclaration;
 
 import br.pucrio.opus.smells.ast.visitors.FieldAccessCollector;
 import br.pucrio.opus.smells.ast.visitors.FieldDeclarationCollector;
 import br.pucrio.opus.smells.ast.visitors.PublicMethodCollector;
+import br.pucrio.opus.smells.metrics.MetricName;
 
 /**
  * Computes the Tight Class Cohesion value. 
  * @author Diego Cedrim
  */
-public class TCCMetricValueCalculator implements MetricValueCalculator<TypeDeclaration> {
-	
-	public static final String NAME = "TightClassCohesion";
+public class TCCMetricValueCalculator implements MetricValueCalculator {
 	
 	private List<FieldDeclaration> classFields;
 	
@@ -84,7 +82,7 @@ public class TCCMetricValueCalculator implements MetricValueCalculator<TypeDecla
 	
 	
 	@Override
-	public Double getValue(TypeDeclaration target) {
+	public Double getValue(ASTNode target) {
 		this.classFields = getDeclaredFields(target);
 		List<MethodDeclaration> publicMethods = getPublicMethods(target);
 
@@ -100,7 +98,7 @@ public class TCCMetricValueCalculator implements MetricValueCalculator<TypeDecla
 
 	@Override
 	public String getMetricName() {
-		return NAME;
+		return MetricName.TCC.toString();
 	}
 
 }

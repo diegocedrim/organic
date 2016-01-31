@@ -1,9 +1,10 @@
 package br.pucrio.opus.smells.metrics.calculators;
 
-import org.eclipse.jdt.core.dom.MethodDeclaration;
+import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 
 import br.pucrio.opus.smells.ast.visitors.MethodCallLocalityVisitor;
+import br.pucrio.opus.smells.metrics.MetricName;
 
 /**
  * Computes the LocalityRatio of the method. This metric computes how local the method is, i.e.,
@@ -14,9 +15,7 @@ import br.pucrio.opus.smells.ast.visitors.MethodCallLocalityVisitor;
  * @see MethodCallLocalityVisitor
  * @author Diego Cedrim
  */
-public class MethodLocalityRatioCalculator implements MetricValueCalculator<MethodDeclaration> {
-	
-	public static final String NAME = "LocalityRatio";
+public class MethodLocalityRatioCalculator implements MetricValueCalculator {
 	
 	private TypeDeclaration declaringClass;
 	
@@ -26,7 +25,7 @@ public class MethodLocalityRatioCalculator implements MetricValueCalculator<Meth
 	}
 
 	@Override
-	public Double getValue(MethodDeclaration target) {
+	public Double getValue(ASTNode target) {
 		MethodCallLocalityVisitor visitor = new MethodCallLocalityVisitor(declaringClass);
 		target.accept(visitor);
 		Double localCalls = visitor.getLocalMethodsCallCount().doubleValue();
@@ -39,7 +38,7 @@ public class MethodLocalityRatioCalculator implements MetricValueCalculator<Meth
 
 	@Override
 	public String getMetricName() {
-		return NAME;
+		return MetricName.LocalityRatio.toString();
 	}
 
 }

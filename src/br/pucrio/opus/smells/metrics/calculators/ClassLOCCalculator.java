@@ -1,15 +1,14 @@
 package br.pucrio.opus.smells.metrics.calculators;
 
-import org.eclipse.jdt.core.dom.TypeDeclaration;
+import org.eclipse.jdt.core.dom.ASTNode;
 
 import br.pucrio.opus.smells.ast.visitors.LinesOfCodeVisitor;
+import br.pucrio.opus.smells.metrics.MetricName;
 
-public class ClassLOCCalculator  implements MetricValueCalculator<TypeDeclaration> {
+public class ClassLOCCalculator  implements MetricValueCalculator {
 	
-	public static final String NAME = "LOC";
-
 	@Override
-	public Double getValue(TypeDeclaration target) {
+	public Double getValue(ASTNode target) {
 		LinesOfCodeVisitor visitor = new LinesOfCodeVisitor();
 		target.accept(visitor);
 		return visitor.getLoc().doubleValue();
@@ -17,7 +16,7 @@ public class ClassLOCCalculator  implements MetricValueCalculator<TypeDeclaratio
 
 	@Override
 	public String getMetricName() {
-		return NAME;
+		return MetricName.LOC.toString();
 	}
 
 }

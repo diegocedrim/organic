@@ -11,34 +11,34 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import br.pucrio.opus.smells.ast.visitors.PublicMethodCollector;
+import br.pucrio.opus.smells.ast.visitors.MethodCollector;
 import br.pucrio.opus.smells.ast.visitors.TypeDeclarationCollector;
 import br.pucrio.opus.smells.tests.util.CompilationUnitLoader;
 
-public class PublicMethodCollectorTest {
+public class MethodCollectorTest {
 	
 	private CompilationUnit compilationUnit;
 
 	@Before
-	public void setUp() throws IOException{
+	public void setUp() throws IOException {
 		File file = new File("test/br/pucrio/opus/smells/tests/dummy/AnonymousClass.java");
 		this.compilationUnit = CompilationUnitLoader.getCompilationUnit(file);
 	}
 	
 	@Test
-	public void publicMethodsCountTest() {
+	public void methodsCountTest() {
 		TypeDeclarationCollector typeCollector = new TypeDeclarationCollector();
 		this.compilationUnit.accept(typeCollector);
 		List<TypeDeclaration> types = typeCollector.getNodesCollected();
 		
-		PublicMethodCollector visitor = new PublicMethodCollector();
+		MethodCollector visitor = new MethodCollector();
 		types.get(0).accept(visitor);
 		List<MethodDeclaration> collectedMethods = visitor.getNodesCollected();
-		Assert.assertEquals(3, collectedMethods.size());
+		Assert.assertEquals(5, collectedMethods.size());
 		
-		visitor = new PublicMethodCollector();
+		visitor = new MethodCollector();
 		types.get(1).accept(visitor);
 		collectedMethods = visitor.getNodesCollected();
-		Assert.assertEquals(1, collectedMethods.size());
+		Assert.assertEquals(2, collectedMethods.size());
 	}
 }

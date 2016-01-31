@@ -2,16 +2,17 @@ package br.pucrio.opus.smells.metrics.calculators;
 
 import java.lang.reflect.Modifier;
 
+import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 
-public class IsClassAbstract implements MetricValueCalculator<TypeDeclaration> {
-	
-	public static final String NAME = "IsAbstract";
-	
+import br.pucrio.opus.smells.metrics.MetricName;
 
+public class IsClassAbstract implements MetricValueCalculator {
+	
 	@Override
-	public Double getValue(TypeDeclaration target) {
-		if (Modifier.isAbstract(target.getModifiers())){
+	public Double getValue(ASTNode target) {
+		TypeDeclaration type = (TypeDeclaration)target;
+		if (Modifier.isAbstract(type.getModifiers())){
 			return 1d;
 		} else {
 			return 0d;
@@ -20,7 +21,7 @@ public class IsClassAbstract implements MetricValueCalculator<TypeDeclaration> {
 
 	@Override
 	public String getMetricName() {
-		return NAME;
+		return MetricName.IsAbstract.toString();
 	}
 
 }

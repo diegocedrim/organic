@@ -1,15 +1,14 @@
 package br.pucrio.opus.smells.metrics.calculators;
 
-import org.eclipse.jdt.core.dom.TypeDeclaration;
+import org.eclipse.jdt.core.dom.ASTNode;
 
 import br.pucrio.opus.smells.ast.visitors.PublicFieldCount;
+import br.pucrio.opus.smells.metrics.MetricName;
 
-public class PublicFieldCalculator implements MetricValueCalculator<TypeDeclaration> {
+public class PublicFieldCalculator implements MetricValueCalculator {
 	
-	public static final String NAME = "PublicFieldCount";
-
 	@Override
-	public Double getValue(TypeDeclaration target) {
+	public Double getValue(ASTNode target) {
 		PublicFieldCount visitor = new PublicFieldCount();
 		target.accept(visitor);
 		return visitor.getPublicFieldsCount().doubleValue();
@@ -17,7 +16,7 @@ public class PublicFieldCalculator implements MetricValueCalculator<TypeDeclarat
 
 	@Override
 	public String getMetricName() {
-		return NAME;
+		return MetricName.PublicFieldCount.toString();
 	}
 
 }

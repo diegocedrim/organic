@@ -6,10 +6,12 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.jdt.core.dom.ASTNode;
+import org.eclipse.jdt.core.dom.CompilationUnit;
 
 import br.pucrio.opus.smells.collector.Smell;
+import br.pucrio.opus.smells.metrics.MetricName;
 
-public abstract class Resource<T extends ASTNode> {
+public abstract class Resource {
 	
 	private transient SourceFile sourceFile;
 	
@@ -19,13 +21,27 @@ public abstract class Resource<T extends ASTNode> {
 	
 	private List<Smell> smells;
 	
-	private transient T node;
+	private transient ASTNode node;
 	
-	public T getNode() {
+	public ASTNode getNode() {
 		return node;
 	}
+	
+	/**
+	 * Line in the source file where node starts
+	 * @return line where node starts
+	 */
+	public int getStartLineNumber() {
+		CompilationUnit compUnit = sourceFile.getCompilationUnit();
+		return compUnit.getLineNumber(node.getStartPosition());
+	}
+	
+	public int getEndLineNumber() {
+		CompilationUnit compUnit = sourceFile.getCompilationUnit();
+		return compUnit.getLineNumber(node.getLength());
+	}
 
-	public Resource(SourceFile sourceFile, T node) {
+	public Resource(SourceFile sourceFile, ASTNode node) {
 		this.metricsValues = new HashMap<>();
 		this.sourceFile = sourceFile;
 		this.node = node;
@@ -48,8 +64,8 @@ public abstract class Resource<T extends ASTNode> {
 		this.sourceFile = sourceFile;
 	}
 
-	public Map<String, Double> getMetricsValues() {
-		return metricsValues;
+	public Double getMetricValue(MetricName metricName) {
+		return this.metricsValues.get(metricName.getLabel());
 	}
 
 	protected void setMetricsValues(Map<String, Double> metricsValues) {

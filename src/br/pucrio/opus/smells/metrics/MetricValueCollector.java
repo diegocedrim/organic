@@ -8,21 +8,21 @@ import org.eclipse.jdt.core.dom.ASTNode;
 import br.pucrio.opus.smells.metrics.calculators.MetricValueCalculator;
 import br.pucrio.opus.smells.resources.Resource;
 
-public abstract class MetricValueCollector<T extends ASTNode> {
+public abstract class MetricValueCollector {
 	
-	private List<MetricValueCalculator<T>> calculators;
+	private List<MetricValueCalculator> calculators;
 	
 	public MetricValueCollector() {
 		this.calculators = new ArrayList<>();
 	}
 	
-	public void addCalculator(MetricValueCalculator<T> calculator) {
+	protected void addCalculator(MetricValueCalculator calculator) {
 		this.calculators.add(calculator);
 	}
 	
-	public void calculate(Resource<T> resource) {
-		for (MetricValueCalculator<T> calculator : this.calculators) {
-			T node = resource.getNode();
+	public void collect(Resource resource) {
+		for (MetricValueCalculator calculator : this.calculators) {
+			ASTNode node = resource.getNode();
 			Double value = calculator.getValue(node);
 			resource.addMetricValue(calculator.getMetricName(), value);
 		}

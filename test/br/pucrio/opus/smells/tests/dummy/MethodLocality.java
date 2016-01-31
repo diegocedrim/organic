@@ -1,6 +1,12 @@
 package br.pucrio.opus.smells.tests.dummy;
 
 public class MethodLocality {
+	
+	private String privado;
+	
+	protected String getPrivado() {
+		return privado;
+	}
 
 	public void localA() {
 

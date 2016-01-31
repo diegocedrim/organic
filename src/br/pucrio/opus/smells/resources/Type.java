@@ -12,14 +12,18 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 
 import br.pucrio.opus.smells.ast.visitors.MethodCollector;
 
-public class Type extends Resource<TypeDeclaration> {
+public class Type extends Resource {
 
 	private List<Method> methods;
 	
 	private transient Set<Type> children;
 	
+	public TypeDeclaration getNodeAsTypeDeclaration() {
+		return (TypeDeclaration)getNode();
+	}
+	
 	public String getSuperclassFQN() {
-		ITypeBinding binding = this.getNode().resolveBinding();
+		ITypeBinding binding = this.getNodeAsTypeDeclaration().resolveBinding();
 		if (binding != null) {
 			ITypeBinding superclass = binding.getSuperclass();
 			if (superclass != null) {
