@@ -8,5 +8,6 @@ public enum SmellName {
 	LazyClass,
 	LongMethod,
 	LongParameterList,
-	MessageChain
+	MessageChain,
+	RefusedBequest
 }

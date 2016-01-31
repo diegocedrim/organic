@@ -8,15 +8,15 @@ import br.pucrio.opus.smells.metrics.MetricName;
 import br.pucrio.opus.smells.resources.Resource;
 
 /**
- * All chains of methods’ calls longer than three.
+ * All classes overriding more than half of the methods inherited by a superclass
  * @author Diego Cedrim
  */
-public class MessageChain extends SmellDetector {
+public class RefusedBequest extends SmellDetector {
 	
 	@Override
 	public List<Smell> detect(Resource resource) {
-		Double maxCallChain = resource.getMetricValue(MetricName.MaxCallChain);
-		if (maxCallChain > 3) {
+		Double overrideRatio = resource.getMetricValue(MetricName.OverrideRatio);
+		if (overrideRatio != null && overrideRatio > 0.5) {
 			Smell smell = super.createSmell(resource);
 			return Arrays.asList(smell);
 		}
@@ -25,7 +25,7 @@ public class MessageChain extends SmellDetector {
 	
 	@Override
 	protected SmellName getSmellName() {
-		return SmellName.MessageChain;
+		return SmellName.RefusedBequest;
 	}
 
 }

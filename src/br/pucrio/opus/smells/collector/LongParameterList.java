@@ -9,7 +9,7 @@ import br.pucrio.opus.smells.metrics.MetricName;
 import br.pucrio.opus.smells.resources.Resource;
 
 /**
- * All methods having LOCs higher than the average of the system.
+ * All methods having a number of parameters higher than the average of the system.
  * @author Diego Cedrim
  */
 public class LongParameterList extends SmellDetector {
