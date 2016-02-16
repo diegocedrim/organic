@@ -18,14 +18,14 @@ public abstract class SmellDetector {
 	public abstract List<Smell> detect(Resource resource);
 	
 	protected Smell createSmell(Resource resource, String reason) {
-		Smell smell = new Smell(getSmellName().toString(), reason);
+		Smell smell = new Smell(getSmellName(), reason);
 		smell.setStartingLine(resource.getStartLineNumber());
 		smell.setEndingLine(resource.getEndLineNumber());
 		return smell;
 	}
 	
 	protected Smell createSmell(Resource resource) {
-		Smell smell = new Smell(getSmellName().toString());
+		Smell smell = new Smell(getSmellName());
 		smell.setStartingLine(resource.getStartLineNumber());
 		smell.setEndingLine(resource.getEndLineNumber());
 		return smell;

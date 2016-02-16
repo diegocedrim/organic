@@ -10,5 +10,6 @@ public enum SmellName {
 	LongParameterList,
 	MessageChain,
 	RefusedBequest,
-	SpeculativeGenerality
+	SpeculativeGenerality,
+	SpaghettiCode
 }

@@ -2,7 +2,7 @@ package br.pucrio.opus.smells.collector;
 
 public class Smell {
 
-	private String name;
+	private SmellName name;
 	
 	private String reason;
 	
@@ -13,26 +13,26 @@ public class Smell {
 	
 	private Integer endingLine;
 	
-	public Smell(String name) {
+	public Smell(SmellName name) {
 		this.name = name;
 	}
 	
-	public Smell(String name, String reason) {
+	public Smell(SmellName name, String reason) {
 		this.name = name;
 		this.reason = reason;
 	}
 	
-	public Smell(String name, String reason, Integer line) {
+	public Smell(SmellName name, String reason, Integer line) {
 		this.name = name;
 		this.reason = reason;
 		this.startingLine = line;
 	}
 
-	public String getName() {
+	public SmellName getName() {
 		return name;
 	}
 
-	public void setName(String name) {
+	public void setName(SmellName name) {
 		this.name = name;
 	}
 

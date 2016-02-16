@@ -10,7 +10,11 @@ import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
+import br.pucrio.opus.smells.collector.ClassLevelSmellDetector;
+import br.pucrio.opus.smells.collector.MethodLevelSmellDetector;
+import br.pucrio.opus.smells.collector.Smell;
 import br.pucrio.opus.smells.metrics.MethodMetricValueCollector;
 import br.pucrio.opus.smells.metrics.TypeMetricValueCollector;
 import br.pucrio.opus.smells.resources.JavaFilesFinder;
@@ -19,6 +23,7 @@ import br.pucrio.opus.smells.resources.SourceFile;
 import br.pucrio.opus.smells.resources.SourceFilesLoader;
 import br.pucrio.opus.smells.resources.Type;
 import br.pucrio.opus.smells.util.ArgumentsIntepreter;
+import gson.ObservableExclusionStrategy;
 
 public class SmellDetector implements IApplication {
 	
@@ -48,6 +53,19 @@ public class SmellDetector implements IApplication {
 		
 		return allTypes;
 	}
+	
+	private void detectSmells(List<Type> allTypes) {
+		for (Type type : allTypes) {
+			for (Method method: type.getMethods()) {
+				MethodLevelSmellDetector methodSmellDetector = new MethodLevelSmellDetector();
+				List<Smell> smells = methodSmellDetector.detect(method);
+				method.addAllSmells(smells);
+			}
+			ClassLevelSmellDetector classSmellDetector = new ClassLevelSmellDetector();
+			List<Smell> smells = classSmellDetector.detect(type);
+			type.addAllSmells(smells);
+		}
+	}
 
 	@Override
 	public Object start(IApplicationContext context) throws Exception {
@@ -55,9 +73,15 @@ public class SmellDetector implements IApplication {
 		List<String> sourcePaths = interpreter.getSourcePaths();
 		
 		List<Type> allTypes = this.collectTypeMetrics(sourcePaths);
+		this.detectSmells(allTypes);
+		
 		BufferedWriter writer = new BufferedWriter(new FileWriter(interpreter.getOutputFile()));
 		System.out.println("Serializing...");
-		Gson gson = new Gson();
+		
+		GsonBuilder builder = new GsonBuilder();
+		builder.addSerializationExclusionStrategy(new ObservableExclusionStrategy());
+		
+		Gson gson = builder.create();
 		gson.toJson(allTypes, writer);
 		writer.close();
 		return EXIT_OK;

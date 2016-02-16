@@ -11,6 +11,12 @@ import org.eclipse.jdt.core.dom.SingleVariableDeclaration;
 public class Method extends Resource {
 	
 	private List<String> parametersTypes;
+	
+	public IMethodBinding getBinding() {
+		MethodDeclaration declaration = (MethodDeclaration)this.getNode(); 
+		IMethodBinding binding = declaration.resolveBinding();
+		return binding;
+	}
 
 	public Method(SourceFile sourceFile, MethodDeclaration node) {
 		super(sourceFile, node);

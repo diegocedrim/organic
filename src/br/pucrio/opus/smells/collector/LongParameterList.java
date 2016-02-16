@@ -19,7 +19,7 @@ public class LongParameterList extends SmellDetector {
 		AggregateMetricValues aggregate = AggregateMetricValues.getInstance();
 		Double methodParameterCount = resource.getMetricValue(MetricName.ParameterCount);
 		Double avgParameterCount = aggregate.getAverageValue(MetricName.ParameterCount);
-		if (methodParameterCount > avgParameterCount) {
+		if (methodParameterCount > avgParameterCount && methodParameterCount > 3) {
 			Smell smell = super.createSmell(resource);
 			return Arrays.asList(smell);
 		}

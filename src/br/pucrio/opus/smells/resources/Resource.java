@@ -1,6 +1,7 @@
 package br.pucrio.opus.smells.resources;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,7 @@ import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 
 import br.pucrio.opus.smells.collector.Smell;
+import br.pucrio.opus.smells.collector.SmellName;
 import br.pucrio.opus.smells.metrics.MetricName;
 
 public abstract class Resource extends Observable {
@@ -53,6 +55,10 @@ public abstract class Resource extends Observable {
 		this.smells.add(smell);
 	}
 	
+	public void addAllSmells(Collection<Smell> smells) {
+		this.smells.addAll(smells);
+	}
+	
 	public void addMetricValue(MetricName metricName, Double value) {
 		this.metricsValues.put(metricName, value);
 	}
@@ -79,6 +85,15 @@ public abstract class Resource extends Observable {
 	
 	public List<Smell> getSmells() {
 		return smells;
+	}
+	
+	public boolean hasSmell(SmellName targetSmell) {
+		for (Smell smell : this.smells) {
+			if (smell.getName().equals(targetSmell)) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 }
