@@ -43,6 +43,9 @@ public class MethodCallLocalityVisitor extends ASTVisitor {
 		}
 		
 		ITypeBinding typeBinding = methodBinding.getDeclaringClass();
+		if (typeBinding == null) { // if we were not able to bind it, just discard.
+			return true;
+		}
 		if (typeBinding.isEqualTo(this.declaringTypeBinding)) {
 			this.localMethodsCallCount++;
 		} else {

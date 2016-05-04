@@ -31,6 +31,9 @@ public class LocalMethodCallVisitor extends CollectorVisitor<IMethodBinding> {
 		}
 		
 		ITypeBinding typeBinding = methodBinding.getDeclaringClass();
+		if (typeBinding == null) {
+			return false;
+		}
 		if (typeBinding.isEqualTo(this.declaringTypeBinding)) {
 			super.addCollectedNode(methodBinding);
 		} 

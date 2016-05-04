@@ -4,6 +4,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.eclipse.equinox.app.IApplication;
@@ -15,6 +16,7 @@ import com.google.gson.GsonBuilder;
 import br.pucrio.opus.smells.collector.ClassLevelSmellDetector;
 import br.pucrio.opus.smells.collector.MethodLevelSmellDetector;
 import br.pucrio.opus.smells.collector.Smell;
+import br.pucrio.opus.smells.gson.ObservableExclusionStrategy;
 import br.pucrio.opus.smells.metrics.MethodMetricValueCollector;
 import br.pucrio.opus.smells.metrics.TypeMetricValueCollector;
 import br.pucrio.opus.smells.resources.JavaFilesFinder;
@@ -23,7 +25,6 @@ import br.pucrio.opus.smells.resources.SourceFile;
 import br.pucrio.opus.smells.resources.SourceFilesLoader;
 import br.pucrio.opus.smells.resources.Type;
 import br.pucrio.opus.smells.util.ArgumentsIntepreter;
-import gson.ObservableExclusionStrategy;
 
 public class SmellDetector implements IApplication {
 	
@@ -69,6 +70,7 @@ public class SmellDetector implements IApplication {
 
 	@Override
 	public Object start(IApplicationContext context) throws Exception {
+		System.out.println(new Date());
 		ArgumentsIntepreter interpreter = new ArgumentsIntepreter(context);
 		List<String> sourcePaths = interpreter.getSourcePaths();
 		
@@ -80,10 +82,12 @@ public class SmellDetector implements IApplication {
 		
 		GsonBuilder builder = new GsonBuilder();
 		builder.addSerializationExclusionStrategy(new ObservableExclusionStrategy());
+		builder.serializeNulls();
 		
 		Gson gson = builder.create();
 		gson.toJson(allTypes, writer);
 		writer.close();
+		System.out.println(new Date());
 		return EXIT_OK;
 	}
 	

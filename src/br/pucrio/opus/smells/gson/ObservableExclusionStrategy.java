@@ -1,4 +1,4 @@
-package gson;
+package br.pucrio.opus.smells.gson;
 
 import java.util.Observable;
 
@@ -12,6 +12,6 @@ public class ObservableExclusionStrategy implements ExclusionStrategy {
 	}
 
 	public boolean shouldSkipField(FieldAttributes field) {
-		return field.getDeclaringClass().equals(Observable.class) && field.getName().equals("obs");
+		return field.getDeclaringClass().equals(Observable.class) && ( field.getName().equals("obs") || field.getName().equals("changed"));
 	}
 }

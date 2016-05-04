@@ -37,14 +37,30 @@ public class SourceFilesLoader {
 	}
 	
 	private void load(List<File> sourceFiles) throws IOException {
-		ASTBuilder builder = new ASTBuilder(loader.getSourcePaths());
+//		String[] files = new String[sourceFiles.size()];
+//		
+		String[] sourcePaths = loader.getSourcePaths();
+		ASTBuilder builder = new ASTBuilder(sourcePaths);
+//		ASTParser parser = builder.create();
+//		SourceFileASTRequestor requestor = new SourceFileASTRequestor();
+//		parser.createASTs(files, null, null,requestor, new ConsoleProgressMonitor());
+//		this.sourceFiles = requestor.getSourceFiles();
+		
+		System.out.println("Loading files...");
+		int total = sourceFiles.size();
+		int current = 0;
 		for (File file : sourceFiles) {
 			ASTParser parser = builder.create();
 			String source = FileUtils.readFileToString(file);
 			parser.setSource(source.toCharArray());
 			CompilationUnit compilationUnit = (CompilationUnit)parser.createAST(null);
 			this.sourceFiles.add(new SourceFile(file, compilationUnit));
+			current++;
+			if (current % 10 == 0) {
+				System.out.println(current + " of " + total);
+			}
 		}
+		System.out.println("All files loaded");
 	}
 	
 	public List<SourceFile> getLoadedSourceFiles() {
