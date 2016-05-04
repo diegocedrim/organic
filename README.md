@@ -107,7 +107,7 @@ After installing, you can run this plugin using the following command on the ter
 ECLIPSE_PATH="/path/to/eclipse/installation"
 EQUINOX="${ECLIPSE_PATH}/plugins/org.eclipse.equinox.launcher_1.3.100.v20150511-1540.jar org.eclipse.core.launcher.Main"
 SMELL_DETECTOR="smell-detector-plugin.SmellDetector"
-java -jar -XX:MaxPermSize=2560m -Xms40m -Xmx2500m ${EQUINOX} -application ${SMELL_DETECTOR} -output="smells.json" -src="/path/to/source/folder/" -src="/other/source/folder/
+java -jar -XX:MaxPermSize=2560m -Xms40m -Xmx2500m ${EQUINOX} -application ${SMELL_DETECTOR} -output="smells.json" -src="/path/to/source/folder/" -src="/other/source/folder/"
 ```
 
 Observations:
