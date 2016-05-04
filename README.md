@@ -1,6 +1,6 @@
 # code-smells-detector
 
-This project is a [Eclipse](http://www.eclipse.org) plugin that aims to collect [code smells](https://sourcemaking.com/refactoring/smells) from Java projects using only command line tools. The main objective of this project is to collect code smells with no user interaction. It does not provide user interface and this is not what we planned for this plugin. This plugin is directed to people who wants to run experiments by analyzing the existence of code smells in several projects.
+This project is an [Eclipse](http://www.eclipse.org) plugin that aims to collect [code smells](https://sourcemaking.com/refactoring/smells) from Java projects using only command line tools. The main objective of this project is to collect code smells with no user interaction. It does not provide user interface and this is not what we planned for this plugin. This plugin is directed to people who wants to run experiments by analyzing the existence of code smells in several projects.
 
 # No GUI? Why is this an Eclipse Plugin?
 
