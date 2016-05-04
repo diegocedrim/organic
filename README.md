@@ -101,7 +101,7 @@ This plugin was tested only on Eclipse Mars.
 
 # Running 
 
-After installing, you can run this plugin using the following command on the terminal you use. As the command can be big, we broke it down into the following bash script.
+After installing, you can run this plugin using the following command on the terminal you use. As the command can be big, we have broken it into the following bash script.
 
 ```bash
 ECLIPSE_PATH="/path/to/eclipse/installation"
@@ -112,6 +112,6 @@ java -jar -XX:MaxPermSize=2560m -Xms40m -Xmx2500m ${EQUINOX} -application ${SMEL
 
 Observations:
 - **ECLIPSE_PATH** represents the installation directory of the eclipse, i.e., where the eclipse binary file resides;
-- You can inform more than one source folder by using multiple -src entries, as indicated above;
+- You can inform more than one source folder by using multiple -src arguments, as indicated above;
 - Large projects can consume a considerable amount of memory, that's why we increase the JVM memory using the "-XX:MaxPermSize=2560m -Xms40m -Xmx2500m" arguments.
 - Depending on the version of your eclipse, the version of org.eclipse.equinox.launcher can change. Check on that inside your eclipse plugins folder. In our test, the correct equinox jar file name was org.eclipse.equinox.launcher_1.3.100.v20150511-1540.jar
