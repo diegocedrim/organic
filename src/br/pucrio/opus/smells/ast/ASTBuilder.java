@@ -36,8 +36,8 @@ public class ASTBuilder {
 		ASTParser parser = ASTParser.newParser(AST.JLS8);
 		parser.setCompilerOptions(this.options);
 		parser.setResolveBindings(true);
-		parser.setBindingsRecovery(false);
-		parser.setStatementsRecovery(false);
+		parser.setBindingsRecovery(true);
+		parser.setStatementsRecovery(true);
 		parser.setKind(ASTParser.K_COMPILATION_UNIT);
 		parser.setEnvironment(null, sourcePaths, this.encoding, true);
 		parser.setUnitName("any_name");

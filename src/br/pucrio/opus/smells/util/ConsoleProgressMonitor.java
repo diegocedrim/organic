@@ -1,19 +1,28 @@
 package br.pucrio.opus.smells.util;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.eclipse.core.runtime.IProgressMonitor;
 
 public class ConsoleProgressMonitor implements IProgressMonitor {
 
-	private int currentProgress = 0;
+	private float currentProgress = 0;
+	
+	private int totalWork;
+	
+	private Set<Integer> reportedProgresses;
 	
 	@Override
 	public void beginTask(String name, int totalWork) {
+		this.reportedProgresses = new HashSet<>();
+		this.totalWork = totalWork;
 		System.out.println("Starting: " + totalWork + " files");
 	}
 
 	@Override
 	public void done() {
-		System.out.println("Complete");
+		System.out.println("Loading files: Complete");
 	}
 
 	@Override
@@ -44,7 +53,12 @@ public class ConsoleProgressMonitor implements IProgressMonitor {
 	@Override
 	public void worked(int work) {
 		currentProgress += work;
-		System.out.println(currentProgress + " complete");
+		float percentage = (currentProgress / this.totalWork) * 100;
+		int bucket = (int)percentage;
+		if (bucket % 10 == 0 && !this.reportedProgresses.contains(bucket)) {
+			this.reportedProgresses.add(bucket);
+			System.out.println(percentage + "% complete");
+		}
 	}
 
 }
