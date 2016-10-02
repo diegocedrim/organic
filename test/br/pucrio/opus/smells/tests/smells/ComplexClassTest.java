@@ -31,7 +31,7 @@ public class ComplexClassTest {
 		List<Smell> smells = smellDetector.detect(type);
 		Smell smell = smells.get(0);
 		Assert.assertEquals(1, smells.size());
-		Assert.assertEquals(SmellName.ComplexClass.toString(), smell.getName());
+		Assert.assertEquals(SmellName.ComplexClass, smell.getName());
 	}
 	
 	@Test

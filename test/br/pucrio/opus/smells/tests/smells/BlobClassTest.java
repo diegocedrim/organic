@@ -35,7 +35,7 @@ public class BlobClassTest {
 		List<Smell> smells = smellDetector.detect(blobType);
 		Smell smell = smells.get(0);
 		Assert.assertEquals(1, smells.size());
-		Assert.assertEquals(SmellName.BlobClass.toString(), smell.getName());
+		Assert.assertEquals(SmellName.BlobClass, smell.getName());
 		
 		smells = smellDetector.detect(mlType);
 		Assert.assertEquals(0, smells.size());

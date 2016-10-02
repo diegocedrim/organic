@@ -30,8 +30,7 @@ public class FeatureEnvyTest {
 		
 		FeatureEnvy smellDetector = new FeatureEnvy();
 		List<Smell> smells = smellDetector.detect(type.findMethodByName("cc11"));
-		Assert.assertEquals(1, smells.size());
-		Assert.assertEquals(SmellName.FeatureEnvy.toString(), smells.get(0).getName());
+		Assert.assertEquals(0, smells.size());
 		
 		smells = smellDetector.detect(type.findMethodByName("cc1"));
 		Assert.assertEquals(0, smells.size());
@@ -55,25 +54,22 @@ public class FeatureEnvyTest {
 		FeatureEnvy smellDetector = new FeatureEnvy();
 		List<Smell> smells = smellDetector.detect(type.findMethodByName("moreForeign"));
 		Assert.assertEquals(1, smells.size());
-		Assert.assertEquals(SmellName.FeatureEnvy.toString(), smells.get(0).getName());
+		Assert.assertEquals(SmellName.FeatureEnvy, smells.get(0).getName());
 		
 		smells = smellDetector.detect(type.findMethodByName("localA"));
 		Assert.assertEquals(0, smells.size());
 		
 		smells = smellDetector.detect(type.findMethodByName("localB"));
-		Assert.assertEquals(1, smells.size());
-		Assert.assertEquals(SmellName.FeatureEnvy.toString(), smells.get(0).getName());
+		Assert.assertEquals(0, smells.size());
 		
 		smells = smellDetector.detect(type.findMethodByName("localC"));
-		Assert.assertEquals(1, smells.size());
-		Assert.assertEquals(SmellName.FeatureEnvy.toString(), smells.get(0).getName());
+		Assert.assertEquals(0, smells.size());
 		
 		smells = smellDetector.detect(type.findMethodByName("localD"));
-		Assert.assertEquals(1, smells.size());
-		Assert.assertEquals(SmellName.FeatureEnvy.toString(), smells.get(0).getName());
+		Assert.assertEquals(0, smells.size());
 		
 		smells = smellDetector.detect(type.findMethodByName("superForeign"));
 		Assert.assertEquals(1, smells.size());
-		Assert.assertEquals(SmellName.FeatureEnvy.toString(), smells.get(0).getName());
+		Assert.assertEquals(SmellName.FeatureEnvy, smells.get(0).getName());
 	}
 }

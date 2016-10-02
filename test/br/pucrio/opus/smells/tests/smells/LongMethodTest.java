@@ -31,7 +31,7 @@ public class LongMethodTest {
 		LongMethod smellDetector = new LongMethod();
 		List<Smell> smells = smellDetector.detect(type.findMethodByName("cc11"));
 		Assert.assertEquals(1, smells.size());
-		Assert.assertEquals(SmellName.LongMethod.toString(), smells.get(0).getName());
+		Assert.assertEquals(SmellName.LongMethod, smells.get(0).getName());
 		
 		smells = smellDetector.detect(type.findMethodByName("cc1"));
 		Assert.assertEquals(0, smells.size());

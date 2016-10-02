@@ -38,7 +38,7 @@ public class SpeculativeGeneralityTest {
 	}
 	
 	@Test
-	public void fieldDeclarationTest() throws Exception {
+	public void superDummyTest() throws Exception {
 		Type type = TypeLoader.loadOneWithMetrics(new File("test/br/pucrio/opus/smells/tests/dummy/SuperDummy.java"));
 		GenericCollector.collectTypeMetricValues(type);
 		SpeculativeGenerality smellDetector = new SpeculativeGenerality();
@@ -47,13 +47,13 @@ public class SpeculativeGeneralityTest {
 	}
 	
 	@Test
-	public void methodLocalityTest() throws Exception {
+	public void speculativeGeneralitySampleTest() throws Exception {
 		Type type = TypeLoader.loadOneWithMetrics(new File("test/br/pucrio/opus/smells/tests/dummy/SpeculativeGeneralitySample.java"));
 		GenericCollector.collectTypeMetricValues(type);
 		SpeculativeGenerality smellDetector = new SpeculativeGenerality();
 		List<Smell> smells = smellDetector.detect(type);
 		Smell smell = smells.get(0);
 		Assert.assertEquals(1, smells.size());
-		Assert.assertEquals(SmellName.SpeculativeGenerality.toString(), smell.getName());
+		Assert.assertEquals(SmellName.SpeculativeGenerality, smell.getName());
 	}
 }

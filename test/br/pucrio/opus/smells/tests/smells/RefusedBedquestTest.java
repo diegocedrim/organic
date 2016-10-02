@@ -41,6 +41,6 @@ public class RefusedBedquestTest {
 		List<Smell> smells = smellDetector.detect(type);
 		Smell smell = smells.get(0);
 		Assert.assertEquals(1, smells.size());
-		Assert.assertEquals(SmellName.RefusedBequest.toString(), smell.getName());
+		Assert.assertEquals(SmellName.RefusedBequest, smell.getName());
 	}
 }

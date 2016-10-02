@@ -39,7 +39,7 @@ public class ASTBuilder {
 		parser.setBindingsRecovery(true);
 		parser.setStatementsRecovery(true);
 		parser.setKind(ASTParser.K_COMPILATION_UNIT);
-		parser.setEnvironment(null, sourcePaths, this.encoding, true);
+		parser.setEnvironment(null, sourcePaths, this.encoding, false);
 		parser.setUnitName("any_name");
 		return parser;
 	}

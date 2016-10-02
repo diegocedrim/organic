@@ -6,7 +6,6 @@ public enum MetricName {
 	CC("CyclomaticComplexity"),
 	IsAbstract,
 	MaxCallChain,
-	LocalityRatio,
 	ParameterCount,
 	OverrideRatio,
 	PublicFieldCount,

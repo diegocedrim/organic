@@ -3,8 +3,12 @@ package br.pucrio.opus.smells.collector;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
-import br.pucrio.opus.smells.metrics.MetricName;
+import org.eclipse.jdt.core.dom.ITypeBinding;
+
+import br.pucrio.opus.smells.ast.visitors.ClassMethodInvocationVisitor;
+import br.pucrio.opus.smells.resources.Method;
 import br.pucrio.opus.smells.resources.Resource;
 
 /**
@@ -15,11 +19,23 @@ public class FeatureEnvy extends SmellDetector {
 	
 	@Override
 	public List<Smell> detect(Resource resource) {
-		Double localityRatio = resource.getMetricValue(MetricName.LocalityRatio);
-		if (localityRatio != null && localityRatio < 0.5) {
-			Smell smell = super.createSmell(resource);
-			return Arrays.asList(smell);
+		Method method = (Method)resource;
+		ITypeBinding declaringClass = method.getBinding().getDeclaringClass();
+
+		ClassMethodInvocationVisitor visitor = new ClassMethodInvocationVisitor(declaringClass);
+		method.getNode().accept(visitor);
+		Map<ITypeBinding, Integer> methodCalls = visitor.getMethodsCalls();
+
+		//checks if the method made more calls to another specific calss than its declaring class
+		Integer localCalls = methodCalls.get(declaringClass);
+		for (ITypeBinding type : methodCalls.keySet()) {
+			Integer calls = methodCalls.get(type);
+			if (localCalls == null || calls > localCalls) {
+				Smell smell = super.createSmell(resource);
+				return Arrays.asList(smell);
+			}
 		}
+		
 		return new ArrayList<>();
 	}
 	

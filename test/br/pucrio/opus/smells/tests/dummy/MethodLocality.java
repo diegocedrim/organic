@@ -4,6 +4,15 @@ public class MethodLocality {
 	
 	private String privado;
 	
+	private FieldAccessedByMethod foreign1;
+	
+	private RefusedBedquestSample foreign2;
+	
+	public MethodLocality() {
+		foreign1 = new FieldAccessedByMethod();
+		foreign2 = new RefusedBedquestSample();
+	}
+	
 	protected String getPrivado() {
 		return privado;
 	}
@@ -31,9 +40,24 @@ public class MethodLocality {
 		this.localB();
 		this.localC();
 		this.localD();
+		new String().toCharArray();
+		new String().toLowerCase();
+		Integer.bitCount(12);
+		new String().toCharArray();
+		new String().toLowerCase();
+		Integer.bitCount(12);
+		new String().toCharArray();
+		new String().toLowerCase();
+		Integer.bitCount(12);
 	}
 	
 	public void superForeign(int a) {
+		foreign1.a();
+		foreign1.b();
+		foreign1.c();
+		new String().toCharArray();
+		new String().toLowerCase();
+		Integer.bitCount(12);
 		new String().toCharArray();
 		new String().toLowerCase();
 		Integer.bitCount(12);
@@ -44,6 +68,9 @@ public class MethodLocality {
 		this.localB();
 		this.localC();
 		this.localD();
+		foreign1.a();
+		foreign1.b();
+		foreign2.b();
 		new String().toCharArray();
 		new String().toLowerCase();
 		Integer.bitCount(12);
@@ -55,5 +82,11 @@ public class MethodLocality {
 		new String().toCharArray();
 		new String().toLowerCase();
 		Integer.bitCount(12);
+		foreign1.a();
+		foreign1.b();
+		foreign1.b();
+		foreign1.b();
+		foreign1.b();
+		foreign2.b();
 	}
 }

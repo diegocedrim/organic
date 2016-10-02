@@ -52,6 +52,6 @@ public class LazyClassTest {
 		smells = smellDetector.detect(mlType);
 		Smell smell = smells.get(0);
 		Assert.assertEquals(1, smells.size());
-		Assert.assertEquals(SmellName.LazyClass.toString(), smell.getName());
+		Assert.assertEquals(SmellName.LazyClass, smell.getName());
 	}
 }

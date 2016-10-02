@@ -6,7 +6,7 @@ public class CC {
 	
 	public String publico;
 
-	public void cc1(String a, String b, String c) {
+	public void cc1(String a, String b, String c, String d) {
 		return;
 	}
 	

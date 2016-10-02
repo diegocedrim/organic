@@ -31,7 +31,7 @@ public class ClassDataShouldBePrivateTest {
 		List<Smell> smells = smellDetector.detect(type);
 		Smell smell = smells.get(0);
 		Assert.assertEquals(1, smells.size());
-		Assert.assertEquals(SmellName.ClassDataShouldBePrivate.toString(), smell.getName());
+		Assert.assertEquals(SmellName.ClassDataShouldBePrivate, smell.getName());
 	}
 	
 	@Test
@@ -42,7 +42,7 @@ public class ClassDataShouldBePrivateTest {
 		List<Smell> smells = smellDetector.detect(type);
 		Smell smell = smells.get(0);
 		Assert.assertEquals(1, smells.size());
-		Assert.assertEquals(SmellName.ClassDataShouldBePrivate.toString(), smell.getName());
+		Assert.assertEquals(SmellName.ClassDataShouldBePrivate, smell.getName());
 	}
 	
 	@Test

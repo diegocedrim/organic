@@ -31,7 +31,7 @@ public class LongParameterListTest {
 		LongParameterList smellDetector = new LongParameterList();
 		List<Smell> smells = smellDetector.detect(type.findMethodByName("cc1"));
 		Assert.assertEquals(1, smells.size());
-		Assert.assertEquals(SmellName.LongParameterList.toString(), smells.get(0).getName());
+		Assert.assertEquals(SmellName.LongParameterList, smells.get(0).getName());
 		
 		smells = smellDetector.detect(type.findMethodByName("cc11"));
 		Assert.assertEquals(0, smells.size());

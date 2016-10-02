@@ -45,7 +45,7 @@ public class MessageChainTest {
 		MessageChain smellDetector = new MessageChain();
 		List<Smell> smells = smellDetector.detect(type.findMethodByName("localD"));
 		Assert.assertEquals(1, smells.size());
-		Assert.assertEquals(SmellName.MessageChain.toString(), smells.get(0).getName());
+		Assert.assertEquals(SmellName.MessageChain, smells.get(0).getName());
 		
 		smells = smellDetector.detect(type.findMethodByName("localA"));
 		Assert.assertEquals(0, smells.size());
