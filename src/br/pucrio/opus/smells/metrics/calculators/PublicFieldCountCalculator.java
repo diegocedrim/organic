@@ -5,7 +5,7 @@ import org.eclipse.jdt.core.dom.ASTNode;
 import br.pucrio.opus.smells.ast.visitors.PublicFieldCount;
 import br.pucrio.opus.smells.metrics.MetricName;
 
-public class PublicFieldCalculator extends MetricValueCalculator {
+public class PublicFieldCountCalculator extends MetricValueCalculator {
 	
 	@Override
 	protected Double computeValue(ASTNode target) {

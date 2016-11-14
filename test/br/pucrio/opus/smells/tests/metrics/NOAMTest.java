@@ -8,36 +8,42 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import br.pucrio.opus.smells.ast.visitors.TypeDeclarationCollector;
-import br.pucrio.opus.smells.metrics.calculators.WeightedMethodCountCalculator;
+import br.pucrio.opus.smells.metrics.calculators.NOAMCalculator;
 import br.pucrio.opus.smells.tests.util.CompilationUnitLoader;
 
-public class WMCTest {
+public class NOAMTest {
 
-	private Double getWMC(String dummyClassName) throws IOException {
+	private Double getNOAM(String dummyClassName) throws IOException {
 		CompilationUnit unit = CompilationUnitLoader.getCompilationUnitDummyClass(dummyClassName);
 		TypeDeclarationCollector visitor = new TypeDeclarationCollector();
 		unit.accept(visitor);
 		
 		TypeDeclaration type = visitor.getNodesCollected().get(0);
-		WeightedMethodCountCalculator calculator = new WeightedMethodCountCalculator();
+		NOAMCalculator calculator = new NOAMCalculator();
 		return calculator.getValue(type);
 	}
 	
 	@Test
 	public void anonymousClassTest() throws IOException {
-		Double wmc = getWMC("AnonymousClass.java");
-		Assert.assertEquals(new Double(5), wmc);
+		Double noam = getNOAM("AnonymousClass.java");
+		Assert.assertEquals(new Double(0), noam);
 	}
 	
 	@Test
 	public void emptyClassTest() throws IOException {
-		Double wmc = getWMC("EmptyClass.java");
-		Assert.assertEquals(new Double(0), wmc);
+		Double noam = getNOAM("EmptyClass.java");
+		Assert.assertEquals(new Double(0), noam);
 	}
 	
 	@Test
 	public void ccTest() throws IOException {
-		Double wmc = getWMC("CC.java");
-		Assert.assertEquals(new Double(77), wmc);
+		Double noam = getNOAM("CC.java");
+		Assert.assertEquals(new Double(0), noam);
+	}
+	
+	@Test
+	public void assessorsTest() throws IOException {
+		Double noam = getNOAM("Assessors.java");
+		Assert.assertEquals(new Double(9), noam);
 	}
 }
