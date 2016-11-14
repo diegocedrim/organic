@@ -12,16 +12,18 @@ import br.pucrio.opus.smells.ast.visitors.DistinctMethodInvocationVisitor;
 import br.pucrio.opus.smells.metrics.MetricName;
 
 public class CouplingIntensityCalculator extends MetricValueCalculator {
-
+	
+	protected Map<ITypeBinding, Set<IMethodBinding>> methodCalls;
+	
 	@Override
 	protected Double computeValue(ASTNode target) {
-		Map<ITypeBinding, Set<IMethodBinding>> calls = getMethodCalls(target);
-		if (calls == null) {
+		this.methodCalls = getMethodCalls(target);
+		if (this.methodCalls == null) {
 			return null;
 		}
 		
 		Double cint = 0d;
-		for (Set<IMethodBinding> distinctCalls : calls.values() ) {
+		for (Set<IMethodBinding> distinctCalls : this.methodCalls.values() ) {
 			cint += distinctCalls.size();
 		}
 		return cint;
@@ -44,5 +46,5 @@ public class CouplingIntensityCalculator extends MetricValueCalculator {
 	public MetricName getMetricName() {
 		return MetricName.CINT;
 	}
-
+	
 }
