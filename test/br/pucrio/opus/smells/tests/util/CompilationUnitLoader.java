@@ -21,4 +21,9 @@ public class CompilationUnitLoader {
 		parser.setSource(source.toCharArray());
 		return (CompilationUnit)parser.createAST(null);
 	}
+	
+	public static CompilationUnit getCompilationUnitDummyClass(String name) throws IOException {
+		String path = "test/br/pucrio/opus/smells/tests/dummy/";
+		return getCompilationUnit(new File(path + name));
+	}
 }

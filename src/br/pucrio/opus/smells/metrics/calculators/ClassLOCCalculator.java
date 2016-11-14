@@ -5,7 +5,7 @@ import org.eclipse.jdt.core.dom.ASTNode;
 import br.pucrio.opus.smells.ast.visitors.LinesOfCodeVisitor;
 import br.pucrio.opus.smells.metrics.MetricName;
 
-public class ClassLOCCalculator  extends MetricValueCalculator {
+public class ClassLOCCalculator extends MetricValueCalculator {
 	
 	@Override
 	protected Double computeValue(ASTNode target) {

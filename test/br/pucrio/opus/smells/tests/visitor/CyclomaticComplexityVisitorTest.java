@@ -33,6 +33,7 @@ public class CyclomaticComplexityVisitorTest {
 			CyclomaticComplexityVisitor ccVisitor = new CyclomaticComplexityVisitor();
 			methods.get(i).accept(ccVisitor);
 			int cc = ccVisitor.getCyclomaticComplexity().intValue();
+			System.out.println(methods.get(i).getName() + " " + cc);
 			Assert.assertEquals(i + 1, cc);
 		}
 	}

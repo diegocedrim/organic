@@ -5,7 +5,7 @@ import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 
 /**
- * Searches for public methods in one TypeDeclaration. All type declarations
+ * Searches for methods in one TypeDeclaration. All type declarations
  * made inside this given type will be ignored. It means the if a class X has
  * a private class declared inside it,  only public methods of X would be
  * returned.

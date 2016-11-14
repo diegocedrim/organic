@@ -9,7 +9,8 @@ public enum MetricName {
 	ParameterCount,
 	OverrideRatio,
 	PublicFieldCount,
-	TCC("TightClassCohesion");
+	TCC("TightClassCohesion"),
+	MaxNesting;
 	
 	private String label;
 	
