@@ -2,7 +2,6 @@ package br.pucrio.opus.smells.metrics;
 
 import br.pucrio.opus.smells.metrics.calculators.ClassLOCCalculator;
 import br.pucrio.opus.smells.metrics.calculators.IsClassAbstract;
-import br.pucrio.opus.smells.metrics.calculators.MaxNestingCalculator;
 import br.pucrio.opus.smells.metrics.calculators.NOAMCalculator;
 import br.pucrio.opus.smells.metrics.calculators.OverrideRatioCalculator;
 import br.pucrio.opus.smells.metrics.calculators.PublicFieldCountCalculator;
@@ -18,7 +17,6 @@ public class TypeMetricValueCollector extends MetricValueCollector {
 		addCalculator(new ClassLOCCalculator());
 		addCalculator(new OverrideRatioCalculator());
 		addCalculator(new IsClassAbstract());
-		addCalculator(new MaxNestingCalculator());
 		addCalculator(new NOAMCalculator());
 		addCalculator(new WMCCalculator());
 		addCalculator(new WOCCalculator());

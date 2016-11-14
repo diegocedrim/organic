@@ -20,12 +20,12 @@ public class IntensiveCoupling extends SmellDetector {
 	public List<Smell> detect(Resource resource) {
 		Double cint = resource.getMetricValue(MetricName.CINT);
 		Double cdisp = resource.getMetricValue(MetricName.CDISP);
-		Double cc = resource.getMetricValue(MetricName.CC);
+		Double maxNesting = resource.getMetricValue(MetricName.MaxNesting);
 		
 		boolean callsManyDispersedInFew = cint > Thresholds.SHORT_MEMORY_CAP && cdisp < Thresholds.HALF;
 		boolean callsMoreThanFewInVeryFewClasses = cint > Thresholds.FEW && cdisp < Thresholds.ONE_QUARTER;
 		if (callsManyDispersedInFew || callsMoreThanFewInVeryFewClasses) {
-			if (cc > Thresholds.SHALLOW) {
+			if (maxNesting > Thresholds.SHALLOW) {
 				StringBuilder builder = new StringBuilder();
 				builder.append("CINT = " + cint);
 				builder.append("CDISP = " + cdisp);

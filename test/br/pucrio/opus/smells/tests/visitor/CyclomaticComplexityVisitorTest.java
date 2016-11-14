@@ -29,7 +29,7 @@ public class CyclomaticComplexityVisitorTest {
 		PublicMethodCollector collector = new PublicMethodCollector();
 		compilationUnit.accept(collector);
 		List<MethodDeclaration> methods = collector.getNodesCollected();
-		for (int i = 0; i < methods.size() - 1; i++) {
+		for (int i = 0; i <= 10; i++) {
 			CyclomaticComplexityVisitor ccVisitor = new CyclomaticComplexityVisitor();
 			methods.get(i).accept(ccVisitor);
 			int cc = ccVisitor.getCyclomaticComplexity().intValue();

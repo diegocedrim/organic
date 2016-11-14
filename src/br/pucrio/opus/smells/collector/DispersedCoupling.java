@@ -18,10 +18,10 @@ public class DispersedCoupling extends SmellDetector {
 	
 	@Override
 	public List<Smell> detect(Resource resource) {
-		Double methodCint = resource.getMetricValue(MetricName.CINT);
-		Double methodCdisp = resource.getMetricValue(MetricName.CDISP);
-		Double methodCC = resource.getMetricValue(MetricName.CC);
-		if (methodCint > Thresholds.SHORT_MEMORY_CAP && methodCdisp >= Thresholds.HALF && methodCC > Thresholds.SHALLOW) {
+		Double cint = resource.getMetricValue(MetricName.CINT);
+		Double cdisp = resource.getMetricValue(MetricName.CDISP);
+		Double maxNesting = resource.getMetricValue(MetricName.MaxNesting);
+		if (cint > Thresholds.SHORT_MEMORY_CAP && cdisp >= Thresholds.HALF && maxNesting > Thresholds.SHALLOW) {
 			StringBuilder builder = new StringBuilder();
 			builder.append("CINT > " + Thresholds.SHORT_MEMORY_CAP);
 			builder.append("CDISP > " + Thresholds.HALF);

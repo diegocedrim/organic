@@ -13,7 +13,7 @@ public class Coupling {
 		c.cc11();
 		c.cc12();
 	}
-	
+
 	public void lowCint() {
 		this.dummy1();
 		CC c = new CC();
@@ -21,7 +21,7 @@ public class Coupling {
 		Assessors a = new Assessors();
 		a.getA();
 	}
-	
+
 	public void cint1() {
 		CC c = new CC();
 		c.cc10();
@@ -33,7 +33,7 @@ public class Coupling {
 		c.cc10();
 		c.cc10();
 	}
-	
+
 	public void dispersed() {
 		CC c = new CC();
 		c.cc10();
@@ -46,9 +46,12 @@ public class Coupling {
 		new MiscStructures().b();
 		for (int i = 0; i < 2; i++) {
 			new Noav().threePlusOneExternal();
+			if (true) {
+
+			}
 		}
 	}
-	
+
 	public void intensive1() {
 		CC c = new CC();
 		c.cc10();
@@ -63,9 +66,12 @@ public class Coupling {
 		new MiscStructures().b();
 		for (int i = 0; i < 2; i++) {
 			new Noav().threePlusOneExternal();
+			if (true) {
+
+			}
 		}
 	}
-	
+
 	public void intensive2() {
 		CC c = new CC();
 		c.cc10();
@@ -74,14 +80,17 @@ public class Coupling {
 		c.cc1("", "", "", "");
 		for (int i = 0; i < 2; i++) {
 			c.cc9();
+			if (true) {
+
+			}
 		}
 	}
-	
+
 	public void dummy1() {
-		
+
 	}
-	
+
 	public void dummy2() {
-		
+
 	}
 }

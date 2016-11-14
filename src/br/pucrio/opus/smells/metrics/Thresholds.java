@@ -24,6 +24,8 @@ public class Thresholds {
 	
 	public static final Double SEVERAL = 5.0;
 	
+	public static final Double MANY = 6.0;
+	
 	public static final Double SHORT_MEMORY_CAP = 8.0;
 
 	public static Double getLowThreshold(MetricName metric) {

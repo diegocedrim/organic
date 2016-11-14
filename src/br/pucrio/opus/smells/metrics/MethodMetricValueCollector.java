@@ -7,6 +7,7 @@ import br.pucrio.opus.smells.metrics.calculators.CouplingDispersionCalculator;
 import br.pucrio.opus.smells.metrics.calculators.CouplingIntensityCalculator;
 import br.pucrio.opus.smells.metrics.calculators.CyclomaticComplexityCalculator;
 import br.pucrio.opus.smells.metrics.calculators.MaxCallChainCalculator;
+import br.pucrio.opus.smells.metrics.calculators.MaxNestingCalculator;
 import br.pucrio.opus.smells.metrics.calculators.MethodLOCCalculator;
 import br.pucrio.opus.smells.metrics.calculators.MethodParameterCountCalculator;
 import br.pucrio.opus.smells.metrics.calculators.NOAVCalculator;
@@ -22,6 +23,7 @@ public class MethodMetricValueCollector extends MetricValueCollector {
 		addCalculator(new CouplingIntensityCalculator());
 		addCalculator(new NOAVCalculator());
 		addCalculator(new ChangingClassesCalculator());
+		addCalculator(new MaxNestingCalculator());
 	}
 	
 	

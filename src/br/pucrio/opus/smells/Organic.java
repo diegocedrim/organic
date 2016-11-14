@@ -46,11 +46,13 @@ public class Organic implements IApplication {
 
 	private void detectSmells(List<Type> allTypes) {
 		for (Type type : allTypes) {
+			// It is important for some detectors that method-level smells are collected first
 			for (Method method: type.getMethods()) {
 				MethodLevelSmellDetector methodSmellDetector = new MethodLevelSmellDetector();
 				List<Smell> smells = methodSmellDetector.detect(method);
 				method.addAllSmells(smells);
 			}
+			// some class-level detectors use method-level smells in their algorithms
 			ClassLevelSmellDetector classSmellDetector = new ClassLevelSmellDetector();
 			List<Smell> smells = classSmellDetector.detect(type);
 			type.addAllSmells(smells);
