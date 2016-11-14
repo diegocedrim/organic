@@ -34,6 +34,21 @@ public class Coupling {
 		c.cc10();
 	}
 	
+	public void dispersed() {
+		CC c = new CC();
+		c.cc10();
+		c.cc11();
+		c.cc12();
+		dummy1();
+		dummy2();
+		new FieldDeclaration().getTest1();
+		new FieldDeclaration().getTest2();
+		new MiscStructures().b();
+		for (int i = 0; i < 2; i++) {
+			new Noav().threePlusOneExternal();
+		}
+	}
+	
 	public void dummy1() {
 		
 	}

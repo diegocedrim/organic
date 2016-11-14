@@ -18,6 +18,8 @@ public class AggregateMetricValues implements Observer {
 	private Map<MetricName, Double> avgCache;
 
 	private Map<MetricName, Double> firstQuartileCache;
+	
+	private Map<MetricName, Double> stdDevCache;
 
 	static {
 		singleton = new AggregateMetricValues();
@@ -31,6 +33,7 @@ public class AggregateMetricValues implements Observer {
 		this.aggregateValues = new HashMap<>();
 		this.avgCache = new HashMap<>();
 		this.firstQuartileCache = new HashMap<>();
+		this.stdDevCache = new HashMap<>();
 	}
 
 	private void register(MetricName metricName, Double value) {
@@ -41,6 +44,7 @@ public class AggregateMetricValues implements Observer {
 		}
 		this.avgCache.remove(metricName);
 		this.firstQuartileCache.remove(metricName);
+		this.stdDevCache.remove(metricName);
 		stats.addValue(value);
 	}
 
@@ -78,6 +82,24 @@ public class AggregateMetricValues implements Observer {
 		Double firstQuartile = stats.getPercentile(25);
 		this.avgCache.put(name, firstQuartile);
 		return firstQuartile;
+	}
+	
+	public Double getStandardDeviation(MetricName name) {
+		//check if the value is in the cache
+		if (this.stdDevCache.containsKey(name)) {
+			return this.stdDevCache.get(name);
+		}
+
+		//if no value was computed, return null
+		DescriptiveStatistics stats = this.aggregateValues.get(name);
+		if (stats == null) {
+			return null;
+		}
+
+		//stores in the cache and returns
+		Double standardDeviation = stats.getStandardDeviation();
+		this.stdDevCache.put(name, standardDeviation);
+		return standardDeviation;
 	}
 
 	public static AggregateMetricValues getInstance() {

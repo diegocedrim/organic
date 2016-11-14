@@ -11,5 +11,11 @@ public enum SmellName {
 	MessageChain,
 	RefusedBequest,
 	SpeculativeGenerality,
-	SpaghettiCode
+	SpaghettiCode,
+	DispersedCoupling,
+	IntensiveCoupling,
+	BrainClass,
+	ShotgunSurgery,
+	BrainMethod,
+	DataClass 
 }
