@@ -36,8 +36,6 @@ public class OverrideRatioCalculator extends MetricValueCalculator {
 
 			ITypeBinding superClass = typeBinding.getSuperclass();
 			if (superClass == null) {
-				//TODO logging
-//				System.out.println("Null superclass for " + target);
 				return null;
 			}
 			IMethodBinding[] superclassMethods = superClass.getDeclaredMethods();

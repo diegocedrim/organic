@@ -47,7 +47,7 @@ public class NOAMCalculator extends MetricValueCalculator {
 
 	@Override
 	public MetricName getMetricName() {
-		return MetricName.WMC;
+		return MetricName.NOAM;
 	}
 
 }

@@ -12,7 +12,9 @@ public enum MetricName {
 	TCC("TightClassCohesion"),
 	MaxNesting,
 	NOAV("NumberOfAccessedVariables"),
-	WMC("WeightedMethodCount");
+	NOAM("NumberOfAccessorMethods"),
+	WMC("WeightedMethodCount"),
+	WOC("WeighOfClass");
 	
 	private String label;
 	
