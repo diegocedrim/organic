@@ -30,7 +30,7 @@ public class SpeculativeGeneralityTest {
 	
 	@Test
 	public void ccTest() throws Exception {
-		Type type = TypeLoader.loadOneWithMetrics(new File("test/br/pucrio/opus/smells/tests/dummy/CC.java"));
+		Type type = TypeLoader.loadOne(new File("test/br/pucrio/opus/smells/tests/dummy/CC.java"));
 		GenericCollector.collectTypeMetricValues(type);
 		SpeculativeGenerality smellDetector = new SpeculativeGenerality();
 		List<Smell> smells = smellDetector.detect(type);
@@ -39,7 +39,7 @@ public class SpeculativeGeneralityTest {
 	
 	@Test
 	public void superDummyTest() throws Exception {
-		Type type = TypeLoader.loadOneWithMetrics(new File("test/br/pucrio/opus/smells/tests/dummy/SuperDummy.java"));
+		Type type = TypeLoader.loadOne(new File("test/br/pucrio/opus/smells/tests/dummy/SuperDummy.java"));
 		GenericCollector.collectTypeMetricValues(type);
 		SpeculativeGenerality smellDetector = new SpeculativeGenerality();
 		List<Smell> smells = smellDetector.detect(type);
@@ -48,7 +48,7 @@ public class SpeculativeGeneralityTest {
 	
 	@Test
 	public void speculativeGeneralitySampleTest() throws Exception {
-		Type type = TypeLoader.loadOneWithMetrics(new File("test/br/pucrio/opus/smells/tests/dummy/SpeculativeGeneralitySample.java"));
+		Type type = TypeLoader.loadOne(new File("test/br/pucrio/opus/smells/tests/dummy/SpeculativeGeneralitySample.java"));
 		GenericCollector.collectTypeMetricValues(type);
 		SpeculativeGenerality smellDetector = new SpeculativeGenerality();
 		List<Smell> smells = smellDetector.detect(type);

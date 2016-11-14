@@ -18,5 +18,10 @@ public class CyclomaticComplexityCalculator extends MetricValueCalculator {
 	public MetricName getMetricName() {
 		return MetricName.CC;
 	}
+	
+	@Override
+	public boolean shouldComputeAggregate() {
+		return true;
+	}
 
 }

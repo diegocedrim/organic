@@ -18,10 +18,10 @@ public class AggregateTest {
 		AggregateMetricValues aggr = AggregateMetricValues.getInstance();
 		aggr.reset();
 		
-		Type type = TypeLoader.loadOneWithMetrics(new File("test/br/pucrio/opus/smells/tests/dummy/CC.java"));
+		Type type = TypeLoader.loadOne(new File("test/br/pucrio/opus/smells/tests/dummy/CC.java"));
 		GenericCollector.collectTypeAndMethodsMetricValues(type);
 		
-		type = TypeLoader.loadOneWithMetrics(new File("test/br/pucrio/opus/smells/tests/dummy/MethodLocality.java"));
+		type = TypeLoader.loadOne(new File("test/br/pucrio/opus/smells/tests/dummy/MethodLocality.java"));
 		GenericCollector.collectTypeAndMethodsMetricValues(type);
 		
 		Assert.assertEquals(new Double(195.0), aggr.getAverageValue(MetricName.CLOC));

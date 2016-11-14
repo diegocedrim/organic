@@ -8,7 +8,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import br.pucrio.opus.smells.ast.visitors.TypeDeclarationCollector;
-import br.pucrio.opus.smells.metrics.calculators.WeightedMethodCountCalculator;
+import br.pucrio.opus.smells.metrics.calculators.WMCCalculator;
 import br.pucrio.opus.smells.tests.util.CompilationUnitLoader;
 
 public class WMCTest {
@@ -19,7 +19,7 @@ public class WMCTest {
 		unit.accept(visitor);
 		
 		TypeDeclaration type = visitor.getNodesCollected().get(0);
-		WeightedMethodCountCalculator calculator = new WeightedMethodCountCalculator();
+		WMCCalculator calculator = new WMCCalculator();
 		return calculator.getValue(type);
 	}
 	

@@ -47,4 +47,9 @@ public class CouplingIntensityCalculator extends MetricValueCalculator {
 		return MetricName.CINT;
 	}
 	
+	@Override
+	public boolean shouldComputeAggregate() {
+		return true;
+	}
+	
 }

@@ -15,7 +15,7 @@ public class WOCCalculator extends MetricValueCalculator {
 	@Override
 	protected Double computeValue(ASTNode target) {
 		NOAMCalculator noamCalculator = new NOAMCalculator();
-		Double noam = noamCalculator.getValue(target);
+		Double noam = noamCalculator.computeValue(target);
 		Double publicMethods = getPublicMethodsCount(target).doubleValue();
 		if (publicMethods == 0) {
 			return 0d;

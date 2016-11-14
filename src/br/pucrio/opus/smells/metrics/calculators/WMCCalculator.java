@@ -14,7 +14,7 @@ import br.pucrio.opus.smells.metrics.MetricName;
  * as the sum of Cyclomatic Complexity of all methods declared in the given class
  * @author Diego Cedrim
  */
-public class WeightedMethodCountCalculator extends MetricValueCalculator {
+public class WMCCalculator extends MetricValueCalculator {
 
 	@Override
 	protected Double computeValue(ASTNode target) {
@@ -39,6 +39,11 @@ public class WeightedMethodCountCalculator extends MetricValueCalculator {
 	@Override
 	public MetricName getMetricName() {
 		return MetricName.WMC;
+	}
+	
+	@Override
+	public boolean shouldComputeAggregate() {
+		return true;
 	}
 
 }

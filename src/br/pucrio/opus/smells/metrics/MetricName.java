@@ -16,7 +16,8 @@ public enum MetricName {
 	WMC("WeightedMethodCount"),
 	WOC("WeighOfClass"),
 	CINT("CouplingIntensity"),
-	CDISP("CouplingDispersion");
+	CDISP("CouplingDispersion"),
+	ChangingClasses("ChangingClasses");
 	
 	private String label;
 	

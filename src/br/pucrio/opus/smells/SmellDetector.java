@@ -27,34 +27,23 @@ import br.pucrio.opus.smells.resources.Type;
 import br.pucrio.opus.smells.util.ArgumentsIntepreter;
 
 public class SmellDetector implements IApplication {
-	
+
 	private void collectMethodMetrics(Type type) {
 		for (Method method: type.getMethods()) {
 			MethodMetricValueCollector methodCollector = new MethodMetricValueCollector(type.getNodeAsTypeDeclaration());
 			methodCollector.collect(method);
 		}
 	}
-	
-	private List<Type> collectTypeMetrics(List<String> sourcePaths) throws IOException {
-		List<Type> allTypes = new ArrayList<>();
-		
-		JavaFilesFinder sourceLoader = new JavaFilesFinder(sourcePaths);
-		SourceFilesLoader compUnitLoader = new SourceFilesLoader(sourceLoader);
-		List<SourceFile> sourceFiles = compUnitLoader.getLoadedSourceFiles();
-		for (SourceFile sourceFile : sourceFiles) {
-			for (Type type : sourceFile.getTypes()) {
-				allTypes.add(type);
-				
-				TypeMetricValueCollector typeCollector = new TypeMetricValueCollector();
-				typeCollector.collect(type);
-				System.out.println("Calculating metric values for " + sourceFile.getFile().getName());
-				this.collectMethodMetrics(type);
-			}
+
+	private void collectTypeMetrics(List<Type> types) throws IOException {
+		for (Type type : types) {
+			TypeMetricValueCollector typeCollector = new TypeMetricValueCollector();
+			typeCollector.collect(type);
+			System.out.println("Calculating metric values for " + type.getSourceFile().getFile().getName());
+			this.collectMethodMetrics(type);
 		}
-		
-		return allTypes;
 	}
-	
+
 	private void detectSmells(List<Type> allTypes) {
 		for (Type type : allTypes) {
 			for (Method method: type.getMethods()) {
@@ -68,29 +57,44 @@ public class SmellDetector implements IApplication {
 		}
 	}
 
+	private List<Type> loadAllTypes(List<String> sourcePaths) throws IOException {
+		List<Type> allTypes = new ArrayList<>();
+		JavaFilesFinder sourceLoader = new JavaFilesFinder(sourcePaths);
+		SourceFilesLoader compUnitLoader = new SourceFilesLoader(sourceLoader);
+		List<SourceFile> sourceFiles = compUnitLoader.getLoadedSourceFiles();
+		for (SourceFile sourceFile : sourceFiles) {
+			for (Type type : sourceFile.getTypes()) {
+				allTypes.add(type);
+				System.out.println("Loading " + sourceFile.getFile().getName());
+			}
+		}
+		return allTypes;
+	}
+
 	@Override
 	public Object start(IApplicationContext context) throws Exception {
 		System.out.println(new Date());
 		ArgumentsIntepreter interpreter = new ArgumentsIntepreter(context);
 		List<String> sourcePaths = interpreter.getSourcePaths();
-		
-		List<Type> allTypes = this.collectTypeMetrics(sourcePaths);
+
+		List<Type> allTypes = this.loadAllTypes(sourcePaths);
+		this.collectTypeMetrics(allTypes);
 		this.detectSmells(allTypes);
-		
+
 		BufferedWriter writer = new BufferedWriter(new FileWriter(interpreter.getOutputFile()));
 		System.out.println("Serializing...");
-		
+
 		GsonBuilder builder = new GsonBuilder();
 		builder.addSerializationExclusionStrategy(new ObservableExclusionStrategy());
 		builder.serializeNulls();
-		
+
 		Gson gson = builder.create();
 		gson.toJson(allTypes, writer);
 		writer.close();
 		System.out.println(new Date());
 		return EXIT_OK;
 	}
-	
+
 	@Override
 	public void stop() {
 

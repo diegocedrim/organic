@@ -25,7 +25,7 @@ public class LongMethodTest {
 
 	@Test
 	public void ccTest() throws Exception {
-		Type type = TypeLoader.loadOneWithMetrics(new File("test/br/pucrio/opus/smells/tests/dummy/CC.java"));
+		Type type = TypeLoader.loadOne(new File("test/br/pucrio/opus/smells/tests/dummy/CC.java"));
 		GenericCollector.collectTypeAndMethodsMetricValues(type);
 		
 		LongMethod smellDetector = new LongMethod();
@@ -39,7 +39,7 @@ public class LongMethodTest {
 	
 	@Test
 	public void fieldDeclarationTest() throws Exception {
-		Type type = TypeLoader.loadOneWithMetrics(new File("test/br/pucrio/opus/smells/tests/dummy/FieldDeclaration.java"));
+		Type type = TypeLoader.loadOne(new File("test/br/pucrio/opus/smells/tests/dummy/FieldDeclaration.java"));
 		GenericCollector.collectTypeAndMethodsMetricValues(type);
 		
 		LongMethod smellDetector = new LongMethod();

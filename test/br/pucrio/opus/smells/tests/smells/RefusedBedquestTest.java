@@ -17,7 +17,7 @@ public class RefusedBedquestTest {
 	
 	@Test
 	public void ccTest() throws Exception {
-		Type type = TypeLoader.loadOneWithMetrics(new File("test/br/pucrio/opus/smells/tests/dummy/CC.java"));
+		Type type = TypeLoader.loadOne(new File("test/br/pucrio/opus/smells/tests/dummy/CC.java"));
 		GenericCollector.collectTypeMetricValues(type);
 		RefusedBequest smellDetector = new RefusedBequest();
 		List<Smell> smells = smellDetector.detect(type);
@@ -26,7 +26,7 @@ public class RefusedBedquestTest {
 	
 	@Test
 	public void fieldDeclarationTest() throws Exception {
-		Type type = TypeLoader.loadOneWithMetrics(new File("test/br/pucrio/opus/smells/tests/dummy/FieldAccessedByMethod.java"));
+		Type type = TypeLoader.loadOne(new File("test/br/pucrio/opus/smells/tests/dummy/FieldAccessedByMethod.java"));
 		GenericCollector.collectTypeMetricValues(type);
 		RefusedBequest smellDetector = new RefusedBequest();
 		List<Smell> smells = smellDetector.detect(type);
@@ -35,7 +35,7 @@ public class RefusedBedquestTest {
 	
 	@Test
 	public void methodLocalityTest() throws Exception {
-		Type type = TypeLoader.loadOneWithMetrics(new File("test/br/pucrio/opus/smells/tests/dummy/RefusedBedquestSample.java"));
+		Type type = TypeLoader.loadOne(new File("test/br/pucrio/opus/smells/tests/dummy/RefusedBedquestSample.java"));
 		GenericCollector.collectTypeMetricValues(type);
 		RefusedBequest smellDetector = new RefusedBequest();
 		List<Smell> smells = smellDetector.detect(type);

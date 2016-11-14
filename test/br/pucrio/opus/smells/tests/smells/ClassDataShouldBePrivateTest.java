@@ -25,7 +25,7 @@ public class ClassDataShouldBePrivateTest {
 
 	@Test
 	public void ccTest() throws Exception {
-		Type type = TypeLoader.loadOneWithMetrics(new File("test/br/pucrio/opus/smells/tests/dummy/CC.java"));
+		Type type = TypeLoader.loadOne(new File("test/br/pucrio/opus/smells/tests/dummy/CC.java"));
 		GenericCollector.collectTypeMetricValues(type);
 		ClassDataShouldBePrivate smellDetector = new ClassDataShouldBePrivate();
 		List<Smell> smells = smellDetector.detect(type);
@@ -36,7 +36,7 @@ public class ClassDataShouldBePrivateTest {
 	
 	@Test
 	public void fieldDeclarationTest() throws Exception {
-		Type type = TypeLoader.loadOneWithMetrics(new File("test/br/pucrio/opus/smells/tests/dummy/FieldDeclaration.java"));
+		Type type = TypeLoader.loadOne(new File("test/br/pucrio/opus/smells/tests/dummy/FieldDeclaration.java"));
 		GenericCollector.collectTypeMetricValues(type);
 		ClassDataShouldBePrivate smellDetector = new ClassDataShouldBePrivate();
 		List<Smell> smells = smellDetector.detect(type);
@@ -47,7 +47,7 @@ public class ClassDataShouldBePrivateTest {
 	
 	@Test
 	public void methodLocalityTest() throws Exception {
-		Type type = TypeLoader.loadOneWithMetrics(new File("test/br/pucrio/opus/smells/tests/dummy/MethodLocality.java"));
+		Type type = TypeLoader.loadOne(new File("test/br/pucrio/opus/smells/tests/dummy/MethodLocality.java"));
 		GenericCollector.collectTypeMetricValues(type);
 		ClassDataShouldBePrivate smellDetector = new ClassDataShouldBePrivate();
 		List<Smell> smells = smellDetector.detect(type);

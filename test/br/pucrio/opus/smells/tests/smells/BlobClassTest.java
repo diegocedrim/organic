@@ -25,10 +25,10 @@ public class BlobClassTest {
 
 	@Test
 	public void ccTest() throws Exception {
-		Type blobType = TypeLoader.loadOneWithMetrics(new File("test/br/pucrio/opus/smells/tests/dummy/BlobClassSample.java"));
+		Type blobType = TypeLoader.loadOne(new File("test/br/pucrio/opus/smells/tests/dummy/BlobClassSample.java"));
 		GenericCollector.collectTypeAndMethodsMetricValues(blobType);
 		
-		Type mlType = TypeLoader.loadOneWithMetrics(new File("test/br/pucrio/opus/smells/tests/dummy/MethodLocality.java"));
+		Type mlType = TypeLoader.loadOne(new File("test/br/pucrio/opus/smells/tests/dummy/MethodLocality.java"));
 		GenericCollector.collectTypeAndMethodsMetricValues(mlType);
 		
 		BlobClass smellDetector = new BlobClass();

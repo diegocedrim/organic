@@ -24,7 +24,7 @@ public class LazyClassTest {
 	}
 	
 	private void loadMetrics(String clazz) throws Exception {
-		Type type = TypeLoader.loadOneWithMetrics(new File(clazz));
+		Type type = TypeLoader.loadOne(new File(clazz));
 		GenericCollector.collectTypeAndMethodsMetricValues(type);
 	}
 
@@ -38,10 +38,10 @@ public class LazyClassTest {
 		loadMetrics("test/br/pucrio/opus/smells/tests/dummy/MethodLocality.java");
 		loadMetrics("test/br/pucrio/opus/smells/tests/dummy/MiscStructures.java");
 		
-		Type blobType = TypeLoader.loadOneWithMetrics(new File("test/br/pucrio/opus/smells/tests/dummy/BlobClassSample.java"));
+		Type blobType = TypeLoader.loadOne(new File("test/br/pucrio/opus/smells/tests/dummy/BlobClassSample.java"));
 		GenericCollector.collectTypeAndMethodsMetricValues(blobType);
 		
-		Type mlType = TypeLoader.loadOneWithMetrics(new File("test/br/pucrio/opus/smells/tests/dummy/SuperDummy.java"));
+		Type mlType = TypeLoader.loadOne(new File("test/br/pucrio/opus/smells/tests/dummy/SuperDummy.java"));
 		GenericCollector.collectTypeAndMethodsMetricValues(mlType);
 		
 		LazyClass smellDetector = new LazyClass();

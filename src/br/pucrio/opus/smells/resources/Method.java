@@ -8,6 +8,9 @@ import org.eclipse.jdt.core.dom.IMethodBinding;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.SingleVariableDeclaration;
 
+import br.pucrio.opus.smells.ast.visitors.MethodInvocationVisitor;
+import br.pucrio.opus.smells.graph.CallGraph;
+
 public class Method extends Resource {
 	
 	private List<String> parametersTypes;
@@ -18,8 +21,33 @@ public class Method extends Resource {
 		return binding;
 	}
 
+	/**
+	 * Every time a new method is declared, it must be
+	 * registered in the call Graph
+	 */
+	private void registerOnCallGraph(MethodDeclaration node) {
+		CallGraph graph = CallGraph.getInstance();
+		IMethodBinding thisBinding = this.getBinding();
+		if (thisBinding == null) {
+			//TODO LOG!
+			return;
+		}
+		
+		/*
+		 * Retrieves the list of method calls made by the new
+		 * declared method
+		 */
+		MethodInvocationVisitor invocationVisitor = new MethodInvocationVisitor();
+		node.accept(invocationVisitor);
+		for (IMethodBinding methodBinding : invocationVisitor.getCalls()) {
+			graph.addMethodCall(thisBinding, methodBinding);
+		}
+		
+	}
+	
 	public Method(SourceFile sourceFile, MethodDeclaration node) {
 		super(sourceFile, node);
+		this.registerOnCallGraph(node);
 		
 		this.parametersTypes = new ArrayList<>();
 		for(Object obj : node.parameters()) {

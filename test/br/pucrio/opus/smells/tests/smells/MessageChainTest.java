@@ -25,7 +25,7 @@ public class MessageChainTest {
 
 	@Test
 	public void ccTest() throws Exception {
-		Type type = TypeLoader.loadOneWithMetrics(new File("test/br/pucrio/opus/smells/tests/dummy/CC.java"));
+		Type type = TypeLoader.loadOne(new File("test/br/pucrio/opus/smells/tests/dummy/CC.java"));
 		GenericCollector.collectTypeAndMethodsMetricValues(type);
 		
 		MessageChain smellDetector = new MessageChain();
@@ -39,7 +39,7 @@ public class MessageChainTest {
 	
 	@Test
 	public void methodLocalityTest() throws Exception {
-		Type type = TypeLoader.loadOneWithMetrics(new File("test/br/pucrio/opus/smells/tests/dummy/MethodLocality.java"));
+		Type type = TypeLoader.loadOne(new File("test/br/pucrio/opus/smells/tests/dummy/MethodLocality.java"));
 		GenericCollector.collectTypeAndMethodsMetricValues(type);
 		
 		MessageChain smellDetector = new MessageChain();
