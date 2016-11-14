@@ -3,14 +3,14 @@
 <plugin>
    
    <extension
-         id="SmellDetector"
+         id="Organic"
          point="org.eclipse.core.runtime.applications">
       <application
             cardinality="singleton-global"
             thread="main"
             visible="true">
          <run
-               class="br.pucrio.opus.smells.SmellDetector">
+               class="br.pucrio.opus.smells.Organic">
          </run>
       </application>
    </extension>

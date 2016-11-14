@@ -3,6 +3,8 @@ package br.pucrio.opus.smells.resources;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.eclipse.jdt.core.dom.ITypeBinding;
+
 public class ParenthoodRegistry {
 	
 	private static ParenthoodRegistry singleton;
@@ -24,7 +26,19 @@ public class ParenthoodRegistry {
 		return singleton;
 	}
 	
-	private void incrementChildCount(String fqn) {
+	private String getQualifiedName(ITypeBinding superclass) {
+		String fqn = superclass.getQualifiedName();
+		if (fqn.contains("<")) {
+			fqn = fqn.substring(0, fqn.indexOf("<"));
+		}
+		return fqn;
+	}
+	
+	private void incrementChildCount(ITypeBinding superclass) {
+		if (superclass == null) {
+			return;
+		}
+		String fqn = this.getQualifiedName(superclass);
 		Integer count = this.parenthoodMap.get(fqn);
 		if (count == null) {
 			count = 0;
@@ -38,7 +52,7 @@ public class ParenthoodRegistry {
 	 * @param child the child
 	 */
 	public void registerChild(Type child) {
-		incrementChildCount(child.getSuperclassFQN());
+		incrementChildCount(child.resolveSuperclassBinding());
 	}
 	
 	public void reset() {
@@ -46,8 +60,12 @@ public class ParenthoodRegistry {
 	}
 	
 	public Integer getChildrenCount(Type type) {
-		String superclassFqn = type.getFullyQualifiedName();
-		Integer count = this.parenthoodMap.get(superclassFqn);
+		ITypeBinding binding = type.getNodeAsTypeDeclaration().resolveBinding();
+		if (binding == null) {
+			return 0;
+		}
+		String fqn = this.getQualifiedName(binding);
+		Integer count = this.parenthoodMap.get(fqn);
 		if (count != null) {
 			return count;
 		}

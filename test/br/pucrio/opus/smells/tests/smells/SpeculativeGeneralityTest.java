@@ -27,7 +27,6 @@ public class SpeculativeGeneralityTest {
 		new SourceFilesLoader(sourceLoader).getLoadedSourceFiles();
 	}
 	
-	
 	@Test
 	public void ccTest() throws Exception {
 		Type type = TypeLoader.loadOne(new File("test/br/pucrio/opus/smells/tests/dummy/CC.java"));

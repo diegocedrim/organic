@@ -26,8 +26,20 @@ public abstract class Resource extends Observable {
 	
 	private transient ASTNode node;
 	
+	public Resource(SourceFile sourceFile, ASTNode node) {
+		this.metricsValues = new HashMap<>();
+		this.sourceFile = sourceFile;
+		this.node = node;
+		this.smells = new ArrayList<>();
+	}
+	
+	
 	public ASTNode getNode() {
 		return node;
+	}
+	
+	public boolean isSmelly() {
+		return this.smells != null && !this.smells.isEmpty();
 	}
 	
 	/**
@@ -42,13 +54,6 @@ public abstract class Resource extends Observable {
 	public int getEndLineNumber() {
 		CompilationUnit compUnit = sourceFile.getCompilationUnit();
 		return compUnit.getLineNumber(node.getStartPosition() + node.getLength());
-	}
-
-	public Resource(SourceFile sourceFile, ASTNode node) {
-		this.metricsValues = new HashMap<>();
-		this.sourceFile = sourceFile;
-		this.node = node;
-		this.smells = new ArrayList<>();
 	}
 	
 	public void addSmell(Smell smell) {

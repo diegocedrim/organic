@@ -33,6 +33,15 @@ public class Type extends Resource {
 		return null;
 	}
 	
+	public ITypeBinding resolveSuperclassBinding() {
+		ITypeBinding binding = this.getNodeAsTypeDeclaration().resolveBinding();
+		if (binding != null) {
+			ITypeBinding superclass = binding.getSuperclass();
+			return superclass;
+		}
+		return null;
+	}
+	
 	public Type(SourceFile sourceFile, TypeDeclaration typeDeclaration) {
 		super(sourceFile, typeDeclaration);
 		
@@ -68,6 +77,21 @@ public class Type extends Resource {
 			}
 		}
 		return null;
+	}
+	
+	@Override
+	public boolean isSmelly() {
+		if (super.isSmelly()) {
+			return true;
+		}
+		
+		for (Method method : this.methods) {
+			if (method.isSmelly()) {
+				return true;
+			}
+		}
+		
+		return false;
 	}
 	
 	public List<Method> getMethods() {

@@ -26,7 +26,7 @@ import br.pucrio.opus.smells.resources.SourceFilesLoader;
 import br.pucrio.opus.smells.resources.Type;
 import br.pucrio.opus.smells.util.ArgumentsIntepreter;
 
-public class SmellDetector implements IApplication {
+public class Organic implements IApplication {
 
 	private void collectMethodMetrics(Type type) {
 		for (Method method: type.getMethods()) {
@@ -70,6 +70,16 @@ public class SmellDetector implements IApplication {
 		}
 		return allTypes;
 	}
+	
+	private List<Type> onlySmelly(List<Type> types) {
+		List<Type> smelly = new ArrayList<>();
+		for (Type type : types) {
+			if (type.isSmelly()) {
+				smelly.add(type);
+			}
+		}
+		return smelly;
+	}
 
 	@Override
 	public Object start(IApplicationContext context) throws Exception {
@@ -89,7 +99,7 @@ public class SmellDetector implements IApplication {
 		builder.serializeNulls();
 
 		Gson gson = builder.create();
-		gson.toJson(allTypes, writer);
+		gson.toJson(this.onlySmelly(allTypes), writer);
 		writer.close();
 		System.out.println(new Date());
 		return EXIT_OK;
