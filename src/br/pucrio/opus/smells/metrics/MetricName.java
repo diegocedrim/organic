@@ -11,7 +11,8 @@ public enum MetricName {
 	PublicFieldCount,
 	TCC("TightClassCohesion"),
 	MaxNesting,
-	NOAV("NumberOfAccessedVariables");
+	NOAV("NumberOfAccessedVariables"),
+	WMC("WeightedMethodCount");
 	
 	private String label;
 	
