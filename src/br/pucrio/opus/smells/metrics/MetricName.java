@@ -14,7 +14,9 @@ public enum MetricName {
 	NOAV("NumberOfAccessedVariables"),
 	NOAM("NumberOfAccessorMethods"),
 	WMC("WeightedMethodCount"),
-	WOC("WeighOfClass");
+	WOC("WeighOfClass"),
+	CINT("CouplingIntensity"),
+	CDISP("CouplingDispersion");
 	
 	private String label;
 	
