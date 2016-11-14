@@ -10,7 +10,7 @@ import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.FieldDeclaration;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 
-import br.pucrio.opus.smells.ast.visitors.FieldAccessCollector;
+import br.pucrio.opus.smells.ast.visitors.LocalFieldAccessCollector;
 import br.pucrio.opus.smells.ast.visitors.FieldDeclarationCollector;
 import br.pucrio.opus.smells.ast.visitors.PublicMethodCollector;
 import br.pucrio.opus.smells.metrics.MetricName;
@@ -43,7 +43,7 @@ public class TCCMetricValueCalculator extends MetricValueCalculator {
 	}
 	
 	private Set<FieldDeclaration> getAccessedFields(MethodDeclaration method) {
-		FieldAccessCollector collector = new FieldAccessCollector(classFields);
+		LocalFieldAccessCollector collector = new LocalFieldAccessCollector(classFields);
 		method.accept(collector);
 		Set<FieldDeclaration> fieldSet = new HashSet<>();
 		fieldSet.addAll(collector.getNodesCollected());

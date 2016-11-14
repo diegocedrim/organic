@@ -17,6 +17,10 @@ public abstract class CollectorVisitor<T> extends ASTVisitor {
 		this.nodesCollected.add(node);
 	}
 	
+	protected boolean wasAlreadyCollected(T node) {
+		return this.nodesCollected.contains(node);
+	}
+	
 	public List<T> getNodesCollected() {
 		return nodesCollected;
 	}

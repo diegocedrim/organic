@@ -11,7 +11,7 @@ import org.eclipse.jdt.core.dom.IMethodBinding;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 
-import br.pucrio.opus.smells.ast.visitors.FieldAccessCollector;
+import br.pucrio.opus.smells.ast.visitors.LocalFieldAccessCollector;
 import br.pucrio.opus.smells.ast.visitors.FieldDeclarationCollector;
 import br.pucrio.opus.smells.ast.visitors.LocalMethodCallVisitor;
 import br.pucrio.opus.smells.resources.Method;
@@ -84,7 +84,7 @@ public class SpaghettiCode extends SmellDetector {
 			localElements.addAll(localMethodCalls);
 			
 			//collects all accesses to local fields
-			FieldAccessCollector fieldAccessCollector = new FieldAccessCollector(fields);
+			LocalFieldAccessCollector fieldAccessCollector = new LocalFieldAccessCollector(fields);
 			method.getNode().accept(fieldAccessCollector);
 			localElements.addAll(fieldAccessCollector.getNodesCollected());
 			

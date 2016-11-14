@@ -11,7 +11,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import br.pucrio.opus.smells.ast.visitors.FieldAccessCollector;
+import br.pucrio.opus.smells.ast.visitors.LocalFieldAccessCollector;
 import br.pucrio.opus.smells.ast.visitors.FieldDeclarationCollector;
 import br.pucrio.opus.smells.ast.visitors.PublicMethodCollector;
 import br.pucrio.opus.smells.tests.util.CompilationUnitLoader;
@@ -50,7 +50,7 @@ public class FieldAccessCollectorTest {
 	@Test
 	public void methodXFieldAccessesTest() {
 		MethodDeclaration declaration = findMethodByName("x");
-		FieldAccessCollector visitor = new FieldAccessCollector(this.fields);
+		LocalFieldAccessCollector visitor = new LocalFieldAccessCollector(this.fields);
 		declaration.accept(visitor);
 		List<FieldDeclaration> accesses = visitor.getNodesCollected();
 		Assert.assertEquals(3, accesses.size());
@@ -59,7 +59,7 @@ public class FieldAccessCollectorTest {
 	@Test
 	public void methodYFieldAccessesTest() {
 		MethodDeclaration declaration = findMethodByName("y");
-		FieldAccessCollector visitor = new FieldAccessCollector(this.fields);
+		LocalFieldAccessCollector visitor = new LocalFieldAccessCollector(this.fields);
 		declaration.accept(visitor);
 		List<FieldDeclaration> accesses = visitor.getNodesCollected();
 		Assert.assertEquals(1, accesses.size());
@@ -68,7 +68,7 @@ public class FieldAccessCollectorTest {
 	@Test
 	public void methodZFieldAccessesTest() {
 		MethodDeclaration declaration = findMethodByName("z");
-		FieldAccessCollector visitor = new FieldAccessCollector(this.fields);
+		LocalFieldAccessCollector visitor = new LocalFieldAccessCollector(this.fields);
 		declaration.accept(visitor);
 		List<FieldDeclaration> accesses = visitor.getNodesCollected();
 		Assert.assertEquals(2, accesses.size());

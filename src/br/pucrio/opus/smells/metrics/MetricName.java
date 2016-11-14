@@ -10,7 +10,8 @@ public enum MetricName {
 	OverrideRatio,
 	PublicFieldCount,
 	TCC("TightClassCohesion"),
-	MaxNesting;
+	MaxNesting,
+	NOAV("NumberOfAccessedVariables");
 	
 	private String label;
 	
