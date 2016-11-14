@@ -8,6 +8,7 @@ public class MethodLevelSmellDetector extends CompositeSmellDetector {
 		super.addDetector(new LongParameterList());
 		super.addDetector(new MessageChain());
 		super.addDetector(new DispersedCoupling());
+		super.addDetector(new IntensiveCoupling());
 	}
 
 	@Override

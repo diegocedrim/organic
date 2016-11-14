@@ -49,6 +49,34 @@ public class Coupling {
 		}
 	}
 	
+	public void intensive1() {
+		CC c = new CC();
+		c.cc10();
+		c.cc11();
+		c.cc12();
+		c.cc1("", "", "", "");
+		dummy1();
+		dummy2();
+		dispersed();
+		new FieldDeclaration().getTest1();
+		new FieldDeclaration().getTest2();
+		new MiscStructures().b();
+		for (int i = 0; i < 2; i++) {
+			new Noav().threePlusOneExternal();
+		}
+	}
+	
+	public void intensive2() {
+		CC c = new CC();
+		c.cc10();
+		c.cc11();
+		c.cc12();
+		c.cc1("", "", "", "");
+		for (int i = 0; i < 2; i++) {
+			c.cc9();
+		}
+	}
+	
 	public void dummy1() {
 		
 	}

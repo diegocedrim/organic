@@ -16,22 +16,28 @@ public class Thresholds {
 	
 	public static final Double SHALLOW = 1.0;
 	
-	public static final Double SEVERAL = 4.0;
+	public static final Double TWO = 2.0;
+	
+	public static final Double THREE = 3.0;
+	
+	public static final Double FEW = 4.0;
+	
+	public static final Double SEVERAL = 5.0;
 	
 	public static final Double SHORT_MEMORY_CAP = 8.0;
 
-	public Double getLowThreshold(MetricName metric) {
+	public static Double getLowThreshold(MetricName metric) {
 		AggregateMetricValues aggregate = AggregateMetricValues.getInstance();
 		return aggregate.getAverageValue(metric) - aggregate.getStandardDeviation(metric);
 	}
 	
-	public Double getHighThreshold(MetricName metric) {
+	public static Double getHighThreshold(MetricName metric) {
 		AggregateMetricValues aggregate = AggregateMetricValues.getInstance();
 		return aggregate.getAverageValue(metric) + aggregate.getStandardDeviation(metric);
 	}
 
-	public Double getVeryHighThreshold(MetricName metric) {
-		return this.getHighThreshold(metric) * 1.5;
+	public static Double getVeryHighThreshold(MetricName metric) {
+		return getHighThreshold(metric) * 1.5;
 	}
 	
 }
