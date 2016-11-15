@@ -42,7 +42,7 @@ public class IntensiveCoupling extends SmellDetector {
 	
 	@Override
 	protected SmellName getSmellName() {
-		return SmellName.DispersedCoupling;
+		return SmellName.IntensiveCoupling;
 	}
 
 }
