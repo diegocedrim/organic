@@ -38,6 +38,6 @@ public class WMCTest {
 	@Test
 	public void ccTest() throws IOException {
 		Double wmc = getWMC("CC.java");
-		Assert.assertEquals(new Double(94), wmc);
+		Assert.assertEquals(new Double(108), wmc);
 	}
 }

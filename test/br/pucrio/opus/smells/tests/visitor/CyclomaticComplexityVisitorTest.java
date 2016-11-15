@@ -29,12 +29,12 @@ public class CyclomaticComplexityVisitorTest {
 		PublicMethodCollector collector = new PublicMethodCollector();
 		compilationUnit.accept(collector);
 		List<MethodDeclaration> methods = collector.getNodesCollected();
+		int expected[] = new int[]{1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
 		for (int i = 0; i <= 10; i++) {
 			CyclomaticComplexityVisitor ccVisitor = new CyclomaticComplexityVisitor();
 			methods.get(i).accept(ccVisitor);
 			int cc = ccVisitor.getCyclomaticComplexity().intValue();
-			System.out.println(methods.get(i).getName() + " " + cc);
-			Assert.assertEquals(i + 1, cc);
+			Assert.assertEquals(expected[i], cc);
 		}
 	}
 	

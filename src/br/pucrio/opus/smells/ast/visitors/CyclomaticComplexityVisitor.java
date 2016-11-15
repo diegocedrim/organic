@@ -49,9 +49,12 @@ public class CyclomaticComplexityVisitor extends ASTVisitor {
 	@Override
 	public boolean visit(IfStatement node) {
 		this.cyclomaticComplexity++;
+		if (node.getElseStatement() != null) {
+			this.cyclomaticComplexity++;
+		}
 		return true;
 	}
-
+	
 	@Override
 	public boolean visit(LambdaExpression node) {
 		this.cyclomaticComplexity++;
