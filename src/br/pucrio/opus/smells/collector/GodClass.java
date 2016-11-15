@@ -12,7 +12,7 @@ import br.pucrio.opus.smells.resources.Resource;
  * All classes having (i) cohesion lower than the average of the system AND (ii) LOCs > 500
  * @author Diego Cedrim
  */
-public class BlobClass extends SmellDetector {
+public class GodClass extends SmellDetector {
 	
 	@Override
 	public List<Smell> detect(Resource resource) {
@@ -21,7 +21,12 @@ public class BlobClass extends SmellDetector {
 		Double classTCC = resource.getMetricValue(MetricName.TCC);
 		Double tccAvg = aggregate.getAverageValue(MetricName.TCC);
 		if (classLOC > 500 && classTCC < tccAvg) {
+			StringBuilder builder = new StringBuilder();
+			builder.append("CLOC > " + 500);
+			builder.append(", TCC < " + tccAvg);
+			
 			Smell smell = super.createSmell(resource);
+			smell.setReason(builder.toString());
 			return Arrays.asList(smell);
 		}
 		return new ArrayList<>();
@@ -29,7 +34,7 @@ public class BlobClass extends SmellDetector {
 	
 	@Override
 	protected SmellName getSmellName() {
-		return SmellName.BlobClass;
+		return SmellName.GodClass;
 	}
 
 }

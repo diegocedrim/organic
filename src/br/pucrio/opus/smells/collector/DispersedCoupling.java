@@ -24,8 +24,8 @@ public class DispersedCoupling extends SmellDetector {
 		if (cint > Thresholds.SHORT_MEMORY_CAP && cdisp >= Thresholds.HALF && maxNesting > Thresholds.SHALLOW) {
 			StringBuilder builder = new StringBuilder();
 			builder.append("CINT > " + Thresholds.SHORT_MEMORY_CAP);
-			builder.append("CDISP > " + Thresholds.HALF);
-			builder.append("CC > " + Thresholds.SHALLOW);
+			builder.append(", CDISP > " + Thresholds.HALF);
+			builder.append(", CC > " + Thresholds.SHALLOW);
 			
 			Smell smell = super.createSmell(resource);
 			smell.setReason(builder.toString());

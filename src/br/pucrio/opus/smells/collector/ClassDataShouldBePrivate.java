@@ -17,7 +17,11 @@ public class ClassDataShouldBePrivate extends SmellDetector {
 	public List<Smell> detect(Resource resource) {
 		Double publicFieldCount = resource.getMetricValue(MetricName.PublicFieldCount);
 		if (publicFieldCount != null && publicFieldCount >= 1) {
+			StringBuilder builder = new StringBuilder();
+			builder.append("PUBLIC_FIELD_COUNT = " + publicFieldCount);
+			
 			Smell smell = super.createSmell(resource);
+			smell.setReason(builder.toString());
 			return Arrays.asList(smell);
 		}
 		return new ArrayList<>();

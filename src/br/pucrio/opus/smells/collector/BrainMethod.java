@@ -27,9 +27,9 @@ public class BrainMethod extends SmellDetector {
 		if (mloc > halfHighCLOC && cc > highCC && maxNesting > Thresholds.SEVERAL && noav > Thresholds.MANY) {
 			StringBuilder builder = new StringBuilder();
 			builder.append("MLOC > " + halfHighCLOC);
-			builder.append("CC > " + highCC);
-			builder.append("MAX_NESTING > " + Thresholds.SEVERAL);
-			builder.append("NOAV > " + Thresholds.MANY);
+			builder.append(", CC > " + highCC);
+			builder.append(", MAX_NESTING > " + Thresholds.SEVERAL);
+			builder.append(", NOAV > " + Thresholds.MANY);
 			
 			Smell smell = super.createSmell(resource);
 			smell.setReason(builder.toString());

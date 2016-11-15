@@ -22,7 +22,7 @@ public class SpeculativeGenerality extends SmellDetector {
 		Integer isAbstract = resource.getMetricValue(MetricName.IsAbstract).intValue();
 		if (isAbstract == 1 && childrenCount < 3) {
 			Smell smell = super.createSmell(resource);
-			smell.setReason("isAbstract = 1, childrenCount = " + childrenCount);
+			smell.setReason("IS_ABSTRACT = 1, CHILDREN_COUNT = " + childrenCount);
 			return Arrays.asList(smell);
 		}
 		return new ArrayList<>();

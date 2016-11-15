@@ -28,8 +28,8 @@ public class IntensiveCoupling extends SmellDetector {
 			if (maxNesting > Thresholds.SHALLOW) {
 				StringBuilder builder = new StringBuilder();
 				builder.append("CINT = " + cint);
-				builder.append("CDISP = " + cdisp);
-				builder.append("CC > " + Thresholds.SHALLOW);
+				builder.append(", CDISP = " + cdisp);
+				builder.append(", CC > " + Thresholds.SHALLOW);
 				
 				Smell smell = super.createSmell(resource);
 				smell.setReason(builder.toString());

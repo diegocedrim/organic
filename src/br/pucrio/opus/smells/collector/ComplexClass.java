@@ -21,7 +21,11 @@ public class ComplexClass  extends SmellDetector {
 		for (Method method : type.getMethods()) {
 			Double cc = method.getMetricValue(MetricName.CC);
 			if (cc != null && cc > 10) {
-				Smell smell = super.createSmell(method);
+				StringBuilder builder = new StringBuilder();
+				builder.append("CC = " + cc);
+				
+				Smell smell = super.createSmell(resource);
+				smell.setReason(builder.toString());
 				return Arrays.asList(smell);
 			}
 		}

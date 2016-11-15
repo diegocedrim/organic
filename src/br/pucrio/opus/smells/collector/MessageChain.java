@@ -17,7 +17,11 @@ public class MessageChain extends SmellDetector {
 	public List<Smell> detect(Resource resource) {
 		Double maxCallChain = resource.getMetricValue(MetricName.MaxCallChain);
 		if (maxCallChain > 3) {
+			StringBuilder builder = new StringBuilder();
+			builder.append("MAX_CALL_CHAIN = " + maxCallChain);
+			
 			Smell smell = super.createSmell(resource);
+			smell.setReason(builder.toString());
 			return Arrays.asList(smell);
 		}
 		return new ArrayList<>();

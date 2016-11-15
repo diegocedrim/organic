@@ -114,7 +114,11 @@ public class SpaghettiCode extends SmellDetector {
 		}
 		
 		if (this.areConnected(type, longMethods)) {
+			StringBuilder builder = new StringBuilder();
+			builder.append("LONG_METHODS_CONNECTED = " + longMethods.size());
+			
 			Smell smell = super.createSmell(resource);
+			smell.setReason(builder.toString());
 			return Arrays.asList(smell);
 		}
 		

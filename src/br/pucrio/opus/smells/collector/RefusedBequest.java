@@ -17,7 +17,11 @@ public class RefusedBequest extends SmellDetector {
 	public List<Smell> detect(Resource resource) {
 		Double overrideRatio = resource.getMetricValue(MetricName.OverrideRatio);
 		if (overrideRatio != null && overrideRatio > 0.5) {
+			StringBuilder builder = new StringBuilder();
+			builder.append("OVERRIDE_RATIO = " + overrideRatio);
+			
 			Smell smell = super.createSmell(resource);
+			smell.setReason(builder.toString());
 			return Arrays.asList(smell);
 		}
 		return new ArrayList<>();
