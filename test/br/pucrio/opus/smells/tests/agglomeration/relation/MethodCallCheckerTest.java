@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import br.pucrio.opus.smells.agglomeration.SmellyNode;
 import br.pucrio.opus.smells.agglomeration.relation.MethodCallChecker;
+import br.pucrio.opus.smells.graph.CallGraph;
 import br.pucrio.opus.smells.resources.Method;
 import br.pucrio.opus.smells.resources.Type;
 import br.pucrio.opus.smells.tests.util.TypeLoader;
@@ -35,11 +36,11 @@ public class MethodCallCheckerTest {
 			}
 		}
 		return null;
-		
 	}
 	
 	@Before
 	public void setup() throws IOException {
+		CallGraph.getInstance().reset();
 		List<Type> types = TypeLoader.loadAllFromDir(new File("test/br/pucrio/opus/smells/tests/dummy/relation/methodcalls"));
 		this.methodCalls = findByName(types, "MethodCalls.java");
 		this.methodCallsExternal = findByName(types, "MethodCallsExternal.java");

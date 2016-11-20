@@ -22,18 +22,12 @@ public class Type extends Resource {
 		return (TypeDeclaration)getNode();
 	}
 	
-	public String getSuperclassFQN() {
+	public ITypeBinding getBinding() {
 		ITypeBinding binding = this.getNodeAsTypeDeclaration().resolveBinding();
-		if (binding != null) {
-			ITypeBinding superclass = binding.getSuperclass();
-			if (superclass != null) {
-				return superclass.getQualifiedName();
-			}
-		}
-		return null;
+		return binding;
 	}
 	
-	public ITypeBinding resolveSuperclassBinding() {
+	public ITypeBinding getSuperclassBinding() {
 		ITypeBinding binding = this.getNodeAsTypeDeclaration().resolveBinding();
 		if (binding != null) {
 			ITypeBinding superclass = binding.getSuperclass();

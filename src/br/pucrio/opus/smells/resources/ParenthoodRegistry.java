@@ -1,7 +1,9 @@
 package br.pucrio.opus.smells.resources;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.jdt.core.dom.ITypeBinding;
 
@@ -10,9 +12,9 @@ public class ParenthoodRegistry {
 	private static ParenthoodRegistry singleton;
 	
 	/**
-	 * How many children a given type (identified by its FQN) has
+	 * A set of children that a given type (identified by its FQN) has
 	 */
-	private Map<String, Integer> parenthoodMap;
+	private Map<String, Set<String>> parenthoodMap;
 	
 	static {
 		singleton = new ParenthoodRegistry();
@@ -26,33 +28,52 @@ public class ParenthoodRegistry {
 		return singleton;
 	}
 	
-	private String getQualifiedName(ITypeBinding superclass) {
-		String fqn = superclass.getQualifiedName();
+	private String getQualifiedName(ITypeBinding typeBinding) {
+		String fqn = typeBinding.getQualifiedName();
 		if (fqn.contains("<")) {
 			fqn = fqn.substring(0, fqn.indexOf("<"));
 		}
 		return fqn;
 	}
 	
-	private void incrementChildCount(ITypeBinding superclass) {
-		if (superclass == null) {
-			return;
-		}
-		String fqn = this.getQualifiedName(superclass);
-		Integer count = this.parenthoodMap.get(fqn);
-		if (count == null) {
-			count = 0;
-		}
-		this.parenthoodMap.put(fqn, ++count);
-	}
+	public boolean isChild(Type child, Type parent) {
+		String childFqn = this.getQualifiedName(child.getBinding());
+		return this.getChildren(parent).contains(childFqn);
+	} 
 	
+	private void addChild(ITypeBinding parent, ITypeBinding child) {
+		String parentFqn = this.getQualifiedName(parent);
+		Set<String> children = this.parenthoodMap.get(parentFqn);
+		if (children == null) {
+			children = new HashSet<>();
+			this.parenthoodMap.put(parentFqn, children);
+		}
+
+		String childFqn = this.getQualifiedName(child);
+		children.add(childFqn);
+	}
 	
 	/**
 	 * Get the type parent and register its new child
 	 * @param child the child
 	 */
 	public void registerChild(Type child) {
-		incrementChildCount(child.resolveSuperclassBinding());
+		ITypeBinding childBinding = child.getBinding();
+		if (childBinding == null) {
+			return;
+		}
+		
+		//adding child of the direct superclass
+		ITypeBinding parent = child.getSuperclassBinding();
+		if (parent !=  null) {
+			this.addChild(parent, childBinding);
+		}
+		
+		//add child of all implementing interfaces
+		ITypeBinding[] interfaces = childBinding.getInterfaces();
+		for (ITypeBinding implementing : interfaces) {
+			this.addChild(implementing, childBinding);
+		}
 	}
 	
 	public void reset() {
@@ -60,16 +81,29 @@ public class ParenthoodRegistry {
 	}
 	
 	public Integer getChildrenCount(Type type) {
-		ITypeBinding binding = type.getNodeAsTypeDeclaration().resolveBinding();
+		ITypeBinding binding = type.getBinding();
 		if (binding == null) {
 			return 0;
 		}
 		String fqn = this.getQualifiedName(binding);
-		Integer count = this.parenthoodMap.get(fqn);
-		if (count != null) {
-			return count;
+		Set<String> children = this.parenthoodMap.get(fqn);
+		if (children != null) {
+			return children.size();
 		}
 		return 0;
+	}
+	
+	private Set<String> getChildren(Type type) {
+		ITypeBinding binding = type.getBinding();
+		if (binding == null) {
+			return new HashSet<>();
+		}
+		String fqn = this.getQualifiedName(binding);
+		Set<String> children = this.parenthoodMap.get(fqn);
+		if (children != null) {
+			return children;
+		}
+		return new HashSet<>();
 	}
 
 }
