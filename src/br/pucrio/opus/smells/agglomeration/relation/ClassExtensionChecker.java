@@ -6,7 +6,6 @@ import br.pucrio.opus.smells.resources.Type;
 
 public class ClassExtensionChecker extends RelationChecker {
 	
-
 	@Override
 	public boolean isRelated(SmellyNode u, SmellyNode v) {
 		if (!super.areBothClasses(u, v)) {
@@ -15,7 +14,7 @@ public class ClassExtensionChecker extends RelationChecker {
 		ParenthoodRegistry registry = ParenthoodRegistry.getInstance();
 		Type uType = (Type)u.getResource();
 		Type vType = (Type)v.getResource();
-		return registry.isChild(uType, vType) || registry.isChild(vType, uType);
+		return registry.isDescendant(uType, vType) || registry.isDescendant(vType, uType);
 	}
 
 }

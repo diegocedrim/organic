@@ -18,6 +18,10 @@ public abstract class RelationChecker {
 		return u.getResource() instanceof Type && v.getResource() instanceof Type;
 	}
 	
+	protected boolean isClassAndMethod(SmellyNode classNode, SmellyNode methodNode) {
+		return classNode.getResource() instanceof Type && methodNode.getResource() instanceof Method;
+	}
+	
 	protected boolean intersects(List<?> uList, List<?> vList) {
 		for (Object obj : uList) {
 			if (vList.contains(obj)) {

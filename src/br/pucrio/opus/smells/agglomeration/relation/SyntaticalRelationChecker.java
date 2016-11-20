@@ -7,5 +7,6 @@ public class SyntaticalRelationChecker extends CompositeRelationChecker {
 		this.addChecker(new MethodCallChecker());
 		this.addChecker(new OverrideChecker());
 		this.addChecker(new ClassExtensionChecker());
+		this.addChecker(new OverrideChecker());
 	}
 }

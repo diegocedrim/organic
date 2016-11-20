@@ -1,6 +1,6 @@
 package br.pucrio.opus.smells.tests.dummy.relation.extension;
 
-public class GenericParent<T> {
+public class GenericParent<T> extends MoreGeneric {
 
 	public void a() {
 		

@@ -51,6 +51,30 @@ public class ExtensionCheckerTest {
 	}
 	
 	@Test
+	public void childTheMostGenericInterfaceTest() {
+		SmellyNode child = this.getSmellyNode("Child.java");
+		SmellyNode parent = this.getSmellyNode("TheMostGenericInterface.java");
+		boolean isRelated = checker.isRelated(child, parent);
+		Assert.isTrue(isRelated);
+	}
+	
+	@Test
+	public void childGenericInterface1Test() {
+		SmellyNode child = this.getSmellyNode("Child.java");
+		SmellyNode parent = this.getSmellyNode("GenericInterface1.java");
+		boolean isRelated = checker.isRelated(child, parent);
+		Assert.isTrue(isRelated);
+	}
+	
+	@Test
+	public void childGenericInterface2Test() {
+		SmellyNode child = this.getSmellyNode("Child.java");
+		SmellyNode parent = this.getSmellyNode("GenericInterface2.java");
+		boolean isRelated = checker.isRelated(child, parent);
+		Assert.isTrue(isRelated);
+	}
+	
+	@Test
 	public void childParentTest() {
 		SmellyNode child = this.getSmellyNode("Child.java");
 		SmellyNode parent = this.getSmellyNode("Parent.java");
@@ -67,6 +91,22 @@ public class ExtensionCheckerTest {
 	}
 	
 	@Test
+	public void intChildInterfaceParentTest() {
+		SmellyNode child = this.getSmellyNode("IntChild.java");
+		SmellyNode parent = this.getSmellyNode("Interface.java");
+		boolean isRelated = checker.isRelated(child, parent);
+		Assert.isTrue(!isRelated);
+	}
+	
+	@Test
+	public void intChildTheMostGenericInterfaceParentTest() {
+		SmellyNode child = this.getSmellyNode("IntChild.java");
+		SmellyNode parent = this.getSmellyNode("TheMostGenericInterface.java");
+		boolean isRelated = checker.isRelated(child, parent);
+		Assert.isTrue(!isRelated);
+	}
+	
+	@Test
 	public void genericChildIntParentTest() {
 		SmellyNode child = this.getSmellyNode("GenericParent.java");
 		SmellyNode parent = this.getSmellyNode("IntChild.java");
@@ -78,6 +118,14 @@ public class ExtensionCheckerTest {
 	public void floatChildGenericParentTest() {
 		SmellyNode child = this.getSmellyNode("FloatChild.java");
 		SmellyNode parent = this.getSmellyNode("GenericParent.java");
+		boolean isRelated = checker.isRelated(child, parent);
+		Assert.isTrue(isRelated);
+	}
+	
+	@Test
+	public void floatChildSuoerGenericParentTest() {
+		SmellyNode child = this.getSmellyNode("FloatChild.java");
+		SmellyNode parent = this.getSmellyNode("SuperGeneric.java");
 		boolean isRelated = checker.isRelated(child, parent);
 		Assert.isTrue(isRelated);
 	}

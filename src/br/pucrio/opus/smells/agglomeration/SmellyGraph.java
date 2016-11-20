@@ -30,6 +30,11 @@ public class SmellyGraph {
 		neighbors.add(neighbor);
 	}
 	
+	public void addEdge(SmellyNode u, SmellyNode v) {
+		this.addNeighbor(u, v);
+		this.addNeighbor(v, u);
+	}
+	
 	public Set<SmellyNode> getNeighbors(SmellyNode node) {
 		Set<SmellyNode> neighbors = this.links.get(node);
 		if (neighbors == null) {
