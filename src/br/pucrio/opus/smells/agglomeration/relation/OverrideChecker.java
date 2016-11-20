@@ -3,14 +3,13 @@ package br.pucrio.opus.smells.agglomeration.relation;
 import org.eclipse.jdt.core.dom.IMethodBinding;
 
 import br.pucrio.opus.smells.agglomeration.SmellyNode;
-import br.pucrio.opus.smells.graph.CallGraph;
 import br.pucrio.opus.smells.resources.Method;
 
 /**
- * Verifies if both resources are methods and if one calls the other
+ * Verifies if both resources are methods and if one overrides the other
  * @author Diego Cedrim
  */
-public class MethodCallChecker extends RelationChecker {
+public class OverrideChecker extends RelationChecker {
 	
 	private IMethodBinding getBinding(SmellyNode node) {
 		Method method = (Method)node.getResource();
@@ -30,10 +29,8 @@ public class MethodCallChecker extends RelationChecker {
 			//TODO LOG!
 			return false;
 		}
-		
-		
-		CallGraph callGraph = CallGraph.getInstance();
-		return callGraph.calls(uBinding, vBinding) || callGraph.calls(vBinding, uBinding);
+
+		return uBinding.overrides(vBinding) || vBinding.overrides(uBinding);
 	}
 
 }
