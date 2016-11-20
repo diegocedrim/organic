@@ -15,7 +15,7 @@ public class FieldAccessCollector extends CollectorVisitor<IBinding> {
 	public boolean visit(SimpleName node) {
 		IBinding binding = node.resolveBinding();
 		/*
-		 * Checks if the binding refers to a variable acces. If yes,
+		 * Checks if the binding refers to a variable access. If yes,
 		 * checks if the variable is a field.
 		 */
 		if (binding != null && binding.getKind() == IBinding.VARIABLE) {
