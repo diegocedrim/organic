@@ -79,21 +79,6 @@ public class Type extends Resource {
 		return null;
 	}
 	
-	@Override
-	public boolean isSmelly() {
-		if (super.isSmelly()) {
-			return true;
-		}
-		
-		for (Method method : this.methods) {
-			if (method.isSmelly()) {
-				return true;
-			}
-		}
-		
-		return false;
-	}
-	
 	public List<Method> getMethods() {
 		return methods;
 	}

@@ -62,6 +62,14 @@ public class CallGraph {
 	}
 	
 	/**
+	 * Return true if caller calls called in its body
+	 */
+	public boolean calls(IMethodBinding caller, IMethodBinding called) {
+		Set<IMethodBinding> calls = this.getCalls(caller);
+		return calls.contains(called);
+	}
+	
+	/**
 	 * The methods that a specific method calls
 	 */
 	public Set<IMethodBinding> getCalls(IMethodBinding method) {
