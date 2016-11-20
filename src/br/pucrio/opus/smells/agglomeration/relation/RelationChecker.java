@@ -31,4 +31,7 @@ public abstract class RelationChecker {
 		return false;
 	}
 	
+	public String getName() {
+		return this.getClass().getName();
+	}
 }

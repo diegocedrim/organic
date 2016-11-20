@@ -68,4 +68,9 @@ public class Method extends Resource {
 		return parametersTypes;
 	}
 	
+	@Override
+	public String toString() {
+		return "Method [fqn=" + getFullyQualifiedName() + "]";
+	}
+	
 }

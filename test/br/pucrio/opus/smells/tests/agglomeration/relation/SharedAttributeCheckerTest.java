@@ -39,7 +39,7 @@ public class SharedAttributeCheckerTest {
 	
 	@Before
 	public void setup() throws IOException {
-		List<Type> types = TypeLoader.loadAllFromDir(new File("test/br/pucrio/opus/smells/tests/dummy/relation"));
+		List<Type> types = TypeLoader.loadAllFromDir(new File("test/br/pucrio/opus/smells/tests/dummy/relation/shared"));
 		this.sharedAttribute = findByName(types, "SharedAttribute.java");
 		this.sharedAttributeExternal = findByName(types, "SharedAttributeExternal.java");
 		this.checker = new SharedAttributeChecker();

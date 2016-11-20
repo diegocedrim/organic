@@ -1,4 +1,4 @@
-package br.pucrio.opus.smells.tests.dummy.relation;
+package br.pucrio.opus.smells.tests.dummy.relation.shared;
 
 public class SharedAttribute {
 

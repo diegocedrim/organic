@@ -1,45 +1,32 @@
 package br.pucrio.opus.smells.agglomeration;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SmellyGraph {
+	
+	private List<SmellyNode> nodes;
 
-	private Map<SmellyNode, Set<SmellyNode>> links;
 	
 	public SmellyGraph() {
-		this.links = new HashMap<>();
+		this.nodes = new ArrayList<>();
 	}
 	
 	public void addNode(SmellyNode node) {
-		this.links.put(node, null);
+		this.nodes.add(node);
 	}
 	
-	public Set<SmellyNode> getNodes() {
-		return links.keySet();
+	public List<SmellyNode> getNodes() {
+		return nodes;
 	}
 	
-	public void addNeighbor(SmellyNode node, SmellyNode neighbor) {
-		Set<SmellyNode> neighbors = this.links.get(node);
-		if (neighbors == null) {
-			neighbors = new HashSet<>();
-			this.links.put(node, neighbors);
-		}
-		neighbors.add(neighbor);
+	public void addEdge(SmellyNode u, SmellyNode v, List<String> relations) {
+		SmellyEdge uToV = new SmellyEdge(u, v, relations);
+		SmellyEdge vToU = new SmellyEdge(v, u, relations);
+		u.addOutgoingEdge(uToV);
+		u.addIncomingEdge(vToU);
+		v.addOutgoingEdge(vToU);
+		v.addIncomingEdge(uToV);
 	}
 	
-	public void addEdge(SmellyNode u, SmellyNode v) {
-		this.addNeighbor(u, v);
-		this.addNeighbor(v, u);
-	}
-	
-	public Set<SmellyNode> getNeighbors(SmellyNode node) {
-		Set<SmellyNode> neighbors = this.links.get(node);
-		if (neighbors == null) {
-			return new HashSet<>();
-		}
-		return neighbors;
-	}
 }

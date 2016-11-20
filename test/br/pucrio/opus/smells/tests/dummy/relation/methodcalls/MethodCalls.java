@@ -13,4 +13,12 @@ public class MethodCalls {
 	public void c() {
 		a();
 	}
+	
+	public void secondCallGroup1() {
+		
+	}
+	
+	public void secondCallGroup2() {
+		secondCallGroup1();
+	}
 }
