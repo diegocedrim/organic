@@ -29,6 +29,12 @@ public class SmellyGraphBuilder {
 			this.resources.add(method);
 		}
 	}
+	
+	public void addTypeAndItsMethods(List<Type> types) {
+		for (Type type : types) {
+			this.addTypeAndItsMethods(type);
+		}
+	}
 
 	private void buildNodes() {
 		for (Resource resource : this.resources) {

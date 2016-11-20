@@ -36,6 +36,31 @@ public class Type extends Resource {
 		return null;
 	}
 	
+	@Override
+	public boolean isSmelly() {
+		if (super.isSmelly()) {
+			return true;
+		}
+		
+		for (Method method : this.methods) {
+			if (method.isSmelly()) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	public void removeAllNonSmellyMethods() {
+		List<Method> toRemove = new ArrayList<>();
+		for (Method method : this.methods) {
+			if (!method.isSmelly()) {
+				toRemove.add(method);
+			}
+		}
+		this.methods.removeAll(toRemove);
+	}
+	
 	public Type(SourceFile sourceFile, TypeDeclaration typeDeclaration) {
 		super(sourceFile, typeDeclaration);
 		

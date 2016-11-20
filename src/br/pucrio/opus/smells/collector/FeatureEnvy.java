@@ -30,6 +30,9 @@ public class FeatureEnvy extends SmellDetector {
 		Integer localCalls = methodCalls.get(declaringClass);
 		for (ITypeBinding type : methodCalls.keySet()) {
 			Integer calls = methodCalls.get(type);
+			if (calls <= 3) {
+				continue;
+			}
 			if (localCalls == null || calls > localCalls) {
 				StringBuilder builder = new StringBuilder();
 				builder.append("CALLS_TO_");

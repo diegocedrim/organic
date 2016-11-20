@@ -11,7 +11,7 @@ public class SmellyNode {
 	
 	private List<SmellyEdge> outgoingEdges;
 	
-	private List<SmellyEdge> incomingEdges;
+	private transient List<SmellyEdge> incomingEdges;
 
 	public SmellyNode(Resource resource) {
 		this.resource = resource;

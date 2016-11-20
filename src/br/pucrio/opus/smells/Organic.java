@@ -1,18 +1,25 @@
 package br.pucrio.opus.smells;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.cli.ParseException;
 import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import br.pucrio.opus.smells.agglomeration.Agglomeration;
+import br.pucrio.opus.smells.agglomeration.AgglomerationFinder;
+import br.pucrio.opus.smells.agglomeration.SmellyGraph;
+import br.pucrio.opus.smells.agglomeration.SmellyGraphBuilder;
 import br.pucrio.opus.smells.collector.ClassLevelSmellDetector;
 import br.pucrio.opus.smells.collector.MethodLevelSmellDetector;
 import br.pucrio.opus.smells.collector.Smell;
@@ -24,7 +31,7 @@ import br.pucrio.opus.smells.resources.Method;
 import br.pucrio.opus.smells.resources.SourceFile;
 import br.pucrio.opus.smells.resources.SourceFilesLoader;
 import br.pucrio.opus.smells.resources.Type;
-import br.pucrio.opus.smells.util.ArgumentsIntepreter;
+import br.pucrio.opus.smells.util.OrganicOptions;
 
 public class Organic implements IApplication {
 
@@ -39,7 +46,7 @@ public class Organic implements IApplication {
 		for (Type type : types) {
 			TypeMetricValueCollector typeCollector = new TypeMetricValueCollector();
 			typeCollector.collect(type);
-			System.out.println("Calculating metric values for " + type.getSourceFile().getFile().getName());
+//			System.out.println("Calculating metric values for " + type.getSourceFile().getFile().getName());
 			this.collectMethodMetrics(type);
 		}
 	}
@@ -67,42 +74,93 @@ public class Organic implements IApplication {
 		for (SourceFile sourceFile : sourceFiles) {
 			for (Type type : sourceFile.getTypes()) {
 				allTypes.add(type);
-				System.out.println("Loading " + sourceFile.getFile().getName());
+//				System.out.println("Loading " + sourceFile.getFile().getName());
 			}
 		}
 		return allTypes;
 	}
-	
+
 	private List<Type> onlySmelly(List<Type> types) {
 		List<Type> smelly = new ArrayList<>();
 		for (Type type : types) {
 			if (type.isSmelly()) {
+				type.removeAllNonSmellyMethods();
 				smelly.add(type);
 			}
 		}
 		return smelly;
 	}
+	
+	private void saveSmellsFile(List<Type> smellyTypes) throws IOException {
+		OrganicOptions options = OrganicOptions.getInstance();
+		File smellsFile = new File(options.getValue(OrganicOptions.SMELLS_FILE));
+		BufferedWriter writer = new BufferedWriter(new FileWriter(smellsFile));
+		System.out.println("Saving smells file...");
+
+		GsonBuilder builder = new GsonBuilder();
+		builder.addSerializationExclusionStrategy(new ObservableExclusionStrategy());
+		builder.disableHtmlEscaping();
+		builder.setPrettyPrinting();
+		builder.serializeNulls();
+
+		Gson gson = builder.create();
+		gson.toJson(smellyTypes, writer);
+		writer.close();
+	}
+	
+	private void saveAgglomerationsFile(List<Agglomeration> agglomerations) throws IOException {
+		OrganicOptions options = OrganicOptions.getInstance();
+		File smellsFile = new File(options.getValue(OrganicOptions.AGGLOMERATIONS_FILE));
+		BufferedWriter writer = new BufferedWriter(new FileWriter(smellsFile));
+		System.out.println("Saving agglomeration file...");
+
+		GsonBuilder builder = new GsonBuilder();
+		builder.addSerializationExclusionStrategy(new ObservableExclusionStrategy());
+		builder.disableHtmlEscaping();
+		builder.setPrettyPrinting();
+		builder.serializeNulls();
+
+		Gson gson = builder.create();
+		gson.toJson(agglomerations, writer);
+		writer.close();
+	}
+	
+	private List<Agglomeration> collectAgglomerations(List<Type> allTypes) {
+		System.out.println("Collecting agglomerations");
+		SmellyGraphBuilder builder = new SmellyGraphBuilder();
+		builder.addTypeAndItsMethods(allTypes);
+		SmellyGraph graph = builder.build();
+		
+		AgglomerationFinder finder = new AgglomerationFinder(graph);
+		return finder.findAll();
+	}
 
 	@Override
 	public Object start(IApplicationContext context) throws Exception {
+		String[] args = (String[])context.getArguments().get("application.args");
+		OrganicOptions options = OrganicOptions.getInstance();
+		try {
+			options.parse(args);
+		} catch( ParseException exp ) {
+			System.out.println(exp.getMessage());
+			options.printHelp();
+			System.exit(-1);
+		}
+		
 		System.out.println(new Date());
-		ArgumentsIntepreter interpreter = new ArgumentsIntepreter(context);
-		List<String> sourcePaths = interpreter.getSourcePaths();
+		List<String> sourcePaths = Arrays.asList(options.getValue(OrganicOptions.SOURCE_FOLDER));
 
 		List<Type> allTypes = this.loadAllTypes(sourcePaths);
 		this.collectTypeMetrics(allTypes);
 		this.detectSmells(allTypes);
+		allTypes = this.onlySmelly(allTypes);
 
-		BufferedWriter writer = new BufferedWriter(new FileWriter(interpreter.getOutputFile()));
-		System.out.println("Serializing...");
-
-		GsonBuilder builder = new GsonBuilder();
-		builder.addSerializationExclusionStrategy(new ObservableExclusionStrategy());
-		builder.serializeNulls();
-
-		Gson gson = builder.create();
-		gson.toJson(this.onlySmelly(allTypes), writer);
-		writer.close();
+		this.saveSmellsFile(allTypes);
+		if (options.shouldCollectAgglomerations()) {
+			List<Agglomeration> agglomerations = collectAgglomerations(allTypes);
+			this.saveAgglomerationsFile(agglomerations);
+		}
+		
 		System.out.println(new Date());
 		return EXIT_OK;
 	}

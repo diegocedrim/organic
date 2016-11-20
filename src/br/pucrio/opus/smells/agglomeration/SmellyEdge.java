@@ -4,16 +4,19 @@ import java.util.List;
 
 public class SmellyEdge {
 
-	private SmellyNode origin;
+	private transient SmellyNode origin;
 	
-	private SmellyNode destination;
+	private transient SmellyNode destination;
 	
 	private List<String> relations;
+	
+	private String destinationFQN;
 
 	public SmellyEdge(SmellyNode u, SmellyNode v, List<String> relations) {
 		this.origin = u;
 		this.destination = v;
 		this.relations = relations;
+		this.destinationFQN = v.getResource().getFullyQualifiedName();
 	}
 
 	public SmellyNode getOrigin() {
@@ -26,5 +29,9 @@ public class SmellyEdge {
 
 	public List<String> getRelations() {
 		return relations;
+	}
+
+	public String getDestinationFQN() {
+		return destinationFQN;
 	}
 }
