@@ -69,7 +69,6 @@ public class FeatureEnvyTest {
 		Assert.assertEquals(0, smells.size());
 		
 		smells = smellDetector.detect(type.findMethodByName("superForeign"));
-		Assert.assertEquals(1, smells.size());
-		Assert.assertEquals(SmellName.FeatureEnvy, smells.get(0).getName());
+		Assert.assertEquals(0, smells.size());
 	}
 }

@@ -129,8 +129,9 @@ public class Organic implements IApplication {
 		System.out.println("Collecting agglomerations");
 		SmellyGraphBuilder builder = new SmellyGraphBuilder();
 		builder.addTypeAndItsMethods(allTypes);
+		System.out.println("Building the smelly graph");
 		SmellyGraph graph = builder.build();
-		
+		System.out.println("Looking for agglomerations");
 		AgglomerationFinder finder = new AgglomerationFinder(graph);
 		return finder.findAll();
 	}

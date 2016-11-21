@@ -19,7 +19,7 @@ public class CouplingIntensityCalculator extends MetricValueCalculator {
 	protected Double computeValue(ASTNode target) {
 		this.methodCalls = getMethodCalls(target);
 		if (this.methodCalls == null) {
-			return null;
+			return 0d;
 		}
 		
 		Double cint = 0d;

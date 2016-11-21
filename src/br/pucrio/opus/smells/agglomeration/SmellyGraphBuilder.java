@@ -7,6 +7,7 @@ import br.pucrio.opus.smells.agglomeration.relation.SyntacticalRelationChecker;
 import br.pucrio.opus.smells.resources.Method;
 import br.pucrio.opus.smells.resources.Resource;
 import br.pucrio.opus.smells.resources.Type;
+import br.pucrio.opus.smells.util.ConsoleProgressMonitor;
 
 public class SmellyGraphBuilder {
 
@@ -47,9 +48,14 @@ public class SmellyGraphBuilder {
 	private void buildEdges() {
 		SyntacticalRelationChecker checker = new SyntacticalRelationChecker();
 		List<SmellyNode> nodes = new ArrayList<>(this.graph.getNodes());
+		
+		int n = nodes.size();
+		ConsoleProgressMonitor monitor = new ConsoleProgressMonitor();
+		monitor.beginTask("Building smelly graph edges", (1 + (n - 1))*n/2);
 		for (int i = 0; i < nodes.size(); i++) {
 			SmellyNode u = nodes.get(i);
 			for (int j = i + 1; j < nodes.size(); j++) {
+				monitor.worked(1);
 				SmellyNode v = nodes.get(j);
 				List<String> relations = checker.getRelationsBetween(u, v);
 				if (!relations.isEmpty()) {

@@ -17,12 +17,12 @@ public class ConsoleProgressMonitor implements IProgressMonitor {
 	public void beginTask(String name, int totalWork) {
 		this.reportedProgresses = new HashSet<>();
 		this.totalWork = totalWork;
-		System.out.println("Starting: " + totalWork + " files");
+		System.out.println("Starting: " + name + ". Items to process: "+ totalWork);
 	}
 
 	@Override
 	public void done() {
-		System.out.println("Loading files: Complete");
+		System.out.println("Complete!");
 	}
 
 	@Override

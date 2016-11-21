@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.jdt.core.dom.IMethodBinding;
 import org.eclipse.jdt.core.dom.ITypeBinding;
 
 import br.pucrio.opus.smells.ast.visitors.ClassMethodInvocationVisitor;
@@ -20,7 +21,12 @@ public class FeatureEnvy extends SmellDetector {
 	@Override
 	public List<Smell> detect(Resource resource) {
 		Method method = (Method)resource;
-		ITypeBinding declaringClass = method.getBinding().getDeclaringClass();
+		IMethodBinding methodBinding = method.getBinding();
+		if (methodBinding == null) {
+			//TODO LOG!
+			return new ArrayList<>();
+		}
+		ITypeBinding declaringClass = methodBinding.getDeclaringClass();
 
 		ClassMethodInvocationVisitor visitor = new ClassMethodInvocationVisitor(declaringClass);
 		method.getNode().accept(visitor);

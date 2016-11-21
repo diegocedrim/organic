@@ -14,6 +14,8 @@ public class ParenthoodRegistry {
 	
 	private static ParenthoodRegistry singleton;
 	
+	private Map<String, Set<String>> ancestorsMap;
+	
 	/**
 	 * A set of children that a given type (identified by its FQN) has
 	 */
@@ -24,7 +26,8 @@ public class ParenthoodRegistry {
 	}
 	
 	private ParenthoodRegistry() {
-		reset();
+		this.parenthoodMap = new HashMap<>();
+		this.ancestorsMap = new HashMap<>();
 	}
 	
 	public static ParenthoodRegistry getInstance() {
@@ -49,38 +52,35 @@ public class ParenthoodRegistry {
 		return this.getChildren(parent).contains(childFqn);
 	} 
 	
-	private boolean isInterfaceDescendant(ITypeBinding type, ITypeBinding ancestor) {
+	private Set<String> getInterfaceAncestors(ITypeBinding type) {
+		Set<String> interfaceAncestors = new HashSet<>();
 		Queue<ITypeBinding> queue = new LinkedList<>(Arrays.asList(type));
 		Set<ITypeBinding> visited = new HashSet<>();
-		String ancestorFqn = this.getQualifiedName(ancestor);
 		while (!queue.isEmpty()) {
 			ITypeBinding current = queue.poll();
 			visited.add(current);
+			interfaceAncestors.add(getQualifiedName(current));
 			ITypeBinding[] superInterfaces = current.getInterfaces();
 			for (ITypeBinding iInterface : superInterfaces) {
 				if (!visited.contains(iInterface)) {
-					String interfaceFqn = this.getQualifiedName(iInterface);
-					if (interfaceFqn.equals(ancestorFqn)) {
-						return true;
-					}
 					queue.add(iInterface);
 				}
 			}
 		}
-		return false;
+		interfaceAncestors.remove(getQualifiedName(type));
+		return interfaceAncestors;
 	}
 	
-	private boolean isClassDescendant(ITypeBinding type, ITypeBinding ancestor) {
-		String ancestorFqn = this.getQualifiedName(ancestor);
+	private Set<String> getClassAncestors(ITypeBinding type) {
+		Set<String> classAncestors = new HashSet<>();
 		ITypeBinding current = type;
 		while (current != null) {
 			String currentFqn = this.getQualifiedName(current);
-			if (currentFqn.equals(ancestorFqn)){
-				return true;
-			}
+			classAncestors.add(currentFqn);
 			current = current.getSuperclass();
 		}
-		return false;
+		classAncestors.remove(getQualifiedName(type));
+		return classAncestors;
 	}
 	
 	public boolean isDescendant(Type type, Type ancestor) {
@@ -89,8 +89,25 @@ public class ParenthoodRegistry {
 		if (ancestorBinding == null || typeBinding == null || typeBinding == ancestorBinding) {
 			return false;
 		}
-		return this.isClassDescendant(typeBinding, ancestorBinding) 
-				|| this.isInterfaceDescendant(typeBinding, ancestorBinding);
+		Set<String> ancestors = getAncestors(type);
+		return ancestors.contains(getQualifiedName(ancestorBinding));
+	}
+	
+	public Set<String> getAncestors(Type type) {
+		ITypeBinding typeBinding = type.getBinding();
+		if (typeBinding == null) {
+			return new HashSet<>();
+		}
+		
+		String typeFqn = getQualifiedName(typeBinding);
+		if (this.ancestorsMap.containsKey(typeFqn)) {
+			return this.ancestorsMap.get(typeFqn);
+		}
+		Set<String> classAncestors = this.getClassAncestors(typeBinding);
+		Set<String> interfaceAncestors = this.getInterfaceAncestors(typeBinding);
+		classAncestors.addAll(interfaceAncestors);
+		this.ancestorsMap.put(typeFqn, classAncestors);
+		return classAncestors;
 	}
 	
 	private void addChild(ITypeBinding parent, ITypeBinding child) {
@@ -129,7 +146,8 @@ public class ParenthoodRegistry {
 	}
 	
 	public void reset() {
-		this.parenthoodMap = new HashMap<>();
+		this.parenthoodMap.clear();
+		this.ancestorsMap.clear();
 	}
 	
 	public Integer getChildrenCount(Type type) {

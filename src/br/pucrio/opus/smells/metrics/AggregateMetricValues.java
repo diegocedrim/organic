@@ -37,6 +37,9 @@ public class AggregateMetricValues implements Observer {
 	}
 
 	private void register(MetricName metricName, Double value) {
+		if (value == null) {
+			return;
+		}
 		DescriptiveStatistics stats = this.aggregateValues.get(metricName);
 		if (stats == null) {
 			stats = new DescriptiveStatistics();

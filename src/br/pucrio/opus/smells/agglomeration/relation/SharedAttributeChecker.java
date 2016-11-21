@@ -1,6 +1,8 @@
 package br.pucrio.opus.smells.agglomeration.relation;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.IBinding;
@@ -14,11 +16,22 @@ import br.pucrio.opus.smells.ast.visitors.FieldAccessCollector;
  */
 public class SharedAttributeChecker extends RelationChecker {
 	
+	private Map<SmellyNode, List<IBinding>> accessedCache;
+	
+	public SharedAttributeChecker() {
+		this.accessedCache = new HashMap<>();
+	}
+	
 	private List<IBinding> getAccessedVariables(SmellyNode node) {
+		if (accessedCache.containsKey(node)) {
+			return accessedCache.get(node);
+		}
 		FieldAccessCollector collector = new FieldAccessCollector();
 		ASTNode methodDeclaration = node.getResource().getNode();
 		methodDeclaration.accept(collector);
-		return collector.getNodesCollected();
+		List<IBinding> accessed = collector.getNodesCollected();
+		this.accessedCache.put(node, accessed);
+		return accessed;
 	}
 
 	@Override

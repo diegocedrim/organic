@@ -7,16 +7,19 @@ import br.pucrio.opus.smells.resources.Resource;
 
 public class SmellyNode {
 
-	private Resource resource;
+	private transient Resource resource;
 	
-	private List<SmellyEdge> outgoingEdges;
+	private transient List<SmellyEdge> outgoingEdges;
 	
 	private transient List<SmellyEdge> incomingEdges;
+	
+	private String resourceFQN;
 
 	public SmellyNode(Resource resource) {
 		this.resource = resource;
 		this.outgoingEdges = new ArrayList<>();
 		this.incomingEdges = new ArrayList<>();
+		this.resourceFQN = resource.getFullyQualifiedName();
 	}
 	
 	public List<SmellyNode> getNeighbors() {
@@ -45,6 +48,10 @@ public class SmellyNode {
 
 	public List<SmellyEdge> getIncomingEdges() {
 		return incomingEdges;
+	}
+	
+	public String getResourceFQN() {
+		return resourceFQN;
 	}
 
 	@Override

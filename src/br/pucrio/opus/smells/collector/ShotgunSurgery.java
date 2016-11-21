@@ -21,6 +21,9 @@ public class ShotgunSurgery extends SmellDetector {
 	public List<Smell> detect(Resource resource) {
 		Double cc = resource.getMetricValue(MetricName.CC);
 		Double cm = resource.getMetricValue(MetricName.ChangingMethods);
+		if (cc == null || cm == null) {
+			return new ArrayList<>();
+		}
 		
 		if (cm > Thresholds.SHORT_MEMORY_CAP && cc > Thresholds.MANY) {
 			StringBuilder builder = new StringBuilder();

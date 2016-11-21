@@ -98,9 +98,11 @@ public class AgglomerationFinderTest {
 	@Test
 	public void classExtensionTest() throws IOException {
 		List<Type> types = TypeLoader.loadAllFromDir(new File("test/br/pucrio/opus/smells/tests/dummy/relation/extension"));
+		ParenthoodRegistry.getInstance().getAncestors(types.get(0));
 		SmellyGraph graph = buildGraph(types);
 		AgglomerationFinder finder = new AgglomerationFinder(graph);
 		List<Agglomeration> agglomerations = finder.findAll();
+		printAgglomerations(agglomerations);
 		Assert.assertEquals(4, agglomerations.size());
 		testIfexists(agglomerations, Arrays.asList("GenericInterface1", "GenericInterface2", "Parent", "Interface", "TheMostGenericInterface", "Child"));
 		testIfexists(agglomerations, Arrays.asList("MoreGeneric", "GenericParent", "SuperGeneric", "FloatChild", "IntChild"));

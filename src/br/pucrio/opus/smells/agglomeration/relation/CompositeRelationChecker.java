@@ -28,12 +28,15 @@ public abstract class CompositeRelationChecker extends RelationChecker {
 	}
 	
 	public List<String> getRelationsBetween(SmellyNode u, SmellyNode v) {
-		List<String> relations = new ArrayList<>();
-		for (RelationChecker checker : checkers) {
-			if (checker.isRelated(u, v)) {
-				relations.add(checker.getName());
+		if (areBothClasses(u, v) || areBothMethods(u, v)) {
+			List<String> relations = new ArrayList<>();
+			for (RelationChecker checker : checkers) {
+				if (checker.isRelated(u, v)) {
+					relations.add(checker.getName());
+				}
 			}
+			return relations;
 		}
-		return relations;
+		return new ArrayList<>();
 	}
 }
