@@ -16,7 +16,7 @@ import br.pucrio.opus.smells.metrics.MetricName;
 
 public abstract class Resource extends Observable {
 	
-	private transient SourceFile sourceFile;
+	private SourceFile sourceFile;
 	
 	private Map<MetricName, Double> metricsValues;
 	
