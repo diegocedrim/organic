@@ -7,7 +7,7 @@ import br.pucrio.opus.smells.resources.Resource;
 
 public class SmellyNode {
 
-	private transient Resource resource;
+	private Resource resource;
 	
 	private transient List<SmellyEdge> outgoingEdges;
 	

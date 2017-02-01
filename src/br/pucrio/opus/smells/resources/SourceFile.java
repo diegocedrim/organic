@@ -15,7 +15,7 @@ public class SourceFile {
 	
 	private transient CompilationUnit compilationUnit;
 	
-	private List<Type> types;
+	private transient List<Type> types;
 	
 	public SourceFile(File file, CompilationUnit compilationUnit) {
 		this.file = file;
