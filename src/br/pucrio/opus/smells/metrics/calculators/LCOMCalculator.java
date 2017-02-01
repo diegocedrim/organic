@@ -4,8 +4,9 @@ import java.util.List;
 
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
+import org.eclipse.jdt.core.dom.TypeDeclaration;
 
-import br.pucrio.opus.smells.ast.visitors.FieldAccessCollector;
+import br.pucrio.opus.smells.ast.visitors.ClassFieldAccessCollector;
 import br.pucrio.opus.smells.ast.visitors.MethodCollector;
 import br.pucrio.opus.smells.metrics.MetricName;
 
@@ -23,7 +24,7 @@ import br.pucrio.opus.smells.metrics.MetricName;
  * @author leonardo
  */
 
-public class LCOMCalculator extends MetricValueCalculator{
+public abstract class LCOMCalculator extends MetricValueCalculator{
 	private int nMethods;
 	private int nAttributes;
 	private int nMethodsAccAttributes;
@@ -42,6 +43,7 @@ public class LCOMCalculator extends MetricValueCalculator{
 	 */
 	@Override
 	protected Double computeValue(ASTNode target) {
+		TypeDeclaration type = (TypeDeclaration)target;
 		List<MethodDeclaration> methods = getMethods(target);
 		
 		//get the number of methods within a class
@@ -49,10 +51,11 @@ public class LCOMCalculator extends MetricValueCalculator{
 		
 		//get the number of methods accessing an attribute
 		for(MethodDeclaration md: methods){
-			FieldAccessCollector faVisitor = new FieldAccessCollector();
+			ClassFieldAccessCollector faVisitor = new ClassFieldAccessCollector(type);
 			md.accept(faVisitor);
-			faVisitor.getNodesCollected().isEmpty();
-			
+			if(!faVisitor.getNodesCollected().isEmpty()) {
+				nMethodsAccAttributes++;
+			}
 		}
 		
 		
