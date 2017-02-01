@@ -18,7 +18,8 @@ public enum MetricName {
 	CINT("CouplingIntensity"),
 	CDISP("CouplingDispersion"),
 	ChangingClasses("ChangingClasses"),
-	ChangingMethods("ChangingMethods");
+	ChangingMethods("ChangingMethods"),
+	LCOM("LackOfCohesionOfMethods");
 	
 	private String label;
 	
