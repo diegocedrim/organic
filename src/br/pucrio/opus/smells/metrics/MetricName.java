@@ -19,7 +19,8 @@ public enum MetricName {
 	CDISP("CouplingDispersion"),
 	ChangingClasses("ChangingClasses"),
 	ChangingMethods("ChangingMethods"),
-	LCOM("LackOfCohesionOfMethods");
+	LCOM("LackOfCohesionOfMethods"),
+	LCOM2("LackOfCohesionOfMethods2");
 	
 	private String label;
 	

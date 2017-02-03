@@ -1,5 +1,9 @@
 package br.pucrio.opus.smells.ast.visitors;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 import org.eclipse.jdt.core.dom.IBinding;
 import org.eclipse.jdt.core.dom.ITypeBinding;
 import org.eclipse.jdt.core.dom.IVariableBinding;
@@ -14,15 +18,18 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
  * 
  * @author Diego Cedrim
  */
-public class ClassFieldAccessCollector extends CollectorVisitor<IBinding> {
+public class ClassFieldAccessCollector extends CollectorVisitor<IVariableBinding> {
 	
 	/**
 	 * Type that declares the method being visited
 	 */
 	private ITypeBinding declaringTypeBinding;
 	
+	private Set<IVariableBinding> allVariables;
+	
 	public ClassFieldAccessCollector(TypeDeclaration declaringType) {
 		this.declaringTypeBinding = declaringType.resolveBinding();
+		this.allVariables = this.getVariablesInHierarchy();
 	}
 
 	public boolean visit(SimpleName node) {
@@ -35,20 +42,30 @@ public class ClassFieldAccessCollector extends CollectorVisitor<IBinding> {
 			return false;
 		}
 		
-		IVariableBinding variableBinding = (IVariableBinding)binding;
-		ITypeBinding typeBinding = variableBinding.getDeclaringClass();
-		if (typeBinding == null) {
-			return false;
-		}
 		/*
 		 * Checks if the binding refers to a variable access. If yes,
 		 * checks if the variable is a field.
 		 */
-		if (binding.getKind() == IBinding.VARIABLE && typeBinding.isEqualTo(this.declaringTypeBinding)) {
-			if (!wasAlreadyCollected(binding)) {
-				this.addCollectedNode(binding);
+		if (binding.getKind() == IBinding.VARIABLE) {
+			IVariableBinding variableBinding = (IVariableBinding) binding;
+			
+			//if (!wasAlreadyCollected(binding) && typeBinding.isEqualTo(this.declaringTypeBinding)) {
+			if (!wasAlreadyCollected(variableBinding) && this.allVariables.contains(variableBinding)) {
+				this.addCollectedNode(variableBinding);
 			}
 		}
 		return true;
-	};
+	}
+	
+	private Set<IVariableBinding> getVariablesInHierarchy() {
+		Set<IVariableBinding> variables = new HashSet<>();
+		ITypeBinding type = this.declaringTypeBinding;
+		while (type != null) {
+			IVariableBinding[] localVariables = type.getDeclaredFields();
+			variables.addAll(Arrays.asList(localVariables));
+			type = type.getSuperclass();
+		}
+		return variables;
+	}
+	
 }
