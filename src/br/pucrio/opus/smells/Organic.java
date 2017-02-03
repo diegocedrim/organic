@@ -46,7 +46,6 @@ public class Organic implements IApplication {
 		for (Type type : types) {
 			TypeMetricValueCollector typeCollector = new TypeMetricValueCollector();
 			typeCollector.collect(type);
-//			System.out.println("Calculating metric values for " + type.getSourceFile().getFile().getName());
 			this.collectMethodMetrics(type);
 		}
 	}
@@ -74,7 +73,6 @@ public class Organic implements IApplication {
 		for (SourceFile sourceFile : sourceFiles) {
 			for (Type type : sourceFile.getTypes()) {
 				allTypes.add(type);
-//				System.out.println("Loading " + sourceFile.getFile().getName());
 			}
 		}
 		return allTypes;
@@ -154,7 +152,9 @@ public class Organic implements IApplication {
 		List<Type> allTypes = this.loadAllTypes(sourcePaths);
 		this.collectTypeMetrics(allTypes);
 		this.detectSmells(allTypes);
-		allTypes = this.onlySmelly(allTypes);
+		if (options.shouldFilterSmelly()) {
+			allTypes = this.onlySmelly(allTypes);
+		}
 
 		this.saveSmellsFile(allTypes);
 		if (options.shouldCollectAgglomerations()) {

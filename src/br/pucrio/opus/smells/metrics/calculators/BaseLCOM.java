@@ -31,12 +31,12 @@ import br.pucrio.opus.smells.metrics.MetricName;
  * @author leonardo
  */
 
-public abstract class LCOMCalculator extends MetricValueCalculator {
+public abstract class BaseLCOM extends MetricValueCalculator {
 	private int nMethods;
 	private int nAttributes;
 	private int timesAccessedAttributes;
 
-	public LCOMCalculator() {
+	public BaseLCOM() {
 		setNumberOfMethods(0);
 		setNumberOfAttributes(0);
 		setTimesAccessedAttributes(0);
@@ -67,25 +67,12 @@ public abstract class LCOMCalculator extends MetricValueCalculator {
 		// get the number of methods within a class
 		setNumberOfMethods(methods.size());
 
-		// Sum the number of times that each attribute is accessed by all
-		// methods
+		// Sum the number of times that each attribute is accessed by all methods
 		for (MethodDeclaration md : methods) {
 			ClassFieldAccessCollector faVisitor = new ClassFieldAccessCollector(type);
 			md.accept(faVisitor);
 			timesAccessedAttributes += faVisitor.getNodesCollected().size();
 		}
-
-		// get the number of attributes that belongs to the class
-		//getNumberOfAttributesInTheClass(target);
-
-		/*
-		 * FieldDeclarationCollector fieldCollector = new
-		 * FieldDeclarationCollector(); target.accept(fieldCollector);
-		 * 
-		 * 
-		 * if(!fieldCollector.getNodesCollected().isEmpty()){
-		 * setNumberOfAttributes(fieldCollector.getNodesCollected().size()); }
-		 */
 
 		if (nMethods == 0 || nAttributes == 0) {
 			return 0.0; // it is impossible to calculate lcom
@@ -122,36 +109,6 @@ public abstract class LCOMCalculator extends MetricValueCalculator {
 		return MetricName.LCOM;
 	}
 
-
-	/*
-	 * Get the attributes that belong to the class
-	 *
-	private void getNumberOfAttributesInTheClass(ASTNode target){
-		ASTNode t = target;
-		
-		ITypeBinding bindingClass =
-		
-		String name = ((TypeDeclaration)target).getName().getFullyQualifiedName();
-		FieldDeclarationCollector fieldCollector = new FieldDeclarationCollector();
-		
-		while(!name.equals("java.lang.Object")){
-			t.accept(fieldCollector);
-			
-			if(!fieldCollector.getNodesCollected().isEmpty()){
-				nAttributes += fieldCollector.getNodesCollected().size();
-			}
-			
-			ITypeBinding binding = ((TypeDeclaration)t).resolveBinding();
-			binding = binding.getSuperclass();
-			
-			name = binding.getQualifiedName();
-			
-
-			name = ((TypeDeclaration)t).getName().getFullyQualifiedName();
-		}
-		
-		
-	}*/
 
 	/*
 	 * Get the list with all the methods implemented inside of the class

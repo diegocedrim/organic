@@ -48,8 +48,6 @@ public class ClassFieldAccessCollector extends CollectorVisitor<IVariableBinding
 		 */
 		if (binding.getKind() == IBinding.VARIABLE) {
 			IVariableBinding variableBinding = (IVariableBinding) binding;
-			
-			//if (!wasAlreadyCollected(binding) && typeBinding.isEqualTo(this.declaringTypeBinding)) {
 			if (!wasAlreadyCollected(variableBinding) && this.allVariables.contains(variableBinding)) {
 				this.addCollectedNode(variableBinding);
 			}

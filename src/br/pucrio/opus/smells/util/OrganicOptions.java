@@ -14,6 +14,7 @@ public class OrganicOptions {
 	public static final String SMELLS_FILE = "smells-file";
 	public static final String AGGLOMERATIONS_FILE = "agglomeration-file";
 	public static final String IGNORE_TESTS = "ignore-tests";
+	public static final String ONLY_SMELLY = "only-smelly";
 
 	private Options options;
 	
@@ -36,6 +37,10 @@ public class OrganicOptions {
 	
 	public boolean shouldCollectAgglomerations() {
 		return line.hasOption(AGGLOMERATIONS_FILE);
+	}
+	
+	public boolean shouldFilterSmelly() {
+		return line.hasOption(ONLY_SMELLY);
 	}
 	
 	private void createOptions() {
@@ -67,11 +72,17 @@ public class OrganicOptions {
 				.longOpt(IGNORE_TESTS)
 				.desc("Ignore all the test classes")
 				.build();
+		
+		Option ignoreNonSmelly = Option.builder("os")
+				.longOpt(ONLY_SMELLY)
+				.desc("If this flag is used, only classes/methods containing code smells will be part of the output")
+				.build();
 	
 		options.addOption(smellsFile);
 		options.addOption(aggFile);
 		options.addOption(sourceFolder);
 		options.addOption(ignoreTests);
+		options.addOption(ignoreNonSmelly);
 	}
 	
 	public String getValue(String key) {

@@ -22,7 +22,7 @@ import br.pucrio.opus.smells.metrics.MetricName;
  * 
  * @author leonardo
  */
-public class LCOM3Calculator extends LCOMCalculator {
+public class LCOM3Calculator extends BaseLCOM {
 	
 	public LCOM3Calculator(){
 		super();
