@@ -20,7 +20,8 @@ public enum MetricName {
 	ChangingClasses("ChangingClasses"),
 	ChangingMethods("ChangingMethods"),
 	LCOM("LackOfCohesionOfMethods"),
-	LCOM2("LackOfCohesionOfMethods2");
+	LCOM2,
+	LCOM3;
 	
 	private String label;
 	

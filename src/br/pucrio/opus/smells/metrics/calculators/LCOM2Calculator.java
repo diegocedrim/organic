@@ -31,6 +31,9 @@ public class LCOM2Calculator extends BaseLCOM {
 	@Override
 	protected Double computeValue(ASTNode target) {
 		Double lcom = super.computeValue(target);	//call the super first in order to initialize the attributes
+		if (lcom == null) {
+			return null;
+		}
 		
 		if (lcom.equals(0.0)){
 			return lcom;

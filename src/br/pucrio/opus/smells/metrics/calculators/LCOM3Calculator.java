@@ -32,6 +32,10 @@ public class LCOM3Calculator extends BaseLCOM {
 	protected Double computeValue(ASTNode target) {
 		Double lcom = super.computeValue(target);	//call the super first in order to initialize the attributes
 		
+		if (lcom == null) {
+			return null;
+		}
+		
 		if (lcom.equals(0.0)){
 			return lcom;
 		}
@@ -52,7 +56,7 @@ public class LCOM3Calculator extends BaseLCOM {
 
 	@Override
 	public MetricName getMetricName() {
-		return MetricName.LCOM2;
+		return MetricName.LCOM3;
 	}	
 
 }
