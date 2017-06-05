@@ -8,6 +8,7 @@ import java.util.Set;
 import org.eclipse.jdt.core.dom.IBinding;
 import org.eclipse.jdt.core.dom.ITypeBinding;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
+import org.eclipse.jdt.core.dom.Modifier;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 
 import br.pucrio.opus.smells.ast.visitors.MethodCollector;
@@ -61,9 +62,42 @@ public class Type extends Resource {
 		this.methods.removeAll(toRemove);
 	}
 	
+	protected void identifyKind() {
+		TypeDeclaration typeDeclaration = (TypeDeclaration)getNode();
+		StringBuffer buffer = new StringBuffer();
+		int modifiers = typeDeclaration.getModifiers(); 
+		
+		if (Modifier.isPublic(modifiers)) {
+			buffer.append("public ");
+		}
+		
+		if (Modifier.isPrivate(modifiers)) {
+			buffer.append("private ");
+		}
+		
+		if (Modifier.isProtected(modifiers)) {
+			buffer.append("protected ");
+		}
+		
+		if (Modifier.isAbstract(modifiers)) {
+			buffer.append("abstract ");
+		}
+		
+		if (Modifier.isFinal(modifiers)) {
+			buffer.append("final ");
+		}
+		
+		if (typeDeclaration.isInterface()) {
+			buffer.append("interface");
+		} else {
+			buffer.append("class");
+		}
+		
+		this.setKind(buffer.toString());
+	}
+	
 	public Type(SourceFile sourceFile, TypeDeclaration typeDeclaration) {
 		super(sourceFile, typeDeclaration);
-		
 		this.children = new HashSet<>();
 		
 		IBinding binding = typeDeclaration.resolveBinding();

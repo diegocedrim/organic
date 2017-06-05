@@ -6,6 +6,7 @@ import java.util.List;
 import org.eclipse.jdt.core.dom.IBinding;
 import org.eclipse.jdt.core.dom.IMethodBinding;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
+import org.eclipse.jdt.core.dom.Modifier;
 import org.eclipse.jdt.core.dom.SingleVariableDeclaration;
 
 import br.pucrio.opus.smells.ast.visitors.MethodInvocationVisitor;
@@ -19,6 +20,39 @@ public class Method extends Resource {
 		MethodDeclaration declaration = (MethodDeclaration)this.getNode(); 
 		IMethodBinding binding = declaration.resolveBinding();
 		return binding;
+	}
+	
+	protected void identifyKind() {
+		MethodDeclaration declaration = (MethodDeclaration)this.getNode();
+		StringBuffer buffer = new StringBuffer();
+		int modifiers = declaration.getModifiers(); 
+		
+		if (Modifier.isPublic(modifiers)) {
+			buffer.append("public ");
+		}
+		
+		if (Modifier.isPrivate(modifiers)) {
+			buffer.append("private ");
+		}
+		
+		if (Modifier.isProtected(modifiers)) {
+			buffer.append("protected ");
+		}
+		
+		if (Modifier.isStatic(modifiers)) {
+			buffer.append("static ");
+		}
+		
+		if (Modifier.isAbstract(modifiers)) {
+			buffer.append("abstract ");
+		}
+		
+		if (Modifier.isFinal(modifiers)) {
+			buffer.append("final ");
+		}
+		
+		buffer.append("method");
+		this.setKind(buffer.toString());
 	}
 
 	/**

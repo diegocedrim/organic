@@ -11,6 +11,10 @@ import org.eclipse.jdt.core.dom.MethodDeclaration;
 import br.pucrio.opus.smells.ast.visitors.DistinctMethodInvocationVisitor;
 import br.pucrio.opus.smells.metrics.MetricName;
 
+/**
+ * The number of calls for distinct methods that a class did
+ * @author Diego Cedrim
+ */
 public class CouplingIntensityCalculator extends MetricValueCalculator {
 	
 	protected Map<ITypeBinding, Set<IMethodBinding>> methodCalls;

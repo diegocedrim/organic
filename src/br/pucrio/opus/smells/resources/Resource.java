@@ -26,14 +26,26 @@ public abstract class Resource extends Observable {
 	
 	private transient ASTNode node;
 	
+	private String kind;
+	
 	public Resource(SourceFile sourceFile, ASTNode node) {
 		this.metricsValues = new HashMap<>();
 		this.sourceFile = sourceFile;
 		this.node = node;
 		this.smells = new ArrayList<>();
+		identifyKind();
 	}
 	
+	protected abstract void identifyKind();
 	
+	public String getKind() {
+		return kind;
+	}
+
+	public void setKind(String kind) {
+		this.kind = kind;
+	}
+
 	public ASTNode getNode() {
 		return node;
 	}
